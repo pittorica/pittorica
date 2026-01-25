@@ -1,5 +1,12 @@
 # Changelog
 
+# [0.21.0](https://github.com/pittorica/ui/compare/v0.8.3...v0.21.0) (2026-01-25)
+
+
+### Features
+
+* add missing dependencies ([60ea60a](https://github.com/pittorica/ui/commit/60ea60aa83a2b151e7d908ab13f78a188876949a))
+
 ## [0.8.3](https://github.com/pittorica/ui/compare/v0.8.2...v0.8.3) (2026-01-25)
 
 
