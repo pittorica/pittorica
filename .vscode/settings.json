@@ -103,6 +103,7 @@
   "exportall.config.namedExports": true,
   "exportall.config.semis": true,
   "exportall.config.recursive": true,
+  "exportall.config.exclude": [".test.", ".spec.", ".css."],
   "emojisense.markupCompletionsEnabled": true,
   "emojisense.showOnColon": true,
   "emojisense.unicodeCompletionsEnabled": true,

@@ -1,2 +1,2 @@
-export * from './inline.css.js';
-export * from './Inline.js';
+export type { InlineProps } from './Inline.js';
+export { Inline } from './Inline.js';

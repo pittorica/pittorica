@@ -1,2 +1,2 @@
-export * from './text.css.js';
-export * from './Text.js';
+export type { TextProps } from './Text.js';
+export { Text } from './Text.js';

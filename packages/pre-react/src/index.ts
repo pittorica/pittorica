@@ -1,2 +1,2 @@
-export * from './pre.css.js';
-export * from './Pre.js';
+export type { PreProps } from './Pre.js';
+export { Pre } from './Pre.js';

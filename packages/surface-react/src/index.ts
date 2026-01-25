@@ -1,2 +1,2 @@
-export * from './surface.css.js';
-export * from './Surface.js';
+export type { SurfaceProps } from './Surface.js';
+export { Surface } from './Surface.js';

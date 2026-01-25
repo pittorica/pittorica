@@ -1,2 +1,2 @@
-export * from './abbreviation.css.js';
-export * from './Abbreviation.js';
+export type { AbbreviationProps } from './Abbreviation.js';
+export { Abbreviation } from './Abbreviation.js';

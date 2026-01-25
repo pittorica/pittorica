@@ -1,2 +1,2 @@
-export * from './textarea.css.js';
-export * from './Textarea.js';
+export type { TextareaProps } from './Textarea.js';
+export { Textarea } from './Textarea.js';

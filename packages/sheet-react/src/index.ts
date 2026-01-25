@@ -1,2 +1,2 @@
-export * from './sheet.css.js';
-export * from './Sheet.js';
+export type { SheetProps } from './Sheet.js';
+export { Sheet } from './Sheet.js';

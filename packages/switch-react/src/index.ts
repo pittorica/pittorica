@@ -1,2 +1,2 @@
-export * from './switch.css.js';
-export * from './Switch.js';
+export type { SwitchContainerProps, SwitchProps } from './Switch.js';
+export { Switch } from './Switch.js';

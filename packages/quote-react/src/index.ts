@@ -1,2 +1,2 @@
-export * from './quote.css.js';
-export * from './Quote.js';
+export type { QuoteProps } from './Quote.js';
+export { Quote } from './Quote.js';
