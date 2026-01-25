@@ -10,6 +10,7 @@ export default defineConfig([
     '**/Thumbs.db',
     '**/.react-router/**',
     '**/*.hbs',
+    'CHANGELOG.md',
   ]),
   repoRecommended,
 ]);

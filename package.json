@@ -1,6 +1,6 @@
 {
   "name": "ui",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "license": "MIT",
   "author": {
@@ -14,7 +14,7 @@
     "lint": "pnpm dlx eslint --no-warn-ignored --fix .",
     "lint:fmt": "pnpm run lint && pnpm run fmt",
     "prepare": "pnpm dlx lefthook install",
-    "release": "release-it"
+    "release": "LEFTHOOK=\"0\" release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.3.1",
