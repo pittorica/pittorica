@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.3](https://github.com/pittorica/ui/compare/v0.8.2...v0.8.3) (2026-01-25)
+
+
+### Bug Fixes
+
+* add @vanilla-extract/vite-plugin ([8081b8c](https://github.com/pittorica/ui/commit/8081b8ca6b0674430365778a246a14b77b6c92c4))
+
 ## [0.8.2](https://github.com/pittorica/ui/compare/v0.8.1...v0.8.2) (2026-01-25)
 
 ## [0.8.1](https://github.com/pittorica/ui/compare/v0.8.0...v0.8.1) (2026-01-25)
