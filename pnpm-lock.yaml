@@ -37,6 +37,9 @@ importers:
       commitlint-config-spellbookx:
         specifier: ^0.4.1
         version: 0.4.1(@commitlint/cli@20.3.1(@types/node@25.0.10)(typescript@5.9.3))(@commitlint/config-conventional@20.3.1)(commitizen@4.3.1(@types/node@25.0.10)(typescript@5.9.3))(conventional-changelog-conventionalcommits@9.1.0)(cz-git@1.12.0)
+      conventional-changelog-conventionalcommits:
+        specifier: ^9.1.0
+        version: 9.1.0
       cspell-config-spellbookx:
         specifier: ^0.3.3
         version: 0.3.3(@cspell/cspell-types@9.6.0)(cspell@9.6.0)
