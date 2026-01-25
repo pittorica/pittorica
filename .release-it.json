@@ -8,12 +8,17 @@
   "git": {
     "commitMessage": "chore: release v${version}",
     "tagName": "v${version}",
-    "push": true
+    "push": true,
+    "requireCleanWorkingDir": false
   },
   "npm": {
     "publish": false
   },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}"
+  },
   "hooks": {
-    "after:bump": "pnpm recursive exec -- pnpm version ${version} --allow-same-version --no-git-tag-version"
+    "after:bump": "pnpm -r exec -- pnpm version ${version} --no-git-tag-version --allow-same-version"
   }
 }
