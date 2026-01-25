@@ -9,6 +9,7 @@ export default defineConfig([
     '**/*:Zone.Identifier',
     '**/Thumbs.db',
     '**/.react-router/**',
+    '**/*.hbs',
   ]),
   repoRecommended,
 ]);

@@ -35,6 +35,7 @@
     "timonwong.shellcheck",
     "gruntfuggly.todo-tree",
     "eliostruyf.vscode-typescript-exportallmodules",
-    "redhat.vscode-yaml"
+    "redhat.vscode-yaml",
+    "andrejunges.handlebars"
   ]
 }
