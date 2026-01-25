@@ -1412,6 +1412,9 @@ importers:
       '@pittorica/text-react':
         specifier: workspace:*
         version: link:../text-react
+      '@vanilla-extract/css':
+        specifier: ^1.18.0
+        version: 1.18.0
       '@vanilla-extract/recipes':
         specifier: ^0.5.7
         version: 0.5.7(@vanilla-extract/css@1.18.0)

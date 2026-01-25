@@ -1,6 +1,6 @@
-import { recipe } from '@vanilla-extract/recipes';
+import { recipe, type RuntimeFn } from '@vanilla-extract/recipes';
 
-export const quoteRecipe = recipe({
+export const quoteRecipe: RuntimeFn<Record<string, never>> = recipe({
   base: {
     fontStyle: 'italic',
     quotes: '"“" "”" "‘" "’"',

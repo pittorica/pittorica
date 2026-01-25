@@ -24,6 +24,7 @@
     "@pittorica/box-react": "workspace:*",
     "@pittorica/styles": "workspace:*",
     "@pittorica/text-react": "workspace:*",
+    "@vanilla-extract/css": "^1.18.0",
     "@vanilla-extract/recipes": "^0.5.7",
     "clsx": "^2.1.1",
     "react": "^19.2.3",
