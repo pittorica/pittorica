@@ -18,33 +18,39 @@
     "build": "tsc -b && vite build",
     "dev": "vite",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@pittorica/box-react": "workspace:*",
     "@vanilla-extract/recipes": "^0.5.7",
-    "clsx": "^2.1.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "@vanilla-extract/css": "^1.18.0",
     "@vanilla-extract/vite-plugin": "^5.1.4",
     "@vitejs/plugin-react": "^5.1.2",
-    "babel-plugin-react-compiler": "^1.0.0",
+    "@vitest/ui": "^2.0.5",
+    "jsdom": "^27.4.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "typescript": "~5.9.3",
     "vite": "7.3.1",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^2.0.5"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "pnpm": {
-    "overrides": {
-      "vite": "npm:rolldown-vite@7.3.1"
-    }
   }
 }

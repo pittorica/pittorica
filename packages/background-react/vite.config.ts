@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import path from 'node:path';
 
 import { defineConfig } from 'vite';
@@ -5,7 +6,6 @@ import dts from 'vite-plugin-dts';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vanillaExtractPlugin(),
@@ -22,7 +22,6 @@ export default defineConfig({
       tsconfigPath: './tsconfig.app.json',
     }),
   ],
-
   build: {
     lib: {
       entry: path.resolve(import.meta.dirname, 'src/index.ts'),
@@ -33,5 +32,11 @@ export default defineConfig({
     },
     sourcemap: true,
     minify: false,
+  },
+  test: {
+    name: 'background-react',
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./vitest.setup.ts'],
   },
 });

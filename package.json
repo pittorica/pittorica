@@ -14,7 +14,8 @@
     "lint": "pnpm dlx eslint --no-warn-ignored --fix .",
     "lint:fmt": "pnpm run lint && pnpm run fmt",
     "prepare": "pnpm dlx lefthook install",
-    "release": "LEFTHOOK=\"0\" release-it"
+    "release": "LEFTHOOK=\"0\" release-it",
+    "test": "turbo run test"
   },
   "dependencies": {
     "@vanilla-extract/vite-plugin": "^5.1.4"
@@ -28,6 +29,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/prettier-config": "workspace:*",
     "@turbo/gen": "^2.7.6",
+    "@types/node": "^25.0.10",
     "commitizen": "^4.3.1",
     "commitlint-config-spellbookx": "^0.4.1",
     "conventional-changelog-conventionalcommits": "^9.1.0",
@@ -41,8 +43,10 @@
     "prettier-plugin-sh": "^0.18.0",
     "prettier-plugin-toml": "^2.0.6",
     "release-it": "^19.2.4",
-    "turbo": "^2.7.6",
-    "typescript": "5.9.3"
+    "turbo": "^2.8.1",
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
+    "vitest": "^2.1.9"
   },
   "packageManager": "pnpm@10.28.1+sha512.7d7dbbca9e99447b7c3bf7a73286afaaf6be99251eb9498baefa7d406892f67b879adb3a1d7e687fc4ccc1a388c7175fbaae567a26ab44d1067b54fcb0d6a316",
   "engines": {
