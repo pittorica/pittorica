@@ -1,0 +1,11 @@
+@layer pittorica-components {
+  .pittorica-flex {
+    display: flex;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  .pittorica-box {
+    box-sizing: border-box;
+  }
+}

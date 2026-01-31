@@ -1,4 +1,3 @@
 @import './reset.css' layer(pittorica-reset);
 @import './tokens.css' layer(pittorica-tokens);
-
-@layer pittorica-components;
+@import './components.css' layer(pittorica-components);

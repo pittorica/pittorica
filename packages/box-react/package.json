@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build && tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist",
+    "build": "vite build && tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist --noEmit false",
     "dev": "vite",
     "test": "vitest run",
     "test:watch": "vitest"
