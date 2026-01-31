@@ -1,0 +1,94 @@
+@layer pittorica-tokens {
+  :root {
+    /* --- TYPOGRAPHY --- */
+    --pittorica-font-family: system-ui, -apple-system, sans-serif;
+    --pittorica-font-heading: var(--pittorica-font-family);
+    --pittorica-font-code: ui-monospace, SFMono-Regular, monospace;
+    --pittorica-font-strong: inherit;
+    --pittorica-font-em: inherit;
+    --pittorica-font-quote: inherit;
+
+    /* --- BREAKPOINTS --- */
+    --pittorica-bp-xs: 520px;
+    --pittorica-bp-sm: 768px;
+    --pittorica-bp-md: 1024px;
+    --pittorica-bp-lg: 1280px;
+    --pittorica-bp-xl: 1640px;
+
+    /* --- SPACING & PADDING --- */
+    --pittorica-space-0: 0px;
+    --pittorica-space-1: 4px;
+    --pittorica-space-2: 8px;
+    --pittorica-space-3: 12px;
+    --pittorica-space-4: 16px;
+    --pittorica-space-5: 24px;
+    --pittorica-space-6: 32px;
+    --pittorica-space-7: 48px;
+    --pittorica-space-8: 64px;
+    --pittorica-space-9: 96px;
+
+    /* --- RADIUS --- */
+    --pittorica-radius-0: 0px;
+    --pittorica-radius-1: 4px;
+    --pittorica-radius-2: 8px;
+    --pittorica-radius-3: 12px;
+    --pittorica-radius-4: 16px;
+    --pittorica-radius-5: 24px;
+    --pittorica-radius-6: 32px;
+    --pittorica-radius-full: 9999px;
+
+    /* --- SHADOWS --- */
+    --pittorica-shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --pittorica-shadow-2: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --pittorica-shadow-3: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --pittorica-shadow-4: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+
+    /* --- CURSORS --- */
+    --pittorica-cursor-button: pointer;
+    --pittorica-cursor-disabled: not-allowed;
+    --pittorica-cursor-text: text;
+  }
+
+  /* --- THEME BASE --- */
+  .pittorica-theme {
+    /* Default Source Color (Indigo MD3 Baseline) */
+    --pittorica-source-color: #3f51b5;
+    --pittorica-on-source-color: #ffffff;
+
+    --pittorica-surface-0: #ffffff;
+    --pittorica-surface-1: #f8f9fa;
+    --pittorica-surface-2: #f1f3f5;
+    --pittorica-surface-3: #e9ecef;
+    --pittorica-surface-4: #dee2e6;
+    --pittorica-surface-5: #ced4da;
+    --pittorica-surface-6: #adb5bd;
+    --pittorica-surface-7: #6c757d;
+    --pittorica-surface-8: #495057;
+    --pittorica-surface-9: #212529;
+  }
+
+  /* --- APPEARANCE MODIFIERS --- */
+  .pittorica-theme[data-appearance='dark'] {
+    --pittorica-surface-0: #121212;
+    --pittorica-surface-1: #1e1e1e;
+    --pittorica-surface-2: #232323;
+    --pittorica-surface-3: #272727;
+    --pittorica-surface-4: #2c2c2c;
+    --pittorica-surface-5: #333333;
+    --pittorica-surface-6: #383838;
+    --pittorica-surface-7: #424242;
+    --pittorica-surface-8: #505050;
+    --pittorica-surface-9: #e0e0e0;
+
+    --pittorica-on-source-color: #000000;
+  }
+
+  /* --- ACCENT MODIFIERS --- */
+  .pittorica-theme[data-accent='blue'] {
+    --pittorica-source-color: #005fb8;
+  }
+
+  .pittorica-theme[data-accent='red'] {
+    --pittorica-source-color: #ba1a1a;
+  }
+}
