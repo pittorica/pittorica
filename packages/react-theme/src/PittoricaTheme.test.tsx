@@ -4,7 +4,7 @@
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { PittoricaTheme } from '../PittoricaTheme';
+import { PittoricaTheme } from './PittoricaTheme';
 
 describe('PittoricaTheme', () => {
   it('should render children correctly', () => {

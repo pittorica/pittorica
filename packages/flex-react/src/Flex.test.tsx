@@ -4,7 +4,7 @@
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { Flex } from '../Flex';
+import { Flex } from './Flex';
 
 describe('Flex', () => {
   it('should map semantic justify values to CSS', () => {

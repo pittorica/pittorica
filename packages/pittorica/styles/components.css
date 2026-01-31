@@ -8,4 +8,9 @@
   .pittorica-box {
     box-sizing: border-box;
   }
+
+  .pittorica-grid {
+    display: grid;
+    box-sizing: border-box;
+  }
 }
