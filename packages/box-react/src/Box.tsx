@@ -50,34 +50,32 @@ export const Box = ({
   className,
   ...props
 }: BoxProps) => {
-  /**
-   * Compose class names using clsx for better readability and performance.
-   */
-  const composedClasses = clsx('pittorica-box', className);
+  const customStyles: React.CSSProperties = { ...style };
 
-  /**
-   * Map spacing props to our CSS tokens via inline styles.
-   */
-  const customStyles: React.CSSProperties = {
-    ...style,
-    display,
-    width,
-    height,
-    position,
-    margin: m ? `var(--pittorica-space-${m})` : undefined,
-    marginTop: mt ? `var(--pittorica-space-${mt})` : undefined,
-    marginRight: mr ? `var(--pittorica-space-${mr})` : undefined,
-    marginBottom: mb ? `var(--pittorica-space-${mb})` : undefined,
-    marginLeft: ml ? `var(--pittorica-space-${ml})` : undefined,
-    padding: p ? `var(--pittorica-space-${p})` : undefined,
-    paddingTop: pt ? `var(--pittorica-space-${pt})` : undefined,
-    paddingRight: pr ? `var(--pittorica-space-${pr})` : undefined,
-    paddingBottom: pb ? `var(--pittorica-space-${pb})` : undefined,
-    paddingLeft: pl ? `var(--pittorica-space-${pl})` : undefined,
-  };
+  if (display) customStyles.display = display;
+  if (width) customStyles.width = width;
+  if (height) customStyles.height = height;
+  if (position) customStyles.position = position;
+
+  // Mapping layout props only if they exist
+  if (m) customStyles.margin = `var(--pittorica-space-${m})`;
+  if (mt) customStyles.marginTop = `var(--pittorica-space-${mt})`;
+  if (mr) customStyles.marginRight = `var(--pittorica-space-${mr})`;
+  if (mb) customStyles.marginBottom = `var(--pittorica-space-${mb})`;
+  if (ml) customStyles.marginLeft = `var(--pittorica-space-${ml})`;
+
+  if (p) customStyles.padding = `var(--pittorica-space-${p})`;
+  if (pt) customStyles.paddingTop = `var(--pittorica-space-${pt})`;
+  if (pr) customStyles.paddingRight = `var(--pittorica-space-${pr})`;
+  if (pb) customStyles.paddingBottom = `var(--pittorica-space-${pb})`;
+  if (pl) customStyles.paddingLeft = `var(--pittorica-space-${pl})`;
 
   return (
-    <Tag className={composedClasses} style={customStyles} {...props}>
+    <Tag
+      className={clsx('pittorica-box', className)}
+      style={customStyles}
+      {...props}
+    >
       {children}
     </Tag>
   );
