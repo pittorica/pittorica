@@ -100,6 +100,40 @@ importers:
 
   .config/typescript: {}
 
+  packages/box-react:
+    dependencies:
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      react:
+        specifier: '>=18'
+        version: 19.2.4
+      react-dom:
+        specifier: '>=18'
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.3.1(@types/react@18.3.27)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@types/react':
+        specifier: ^18.0.0
+        version: 18.3.27
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@5.4.21(@types/node@25.0.10)(lightningcss@1.31.1))
+      jsdom:
+        specifier: ^22.0.0
+        version: 22.1.0
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.0
+        version: 5.4.21(@types/node@25.0.10)(lightningcss@1.31.1)
+      vitest:
+        specifier: ^1.0.0
+        version: 1.6.1(@types/node@25.0.10)(@vitest/ui@2.1.9)(jsdom@22.1.0)(lightningcss@1.31.1)
+
   packages/pittorica: {}
 
   packages/react-theme:
@@ -131,7 +165,7 @@ importers:
         version: 5.4.21(@types/node@25.0.10)(lightningcss@1.31.1)
       vitest:
         specifier: ^1.0.0
-        version: 1.6.1(@types/node@25.0.10)(@vitest/ui@2.1.9(vitest@2.1.9))(jsdom@22.1.0)(lightningcss@1.31.1)
+        version: 1.6.1(@types/node@25.0.10)(@vitest/ui@2.1.9)(jsdom@22.1.0)(lightningcss@1.31.1)
 
 packages:
   '@acemir/cssom@0.9.31':
@@ -3388,6 +3422,13 @@ packages:
         integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==,
       }
     engines: { node: '>=0.8' }
+
+  clsx@2.1.1:
+    resolution:
+      {
+        integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==,
+      }
+    engines: { node: '>=6' }
 
   color-convert@1.9.3:
     resolution:
@@ -10539,6 +10580,16 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
+  '@testing-library/react@14.3.1(@types/react@18.3.27)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@babel/runtime': 7.28.6
+      '@testing-library/dom': 9.3.4
+      '@types/react-dom': 18.3.7(@types/react@18.3.27)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+    transitivePeerDependencies:
+      - '@types/react'
+
   '@tootallnate/once@2.0.0': {}
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
@@ -11262,6 +11313,8 @@ snapshots:
       wrap-ansi: 9.0.2
 
   clone@1.0.4: {}
+
+  clsx@2.1.1: {}
 
   color-convert@1.9.3:
     dependencies:
@@ -15063,7 +15116,7 @@ snapshots:
       lightningcss: 1.31.1
       yaml: 2.8.2
 
-  vitest@1.6.1(@types/node@25.0.10)(@vitest/ui@2.1.9(vitest@2.1.9))(jsdom@22.1.0)(lightningcss@1.31.1):
+  vitest@1.6.1(@types/node@25.0.10)(@vitest/ui@2.1.9)(jsdom@22.1.0)(lightningcss@1.31.1):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
