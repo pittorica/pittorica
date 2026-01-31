@@ -1,1 +1,1 @@
-export { default } from '@repo/prettier-config';
+export { base as default } from 'prettier-config-spellbookx';

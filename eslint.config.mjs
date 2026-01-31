@@ -1,6 +1,5 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-
-import repoRecommended from '@repo/eslint-config/recommended';
+import spellbookx from 'eslint-plugin-spellbookx';
 
 export default defineConfig([
   globalIgnores([
@@ -12,5 +11,5 @@ export default defineConfig([
     '**/*.hbs',
     'CHANGELOG.md',
   ]),
-  repoRecommended,
+  spellbookx.configs.recommended,
 ]);
