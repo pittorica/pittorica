@@ -18,16 +18,15 @@ import { Box } from '@pittorica/box-react';
 import { Heading } from '@pittorica/heading-react';
 
 export interface DialogProps {
-  /** If true, the dialog is rendered. */
   open: boolean;
-  /** Callback fired when the component requests to be closed. */
   onClose: () => void;
-  /** The content of the dialog. */
   children: React.ReactNode;
-  /** Additional CSS class for the content container. */
   className?: string;
-  /** Theme appearance for the dialog overlay and content. */
   appearance?: 'light' | 'dark' | 'inherit';
+  /** @default true */
+  closeOnOverlayClick?: boolean;
+  /** @default true */
+  closeOnEsc?: boolean;
 }
 
 interface DialogContextValue {
@@ -52,7 +51,6 @@ const useDialogContext = () => {
 /**
  * Dialog component.
  * Provides a modal window with focus trap and scroll lock.
- * Inspired by JoyUI's composition and Radix's accessibility.
  */
 export const Dialog = ({
   open,
@@ -60,6 +58,8 @@ export const Dialog = ({
   children,
   className,
   appearance,
+  closeOnOverlayClick = true,
+  closeOnEsc = true,
 }: DialogProps): React.ReactNode => {
   const titleId = useId();
   const descriptionId = useId();
@@ -67,28 +67,26 @@ export const Dialog = ({
     useState<DialogProps['appearance']>();
   const anchorRef = useRef<HTMLDivElement>(null);
 
-  // Handle ESC key to close
+  // Handle ESC key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && closeOnEsc) onClose();
     };
     if (open) globalThis.addEventListener('keydown', handleEsc);
     return () => globalThis.removeEventListener('keydown', handleEsc);
-  }, [open, onClose]);
+  }, [open, onClose, closeOnEsc]);
 
   // Body Scroll Lock
   useEffect(() => {
-    if (open) {
-      const originalStyle = globalThis.getComputedStyle(document.body).overflow;
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = originalStyle;
-      };
-    }
-    return;
+    if (!open) return;
+    const originalStyle = globalThis.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
   }, [open]);
 
-  // Inherit appearance from context (DOM)
+  // Theme inheritance logic
   useLayoutEffect(() => {
     if (open && anchorRef.current) {
       const themeElement = anchorRef.current.closest('.pittorica-theme');
@@ -113,7 +111,7 @@ export const Dialog = ({
       {createPortal(
         <div
           className="pittorica-dialog-overlay pittorica-theme"
-          onClick={onClose}
+          onClick={closeOnOverlayClick ? onClose : undefined}
           data-appearance={finalAppearance}
           aria-hidden="true"
         >

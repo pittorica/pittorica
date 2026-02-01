@@ -25,6 +25,12 @@ export interface TextProps extends BoxProps {
   align?: 'left' | 'center' | 'right';
   truncate?: boolean;
   color?: PittoricaColor;
+  /** Link destination, used when 'as' is 'a' */
+  href?: string;
+  /** Link target, used when 'as' is 'a' */
+  target?: string;
+  /** Relationship to the linked resource */
+  rel?: string;
 }
 
 export const Text = ({
@@ -37,6 +43,9 @@ export const Text = ({
   color,
   className,
   style,
+  href,
+  target,
+  rel,
   ...rest
 }: TextProps) => {
   const isCustomColor = color?.startsWith('#') || color?.startsWith('rgb');
@@ -79,6 +88,9 @@ export const Text = ({
       data-size={size}
       data-weight={weight}
       style={textStyles}
+      href={href}
+      target={target}
+      rel={rel}
       {...rest}
     >
       {children}

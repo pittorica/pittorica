@@ -1,5 +1,5 @@
 {
-  "name": "@pittorica/stack-react",
+  "name": "@pittorica/alert-dialog-react",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -18,10 +18,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@pittorica/flex-react": "workspace:*"
+    "@pittorica/dialog-react": "workspace:*",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
-    "@pittorica/box-react": "workspace:*",
     "@pittorica/react-theme": "workspace:*",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.0.0",

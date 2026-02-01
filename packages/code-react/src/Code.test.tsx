@@ -1,6 +1,8 @@
 /**
  * @vitest-environment jsdom
  */
+import '@testing-library/jest-dom';
+
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
@@ -16,11 +18,14 @@ describe('Code', () => {
     const { container } = render(
       <Code className="custom-class">Test Code</Code>
     );
-    expect(container.firstChild).toHaveClass('custom-class');
+    expect(container.firstChild as HTMLElement).toHaveClass('custom-class');
   });
 
   it('should apply custom data attribute', () => {
     const { container } = render(<Code data-testid="code">Test Code</Code>);
-    expect(container.firstChild).toHaveAttribute('data-testid', 'code');
+    expect(container.firstChild as HTMLElement).toHaveAttribute(
+      'data-testid',
+      'code'
+    );
   });
 });

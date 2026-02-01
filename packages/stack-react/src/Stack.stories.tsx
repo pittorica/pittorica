@@ -1,6 +1,6 @@
+import { Box } from '@pittorica/box-react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Box } from '../../box-react/src/Box';
 import { Stack } from './Stack';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction

@@ -1,6 +1,8 @@
 /**
  * @vitest-environment jsdom
  */
+import '@testing-library/jest-dom';
+
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
@@ -16,13 +18,16 @@ describe('Blockquote', () => {
     const { container } = render(
       <Blockquote className="custom-class">Test Content</Blockquote>
     );
-    expect(container.firstChild).toHaveClass('custom-class');
+    expect(container.firstChild as HTMLElement).toHaveClass('custom-class');
   });
 
   it('should apply custom data attribute', () => {
     const { container } = render(
       <Blockquote data-testid="blockquote">Test Content</Blockquote>
     );
-    expect(container.firstChild).toHaveAttribute('data-testid', 'blockquote');
+    expect(container.firstChild as HTMLElement).toHaveAttribute(
+      'data-testid',
+      'blockquote'
+    );
   });
 });

@@ -134,9 +134,10 @@ export const AlignItems: Story = {
 
 export const WithWrap: Story = {
   args: {
-    children: Array.from({ length: 10 }).map((_, i) => (
-      <FlexItem key={i}>Item {i + 1}</FlexItem>
-    )),
+    children: Array.from({ length: 10 }).map((_, index) => {
+      const key = `item-${index}`;
+      return <FlexItem key={key}>Item {index + 1}</FlexItem>;
+    }),
     wrap: 'wrap',
     gap: '2',
     style: {

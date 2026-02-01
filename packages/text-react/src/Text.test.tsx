@@ -1,6 +1,8 @@
 /**
  * @vitest-environment jsdom
  */
+import '@testing-library/jest-dom';
+
 import type { ComponentProps, ElementType } from 'react';
 
 import { render } from '@testing-library/react';

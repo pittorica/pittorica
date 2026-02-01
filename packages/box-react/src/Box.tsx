@@ -27,6 +27,12 @@ export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
   width?: string;
   height?: string;
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
+  /** Link destination, used when 'as' is 'a' */
+  href?: string;
+  /** Link target, used when 'as' is 'a' */
+  target?: string;
+  /** Relationship to the linked resource */
+  rel?: string;
 }
 
 export const Box = ({
@@ -48,6 +54,9 @@ export const Box = ({
   position,
   style,
   className,
+  href,
+  target,
+  rel,
   ...props
 }: BoxProps) => {
   const utilityStyles: React.CSSProperties = {};
@@ -80,6 +89,9 @@ export const Box = ({
     <Tag
       className={clsx('pittorica-box', className)}
       style={finalStyles}
+      href={href}
+      target={target}
+      rel={rel}
       {...props}
     >
       {children}

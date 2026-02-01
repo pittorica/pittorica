@@ -4,6 +4,8 @@ import { Text, type TextProps } from '@pittorica/text-react';
 
 export interface LinkProps extends TextProps {
   underline?: 'always' | 'hover' | 'none';
+  href?: string;
+  target?: string;
 }
 
 /**
@@ -14,10 +16,14 @@ export const Link = ({
   className,
   style,
   color = 'indigo',
+  href,
+  target,
   ...props
 }: LinkProps) => (
   <Text
     as="a"
+    href={href}
+    target={target}
     className={clsx(
       'pittorica-link',
       `pittorica-link--underline-${underline}`,
