@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@pittorica/react-theme": "workspace:*",
+    "@pittorica/text-react": "workspace:*",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.0",
     "@vitejs/plugin-react": "^4.0.0",

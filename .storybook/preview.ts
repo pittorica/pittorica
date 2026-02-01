@@ -17,7 +17,11 @@ const preview: Preview = {
   },
   decorators: [
     (Story) =>
-      React.createElement(PittoricaTheme, null, React.createElement(Story)),
+      React.createElement(
+        PittoricaTheme,
+        { sourceColor: '#473198' },
+        React.createElement(Story)
+      ),
   ],
 };
 
