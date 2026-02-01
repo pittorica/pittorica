@@ -22,9 +22,10 @@
   },
   "devDependencies": {
     "@pittorica/react-theme": "workspace:*",
-    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.0.0",
-    "@types/react": "^18.0.0",
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.0.0",
     "jsdom": "^22.0.0",
     "pittorica": "workspace:*",
@@ -33,7 +34,7 @@
     "vitest": "^2.1.9"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+    "react": ">=19",
+    "react-dom": ">=19"
   }
 }

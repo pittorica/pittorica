@@ -1,5 +1,5 @@
 {
-  "name": "@pittorica/text-react",
+  "name": "@pittorica/dialog-react",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -19,7 +19,9 @@
   },
   "dependencies": {
     "@pittorica/box-react": "workspace:*",
-    "clsx": "^2.1.1"
+    "@pittorica/heading-react": "workspace:*",
+    "clsx": "^2.1.1",
+    "react-focus-lock": "^2.13.7"
   },
   "devDependencies": {
     "@pittorica/react-theme": "workspace:*",

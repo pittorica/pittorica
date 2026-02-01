@@ -56,29 +56,127 @@
     --pittorica-on-source-color: #ffffff;
 
     --pittorica-surface-0: #ffffff;
-    --pittorica-surface-1: #f8f9fa;
-    --pittorica-surface-2: #f1f3f5;
-    --pittorica-surface-3: #e9ecef;
-    --pittorica-surface-4: #dee2e6;
-    --pittorica-surface-5: #ced4da;
-    --pittorica-surface-6: #adb5bd;
-    --pittorica-surface-7: #6c757d;
-    --pittorica-surface-8: #495057;
-    --pittorica-surface-9: #212529;
+    --pittorica-surface-1: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 5%,
+      #ffffff
+    );
+    --pittorica-surface-2: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 8%,
+      #ffffff
+    );
+    --pittorica-surface-3: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 11%,
+      #ffffff
+    );
+    --pittorica-surface-4: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 14%,
+      #ffffff
+    );
+    --pittorica-surface-5: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 20%,
+      #ffffff
+    );
+    --pittorica-surface-6: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 30%,
+      #ffffff
+    );
+    --pittorica-surface-7: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 90%,
+      #000000
+    );
+    --pittorica-surface-8: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 65%,
+      #000000
+    );
+    --pittorica-surface-9: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 25%,
+      #000000
+    );
+
+    --pittorica-on-surface-0: #000000;
+    --pittorica-on-surface-1: #000000;
+    --pittorica-on-surface-2: #000000;
+    --pittorica-on-surface-3: #000000;
+    --pittorica-on-surface-4: #000000;
+    --pittorica-on-surface-5: #000000;
+    --pittorica-on-surface-6: #000000;
+    --pittorica-on-surface-7: #ffffff;
+    --pittorica-on-surface-8: #ffffff;
+    --pittorica-on-surface-9: #ffffff;
   }
 
   /* --- APPEARANCE MODIFIERS --- */
   .pittorica-theme[data-appearance='dark'] {
-    --pittorica-surface-0: #121212;
-    --pittorica-surface-1: #1e1e1e;
-    --pittorica-surface-2: #232323;
-    --pittorica-surface-3: #272727;
-    --pittorica-surface-4: #2c2c2c;
-    --pittorica-surface-5: #333333;
-    --pittorica-surface-6: #383838;
-    --pittorica-surface-7: #424242;
-    --pittorica-surface-8: #505050;
-    --pittorica-surface-9: #e0e0e0;
+    --pittorica-surface-0: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 15%,
+      #000000
+    );
+    --pittorica-surface-1: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 20%,
+      #000000
+    );
+    --pittorica-surface-2: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 25%,
+      #000000
+    );
+    --pittorica-surface-3: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 30%,
+      #000000
+    );
+    --pittorica-surface-4: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 35%,
+      #000000
+    );
+    --pittorica-surface-5: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 40%,
+      #000000
+    );
+    --pittorica-surface-6: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 45%,
+      #000000
+    );
+    --pittorica-surface-7: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 50%,
+      #000000
+    );
+    --pittorica-surface-8: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 60%,
+      #000000
+    );
+    --pittorica-surface-9: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 20%,
+      #ffffff
+    );
+
+    --pittorica-on-surface-0: #ffffff;
+    --pittorica-on-surface-1: #ffffff;
+    --pittorica-on-surface-2: #ffffff;
+    --pittorica-on-surface-3: #ffffff;
+    --pittorica-on-surface-4: #ffffff;
+    --pittorica-on-surface-5: #ffffff;
+    --pittorica-on-surface-6: #ffffff;
+    --pittorica-on-surface-7: #ffffff;
+    --pittorica-on-surface-8: #ffffff;
+    --pittorica-on-surface-9: #000000;
 
     --pittorica-on-source-color: #000000;
   }
