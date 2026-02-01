@@ -10,7 +10,7 @@ export const Blockquote = ({ className, style, ...props }: TextProps) => (
     as="blockquote"
     className={clsx('pittorica-blockquote', className)}
     style={{
-      borderLeft: '4px solid var(--pittorica-slate-4)',
+      borderLeft: '4px solid var(--pittorica-source-color)',
       paddingLeft: 'var(--pittorica-space-4)',
       margin: 'var(--pittorica-space-5) 0',
       ...style,
