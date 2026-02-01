@@ -1,3 +1,18 @@
 @import './reset.css' layer(pittorica-reset);
 @import './tokens.css' layer(pittorica-tokens);
-@import './components.css' layer(pittorica-components);
+
+/* ---- components --- */
+@import './components/avatar.css' layer(pittorica-components);
+@import './components/badge.css' layer(pittorica-components);
+@import './components/box.css' layer(pittorica-components);
+@import './components/button.css' layer(pittorica-components);
+@import './components/chip.css' layer(pittorica-components);
+@import './components/container.css' layer(pittorica-components);
+@import './components/dialog.css' layer(pittorica-components);
+@import './components/divider.css' layer(pittorica-components);
+@import './components/flex.css' layer(pittorica-components);
+@import './components/grid.css' layer(pittorica-components);
+@import './components/heading.css' layer(pittorica-components);
+@import './components/kbd.css' layer(pittorica-components);
+@import './components/section.css' layer(pittorica-components);
+@import './components/text.css' layer(pittorica-components);

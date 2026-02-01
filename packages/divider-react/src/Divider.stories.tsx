@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box } from '@pittorica/box-react';
 import type { Meta, StoryObj } from '@storybook/react';
 

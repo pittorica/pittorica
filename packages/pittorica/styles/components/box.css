@@ -1,4 +1,6 @@
-/* --- box --- */
-.pittorica-box {
-  box-sizing: border-box;
+@layer pittorica-components {
+  /* --- box --- */
+  .pittorica-box {
+    box-sizing: border-box;
+  }
 }

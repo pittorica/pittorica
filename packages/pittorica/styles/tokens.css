@@ -38,10 +38,15 @@
     --pittorica-radius-full: 9999px;
 
     /* --- SHADOWS --- */
-    --pittorica-shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --pittorica-shadow-2: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --pittorica-shadow-3: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    --pittorica-shadow-4: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    --pittorica-shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.15);
+    --pittorica-shadow-2: 0 2px 4px -1px rgb(0 0 0 / 0.15);
+    --pittorica-shadow-3: 0 4px 6px -1px rgb(0 0 0 / 0.18);
+    --pittorica-shadow-4: 0 6px 10px -2px rgb(0 0 0 / 0.18);
+    --pittorica-shadow-5: 0 8px 14px -3px rgb(0 0 0 / 0.2);
+    --pittorica-shadow-6: 0 12px 20px -4px rgb(0 0 0 / 0.2);
+    --pittorica-shadow-7: 0 16px 28px -5px rgb(0 0 0 / 0.22);
+    --pittorica-shadow-8: 0 20px 36px -6px rgb(0 0 0 / 0.22);
+    --pittorica-shadow-9: 0 28px 48px -7px rgb(0 0 0 / 0.25);
 
     /* --- CURSORS --- */
     --pittorica-cursor-button: pointer;

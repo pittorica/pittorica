@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Button } from '@pittorica/button-react';
 import { PittoricaTheme } from '@pittorica/react-theme';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -40,19 +41,10 @@ export const Basic: Story = {
 
     return (
       <>
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          style={{
-            padding: '8px 16px',
-            cursor: 'pointer',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            background: '#fff',
-          }}
-        >
+        <Button variant="elevated" onClick={() => setOpen(true)}>
           Open Dialog
-        </button>
+        </Button>
+
         <Dialog {...args} open={open} onClose={handleClose}>
           <DialogTitle>Dialog Title</DialogTitle>
           <DialogDescription>
@@ -60,35 +52,12 @@ export const Basic: Story = {
             the user regarding the action they are about to take.
           </DialogDescription>
           <DialogActions>
-            <button
-              type="button"
-              onClick={handleClose}
-              style={{
-                padding: '8px 16px',
-                cursor: 'pointer',
-                marginRight: '8px',
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-                background: '#f5f5f5',
-              }}
-            >
+            <Button variant="text" color="slate" onClick={handleClose}>
               Cancel
-            </button>
-            <button
-              type="button"
-              onClick={handleClose}
-              style={{
-                padding: '8px 16px',
-                cursor: 'pointer',
-                border: '1px solid #000',
-                borderRadius: '4px',
-                background: '#000',
-                color: '#fff',
-                fontWeight: 'bold',
-              }}
-            >
+            </Button>
+            <Button variant="filled" onClick={handleClose}>
               Confirm
-            </button>
+            </Button>
           </DialogActions>
         </Dialog>
       </>
@@ -111,23 +80,14 @@ export const Dark: Story = {
         style={{
           padding: '2rem',
           background: 'var(--pittorica-surface-0)',
-          color: 'var(--pittorica-surface-9)',
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          style={{
-            padding: '8px 16px',
-            cursor: 'pointer',
-            border: '1px solid var(--pittorica-surface-4)',
-            borderRadius: '4px',
-            background: 'var(--pittorica-surface-2)',
-            color: 'inherit',
-          }}
-        >
+        <Button variant="tonal" onClick={() => setOpen(true)}>
           Open Dark Dialog
-        </button>
+        </Button>
+
         <Dialog {...args} open={open} onClose={handleClose}>
           <DialogTitle>Dark Theme Dialog</DialogTitle>
           <DialogDescription>
@@ -135,21 +95,9 @@ export const Dark: Story = {
             content adapt to the dark color scheme.
           </DialogDescription>
           <DialogActions>
-            <button
-              type="button"
-              onClick={handleClose}
-              style={{
-                padding: '8px 16px',
-                cursor: 'pointer',
-                border: 'none',
-                borderRadius: '4px',
-                background: 'var(--pittorica-source-color)',
-                color: 'var(--pittorica-on-source-color)',
-                fontWeight: 'bold',
-              }}
-            >
+            <Button variant="filled" onClick={handleClose}>
               Close
-            </button>
+            </Button>
           </DialogActions>
         </Dialog>
       </PittoricaTheme>

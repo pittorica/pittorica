@@ -1,0 +1,82 @@
+@layer pittorica-components {
+  .pittorica-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--pittorica-radius-full);
+    font-family: var(--pittorica-font-family);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    gap: var(--pittorica-space-2);
+    padding: 0 var(--pittorica-space-5);
+    height: 40px;
+
+    --_btn-color: var(--pittorica-button-color, var(--pittorica-source-color));
+    --_btn-on-color: var(
+      --pittorica-button-on-color,
+      var(--pittorica-on-source-color)
+    );
+  }
+
+  /* --- Feedback Globale Hover --- */
+  .pittorica-button:hover {
+    box-shadow: var(--pittorica-shadow-4);
+  }
+
+  /* --- Feedback Globale Active (Click) --- */
+  .pittorica-button:active {
+    box-shadow: none !important;
+    filter: brightness(1.15);
+    transform: translateY(1px);
+  }
+
+  .pittorica-button--filled {
+    background-color: var(--_btn-color);
+    color: var(--_btn-on-color);
+  }
+  .pittorica-button--filled:hover {
+    filter: brightness(0.9);
+  }
+
+  .pittorica-button--tonal {
+    background-color: color-mix(in srgb, var(--_btn-color) 12%, transparent);
+    color: var(--_btn-color);
+  }
+  .pittorica-button--tonal:hover {
+    background-color: color-mix(in srgb, var(--_btn-color) 18%, transparent);
+  }
+  .pittorica-button--tonal:active {
+    background-color: color-mix(in srgb, var(--_btn-color) 25%, transparent);
+    filter: none;
+  }
+
+  .pittorica-button--outlined {
+    background-color: transparent;
+    border: 1px solid var(--pittorica-slate-6);
+    color: var(--_btn-color);
+  }
+  .pittorica-button--outlined:hover {
+    background-color: color-mix(in srgb, var(--_btn-color) 8%, transparent);
+    border-color: var(--_btn-color);
+  }
+
+  .pittorica-button--elevated {
+    background-color: var(--pittorica-source-color);
+    color: var(--pittorica-on-source-color);
+    box-shadow: var(--pittorica-shadow-4);
+  }
+
+  .pittorica-button--elevated:hover {
+    box-shadow: var(--pittorica-shadow-6);
+  }
+
+  .pittorica-button--text {
+    background-color: transparent;
+    color: var(--_btn-color);
+  }
+  .pittorica-button--text:hover {
+    background-color: color-mix(in srgb, var(--_btn-color) 8%, transparent);
+  }
+}

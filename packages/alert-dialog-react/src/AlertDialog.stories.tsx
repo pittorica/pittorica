@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Button } from '@pittorica/button-react';
 import {
   DialogActions,
   DialogDescription,
@@ -38,21 +39,9 @@ export const Destructive: Story = {
 
     return (
       <>
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          style={{
-            padding: '8px 16px',
-            cursor: 'pointer',
-            border: '1px solid var(--pittorica-red-7)',
-            borderRadius: '4px',
-            background: 'var(--pittorica-red-2)',
-            color: 'var(--pittorica-red-9)',
-            fontWeight: 'bold',
-          }}
-        >
+        <Button variant="tonal" color="red" onClick={() => setOpen(true)}>
           Delete Account
-        </button>
+        </Button>
 
         <AlertDialog {...args} open={open} onClose={handleClose}>
           <DialogTitle color="red">Are you absolutely sure?</DialogTitle>
@@ -61,35 +50,12 @@ export const Destructive: Story = {
             account and remove your data from our servers.
           </DialogDescription>
           <DialogActions>
-            <button
-              type="button"
-              onClick={handleClose}
-              style={{
-                padding: '8px 16px',
-                cursor: 'pointer',
-                border: '1px solid var(--pittorica-slate-4)',
-                borderRadius: '4px',
-                background: 'var(--pittorica-slate-2)',
-                color: 'var(--pittorica-slate-12)',
-              }}
-            >
+            <Button variant="text" color="slate" onClick={handleClose}>
               Cancel
-            </button>
-            <button
-              type="button"
-              onClick={handleClose}
-              style={{
-                padding: '8px 16px',
-                cursor: 'pointer',
-                border: 'none',
-                borderRadius: '4px',
-                background: 'var(--pittorica-red-9)',
-                color: 'white',
-                fontWeight: 'bold',
-              }}
-            >
+            </Button>
+            <Button variant="filled" color="red" onClick={handleClose}>
               Yes, delete account
-            </button>
+            </Button>
           </DialogActions>
         </AlertDialog>
       </>
@@ -107,13 +73,9 @@ export const ForcedInteraction: Story = {
 
     return (
       <>
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          style={{ padding: '8px 16px', cursor: 'pointer' }}
-        >
+        <Button variant="elevated" onClick={() => setOpen(true)}>
           Forced Interaction
-        </button>
+        </Button>
 
         <AlertDialog {...args} open={open} onClose={() => setOpen(false)}>
           <DialogTitle>Critical Update</DialogTitle>
@@ -122,20 +84,13 @@ export const ForcedInteraction: Story = {
             continuing. You cannot dismiss this by clicking outside.
           </DialogDescription>
           <DialogActions>
-            <button
-              type="button"
+            <Button
+              variant="filled"
+              color="indigo"
               onClick={() => setOpen(false)}
-              style={{
-                padding: '8px 16px',
-                cursor: 'pointer',
-                background: 'var(--pittorica-indigo-9)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-              }}
             >
               Understand
-            </button>
+            </Button>
           </DialogActions>
         </AlertDialog>
       </>

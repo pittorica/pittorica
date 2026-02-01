@@ -1,5 +1,7 @@
-/* --- grid --- */
-.pittorica-grid {
-  display: grid;
-  box-sizing: border-box;
+@layer pittorica-components {
+  /* --- grid --- */
+  .pittorica-grid {
+    display: grid;
+    box-sizing: border-box;
+  }
 }
