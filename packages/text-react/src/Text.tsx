@@ -1,4 +1,4 @@
-import React from 'react';
+import type { CSSProperties } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -31,6 +31,8 @@ export interface TextProps extends BoxProps {
   target?: string;
   /** Relationship to the linked resource */
   rel?: string;
+  /** ID of the element this label is bound to, used when 'as' is 'label' */
+  htmlFor?: string;
 }
 
 export const Text = ({
@@ -46,6 +48,7 @@ export const Text = ({
   href,
   target,
   rel,
+  htmlFor,
   ...rest
 }: TextProps) => {
   const isCustomColor = color?.startsWith('#') || color?.startsWith('rgb');
@@ -71,7 +74,7 @@ export const Text = ({
     return;
   })();
 
-  const textStyles: React.CSSProperties = {
+  const textStyles: CSSProperties = {
     ...style,
     textAlign: align,
     color: resolvedColor,
@@ -91,6 +94,7 @@ export const Text = ({
       href={href}
       target={target}
       rel={rel}
+      htmlFor={htmlFor}
       {...rest}
     >
       {children}

@@ -30,6 +30,10 @@ export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
   href?: string;
   target?: string;
   rel?: string;
+  htmlFor?: string;
+  type?: string;
+  /** HTML disabled attribute, useful for interactive elements */
+  disabled?: boolean;
 }
 
 /**
@@ -58,8 +62,11 @@ export const Box = ({
   href,
   target,
   rel,
+  htmlFor,
+  type,
+  disabled,
   ...props
-}: BoxProps & { ref?: React.RefObject<HTMLElement | null> }) => {
+}: BoxProps & { ref?: React.Ref<HTMLElement> }) => {
   const utilityStyles: CSSProperties = {};
 
   if (display) utilityStyles.display = display;
@@ -94,6 +101,9 @@ export const Box = ({
       href={href}
       target={target}
       rel={rel}
+      htmlFor={htmlFor}
+      type={type}
+      disabled={disabled}
       {...props}
     >
       {children}
