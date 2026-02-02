@@ -23,7 +23,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     actions: [
       {
         type: 'addMany',
-        destination: 'packages/{{name}}-react',
+        destination: 'packages-react/{{name}}',
         base: 'templates/react-lib',
         templateFiles: 'templates/react-lib/**',
       },

@@ -1,6 +1,7 @@
 packages:
   - .config/*
   - packages/*
+  - packages-react/*
 
 onlyBuiltDependencies:
   - core-js-pure
