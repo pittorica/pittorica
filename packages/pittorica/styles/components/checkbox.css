@@ -1,0 +1,46 @@
+@layer pittorica-components {
+  .pittorica-checkbox-root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pittorica-space-2);
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+  }
+
+  .pittorica-checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .pittorica-checkbox-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: var(--pittorica-slate-7);
+    transition:
+      color 0.2s ease,
+      transform 0.1s ease;
+  }
+
+  .pittorica-checkbox-root:hover .pittorica-checkbox-control {
+    color: var(--pittorica-slate-8);
+  }
+
+  .pittorica-checkbox-input:checked + .pittorica-checkbox-control {
+    color: var(--_checkbox-color, var(--pittorica-source-color));
+  }
+
+  .pittorica-checkbox-root[data-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .pittorica-checkbox-root:active .pittorica-checkbox-control {
+    transform: scale(0.9);
+  }
+}

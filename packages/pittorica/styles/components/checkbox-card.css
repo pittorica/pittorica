@@ -1,0 +1,37 @@
+@layer pittorica-components {
+  .pittorica-checkbox-card-root {
+    display: flex;
+    gap: var(--pittorica-space-3);
+  }
+
+  .pittorica-checkbox-card-root[data-orientation='vertical'] {
+    flex-direction: column;
+  }
+
+  .pittorica-checkbox-card-root[data-orientation='horizontal'] {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .pittorica-checkbox-card-item {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--pittorica-slate-4);
+    position: relative;
+    padding: var(--pittorica-space-4);
+  }
+
+  .pittorica-checkbox-card-item[data-state='checked'] {
+    border-color: var(--_checkbox-card-color, var(--pittorica-source-color));
+    box-shadow: 0 0 0 1px
+      var(--_checkbox-card-color, var(--pittorica-source-color));
+  }
+
+  .pittorica-checkbox-card-item:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--pittorica-surface-1) 80%,
+      transparent
+    );
+  }
+}
