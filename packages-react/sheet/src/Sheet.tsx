@@ -68,7 +68,7 @@ export const Sheet = ({
             </h2>
           )}
           <IconButton
-            variant="ghost"
+            variant="text"
             color="slate"
             onClick={onClose}
             aria-label="Close"
