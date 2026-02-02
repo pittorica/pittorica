@@ -6,6 +6,7 @@ libc
 Momo
 myresolver
 nasm
+nums
 pitto
 pittorica
 shrc
@@ -16,3 +17,4 @@ xlarge
 xsmall
 xxlarge
 xxxxlarge
+Zahra
