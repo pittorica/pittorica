@@ -15,6 +15,7 @@
 @import './components/chip.css' layer(pittorica-components);
 @import './components/container.css' layer(pittorica-components);
 @import './components/context-menu.css' layer(pittorica-components);
+@import './components/data-list.css' layer(pittorica-components);
 @import './components/dialog.css' layer(pittorica-components);
 @import './components/divider.css' layer(pittorica-components);
 @import './components/flex.css' layer(pittorica-components);
