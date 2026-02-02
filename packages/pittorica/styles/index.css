@@ -18,6 +18,7 @@
 @import './components/data-list.css' layer(pittorica-components);
 @import './components/dialog.css' layer(pittorica-components);
 @import './components/divider.css' layer(pittorica-components);
+@import './components/dropdown-menu.css' layer(pittorica-components);
 @import './components/flex.css' layer(pittorica-components);
 @import './components/grid.css' layer(pittorica-components);
 @import './components/heading.css' layer(pittorica-components);
