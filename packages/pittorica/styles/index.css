@@ -32,4 +32,5 @@
 @import './components/radio-group.css' layer(pittorica-components);
 @import './components/radio.css' layer(pittorica-components);
 @import './components/section.css' layer(pittorica-components);
+@import './components/segmented-control.css' layer(pittorica-components);
 @import './components/text.css' layer(pittorica-components);
