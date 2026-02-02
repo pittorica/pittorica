@@ -33,9 +33,6 @@ export interface SelectRootProps extends BoxProps {
   disabled?: boolean;
 }
 
-/**
- * MD3 Filled Select component with fixed chevron alignment.
- */
 export const SelectRoot = ({
   children,
   label,
@@ -84,7 +81,6 @@ export const SelectRoot = ({
           }
         >
           {children}
-          {/* Slot chevron bilanciato orizzontalmente e centrato verticalmente */}
           <div className="pittorica-select-chevron">
             <IconChevronDown size={20} />
           </div>
