@@ -107,7 +107,7 @@ export interface TextAreaContentProps extends React.TextareaHTMLAttributes<HTMLT
 }
 
 /**
- * MD3 Filled TextArea Input with optional Auto-resizing.
+ * Optimized for SSR/React Router v7 environments.
  */
 export const TextAreaContent = ({
   className,
@@ -121,6 +121,9 @@ export const TextAreaContent = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
+    // Check if we are in a browser environment to avoid SSR errors
+    if (globalThis.window === undefined) return;
+
     const el = textareaRef.current;
     if (!el || !autoResize) return;
 
@@ -154,7 +157,11 @@ export const TextAreaContent = ({
       aria-describedby={helperId}
       onChange={handleChange}
       className={clsx('pittorica-textarea-input', className)}
-      style={{ overflow: autoResize ? 'hidden' : undefined }}
+      /* overflow: hidden prevents scrollbar flicker during resize */
+      style={{
+        overflow: autoResize ? 'hidden' : undefined,
+        ...props.style,
+      }}
     />
   );
 };

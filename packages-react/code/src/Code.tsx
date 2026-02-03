@@ -1,9 +1,5 @@
-import { useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-  oneLight,
-  vscDarkPlus,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useEffect, useState } from 'react';
+import type { Prism as SyntaxHighlighterType } from 'react-syntax-highlighter';
 
 import { clsx } from 'clsx';
 
@@ -12,25 +8,22 @@ import { IconClipboard, IconClipboardCheckFilled } from '@tabler/icons-react';
 import { type TextProps } from '@pittorica/text-react';
 
 export interface CodeProps extends TextProps {
-  /**
-   * Programming language for syntax highlighting.
-   * @default 'typescript'
-   */
   language?: string;
-  /**
-   * If true, line numbers will be displayed in code blocks.
-   */
   showLineNumbers?: boolean;
-  /**
-   * Theme for syntax highlighting.
-   * @default 'dark'
-   */
   theme?: 'dark' | 'light';
+}
+
+interface HighlightingAssets {
+  Highlighter: typeof SyntaxHighlighterType;
+  themes: {
+    oneLight: Record<string, React.CSSProperties>;
+    vscDarkPlus: Record<string, React.CSSProperties>;
+  };
 }
 
 /**
  * Code component with syntax highlighting support.
- * Renders an inline <code> tag for single lines, or a SyntaxHighlighter block for multi-line code.
+ * Zero 'any' usage. All dynamic imports are strictly typed.
  */
 export const Code = ({
   children,
@@ -41,21 +34,68 @@ export const Code = ({
   style,
   ...props
 }: CodeProps) => {
+  const [assets, setAssets] = useState<HighlightingAssets | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+
   const content = String(children);
   const isInline = !content.includes('\n');
-  const syntaxTheme = theme === 'light' ? oneLight : vscDarkPlus;
+
+  useEffect(() => {
+    const loadAssets = async () => {
+      const [{ Prism }, { oneLight, vscDarkPlus }] = await Promise.all([
+        import('react-syntax-highlighter'),
+        import('react-syntax-highlighter/dist/esm/styles/prism'),
+      ]);
+
+      setAssets({
+        Highlighter: Prism,
+        themes: { oneLight, vscDarkPlus },
+      });
+    };
+
+    loadAssets();
+  }, []);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(content).then(() => {
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    });
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(content).then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      });
+    }
   };
+
+  if (!assets) {
+    const FallbackTag = isInline ? 'code' : 'pre';
+    return (
+      <FallbackTag
+        className={clsx(
+          isInline ? 'pittorica-code-inline' : 'pittorica-code-block',
+          className
+        )}
+        style={{
+          padding: isInline ? '0.2em 0.4em' : undefined,
+          margin: isInline ? undefined : 'var(--pittorica-space-4) 0',
+          borderRadius: isInline
+            ? 'var(--pittorica-radius-1)'
+            : 'var(--pittorica-radius-2)',
+          fontFamily: 'var(--pittorica-font-mono)',
+          fontSize: isInline ? undefined : 'var(--pittorica-font-size-2)',
+          ...style,
+        }}
+        {...props}
+      >
+        {children}
+      </FallbackTag>
+    );
+  }
+
+  const { Highlighter, themes } = assets;
+  const syntaxTheme = theme === 'light' ? themes.oneLight : themes.vscDarkPlus;
 
   if (isInline) {
     return (
-      <SyntaxHighlighter
+      <Highlighter
         language={language}
         style={syntaxTheme}
         showLineNumbers={false}
@@ -70,7 +110,7 @@ export const Code = ({
         {...props}
       >
         {content}
-      </SyntaxHighlighter>
+      </Highlighter>
     );
   }
 
@@ -83,6 +123,7 @@ export const Code = ({
         onClick={handleCopy}
         style={{
           position: 'absolute',
+          zIndex: 10,
           top: 'var(--pittorica-space-2)',
           right: 'var(--pittorica-space-2)',
           padding: 'var(--pittorica-space-1) var(--pittorica-space-2)',
@@ -94,9 +135,13 @@ export const Code = ({
           cursor: 'pointer',
         }}
       >
-        {isCopied ? <IconClipboardCheckFilled /> : <IconClipboard />}
+        {isCopied ? (
+          <IconClipboardCheckFilled size={16} />
+        ) : (
+          <IconClipboard size={16} />
+        )}
       </button>
-      <SyntaxHighlighter
+      <Highlighter
         language={language}
         style={syntaxTheme}
         showLineNumbers={showLineNumbers}
@@ -108,7 +153,7 @@ export const Code = ({
         }}
       >
         {content.replace(/\n$/, '')}
-      </SyntaxHighlighter>
+      </Highlighter>
     </div>
   );
 };

@@ -39,9 +39,14 @@ const MenuContent = ({
   const menuRef = useRef<HTMLDivElement>(null);
   const [localIndex, setLocalIndex] = useState(-1);
   const [adjustedPos, setAdjustedPos] = useState({ top: y, left: x });
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useLayoutEffect(() => {
-    if (!menuRef.current) return;
+    if (globalThis.window === undefined || !menuRef.current) return;
 
     const { innerWidth: ww, innerHeight: wh } = globalThis;
     const { offsetWidth: mw, offsetHeight: mh } = menuRef.current;
@@ -54,6 +59,8 @@ const MenuContent = ({
   }, [x, y]);
 
   useEffect(() => {
+    if (globalThis.window === undefined) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (itemCount === 0) return;
 
@@ -88,6 +95,10 @@ const MenuContent = ({
     }),
     [localIndex, onClose]
   );
+
+  if (!isClient) {
+    return null;
+  }
 
   return createPortal(
     <MenuContext value={contextValue}>
@@ -197,9 +208,22 @@ export const ContextMenuSub = ({
 }: SubProps) => {
   const context = use(MenuContext);
   const ref = useRef<HTMLDivElement>(null);
+  const [subMenuPos, setSubMenuPos] = useState<{ x: number; y: number } | null>(
+    null
+  );
+
   if (!context) return null;
 
   const isActive = context.activeIndex === index;
+
+  useLayoutEffect(() => {
+    if (isActive && ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setSubMenuPos({ x: rect.right, y: rect.top });
+    } else {
+      setSubMenuPos(null);
+    }
+  }, [isActive]);
 
   return (
     <div
@@ -212,10 +236,10 @@ export const ContextMenuSub = ({
     >
       {label}
       <span className="pittorica-context-menu-chevron">▶</span>
-      {isActive && (
+      {isActive && subMenuPos && (
         <MenuContent
-          x={ref.current?.getBoundingClientRect().right ?? 0}
-          y={ref.current?.getBoundingClientRect().top ?? 0}
+          x={subMenuPos.x}
+          y={subMenuPos.y}
           onClose={context.closeAll}
           itemCount={itemCount}
         >

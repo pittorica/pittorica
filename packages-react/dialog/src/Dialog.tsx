@@ -66,13 +66,19 @@ export const Dialog = ({
   const [inheritedAppearance, setInheritedAppearance] =
     useState<DialogProps['appearance']>();
   const anchorRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Handle ESC key
   useEffect(() => {
+    if (!open) return;
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && closeOnEsc) onClose();
     };
-    if (open) globalThis.addEventListener('keydown', handleEsc);
+    globalThis.addEventListener('keydown', handleEsc);
     return () => globalThis.removeEventListener('keydown', handleEsc);
   }, [open, onClose, closeOnEsc]);
 
@@ -95,13 +101,12 @@ export const Dialog = ({
         const app = themeElement.getAttribute(
           'data-appearance'
         ) as DialogProps['appearance'];
-        // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
         setInheritedAppearance(app || undefined);
       }
     }
   }, [open]);
 
-  if (!open) return null;
+  if (!open || !isMounted) return null;
 
   const finalAppearance = appearance ?? inheritedAppearance;
 

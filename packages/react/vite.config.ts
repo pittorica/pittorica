@@ -1,10 +1,19 @@
 import path from 'node:path';
 
 import { defineConfig } from 'vite';
+import external from 'vite-plugin-external';
 import react from '@vitejs/plugin-react';
 
+import pkg from './package.json' assert { type: 'json' };
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    external({
+      nodeBuiltins: true,
+      externalizeDeps: Object.keys(pkg.dependencies || {}),
+    }),
+  ],
   build: {
     lib: {
       entry: path.resolve(import.meta.dirname, 'src/index.ts'),
@@ -12,10 +21,6 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      /* * Treat React as external to prevent bundling it.
-       * This ensures the consumer's React version is used.
-       */
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
         globals: {
           react: 'React',
@@ -25,9 +30,6 @@ export default defineConfig({
     },
   },
   resolve: {
-    /* * Force resolution to a single copy of React.
-     * Useful if you run tests within the package folder.
-     */
     dedupe: ['react', 'react-dom'],
   },
   test: {
