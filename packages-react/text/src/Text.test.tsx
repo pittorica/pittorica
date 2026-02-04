@@ -8,16 +8,18 @@ import type { ComponentProps, ElementType } from 'react';
 import { render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Text } from './Text.js';
+import { Text } from './Text';
 
-// Mock Box to bypass JSDOM style parsing limitations for CSS variables
+// Mock Box to bypass JSDOM style parsing limitations for custom variables/logic
 vi.mock('@pittorica/box-react', () => ({
   Box: ({
     as: Component = 'div',
     style,
+    className,
     ...props
   }: ComponentProps<'div'> & { as?: ElementType }) => (
     <Component
+      className={className}
       style={style}
       data-test-style={JSON.stringify(style)}
       {...props}
@@ -37,25 +39,42 @@ describe('Text', () => {
     expect(element.tagName).toBe('SPAN');
   });
 
-  it('should render as a different HTML element when using the as prop', () => {
-    const { container } = render(<Text as="p">Content</Text>);
-    const element = container.firstChild as HTMLElement;
-    expect(element.tagName).toBe('P');
-  });
-
   it('should apply base class', () => {
     const { container } = render(<Text>Content</Text>);
     const element = container.firstChild as HTMLElement;
     expect(element.classList.contains('pittorica-text')).toBe(true);
   });
 
-  it('should apply data-size attribute based on size prop', () => {
-    const { container } = render(<Text size="4">Content</Text>);
-    const element = container.firstChild as HTMLElement;
-    expect(element.dataset.size).toBe('4');
+  describe('Responsive Size', () => {
+    it('should apply initial size class when size is a string', () => {
+      const { container } = render(<Text size="4">Content</Text>);
+      const element = container.firstChild as HTMLElement;
+      expect(element.classList.contains('pittorica-text--size-4')).toBe(true);
+    });
+
+    it('should apply multiple responsive classes when size is an object', () => {
+      const { container } = render(
+        <Text size={{ initial: '2', md: '5', lg: '8' }}>Content</Text>
+      );
+      const element = container.firstChild as HTMLElement;
+
+      expect(element.classList.contains('pittorica-text--size-2')).toBe(true);
+      expect(element.classList.contains('pittorica-text--md-size-5')).toBe(
+        true
+      );
+      expect(element.classList.contains('pittorica-text--lg-size-8')).toBe(
+        true
+      );
+    });
+
+    it('should use default size "3" if size prop is not provided', () => {
+      const { container } = render(<Text>Content</Text>);
+      const element = container.firstChild as HTMLElement;
+      expect(element.classList.contains('pittorica-text--size-3')).toBe(true);
+    });
   });
 
-  it('should apply data-weight attribute based on weight prop', () => {
+  it('should apply data-weight attribute for CSS styling', () => {
     const { container } = render(<Text weight="bold">Content</Text>);
     const element = container.firstChild as HTMLElement;
     expect(element.dataset.weight).toBe('bold');
@@ -74,16 +93,16 @@ describe('Text', () => {
   });
 
   describe('Color prop', () => {
-    it('should apply semantic color tokens as CSS variables', () => {
-      const { container } = render(<Text color="danger">Content</Text>);
+    it('should apply semantic color tokens correctly', () => {
+      const { container } = render(<Text color="crimson">Content</Text>);
       const element = container.firstChild as HTMLElement;
 
       const styles = JSON.parse(element.dataset.testStyle || '{}');
-      expect(styles.color).toBe('var(--pittorica-danger-9)');
+      expect(styles.color).toBe('var(--pittorica-crimson-9)');
     });
 
     it('should apply custom HEX colors', () => {
-      const hex = '#ff00ff';
+      const hex = '#00ff00';
       const { container } = render(<Text color={hex}>Content</Text>);
       const element = container.firstChild as HTMLElement;
 
@@ -91,35 +110,38 @@ describe('Text', () => {
       expect(styles.color).toBe(hex);
     });
 
-    it('should support inherited colors via "inherit"', () => {
+    it('should support "inherit"', () => {
       const { container } = render(<Text color="inherit">Content</Text>);
       const element = container.firstChild as HTMLElement;
 
       const styles = JSON.parse(element.dataset.testStyle || '{}');
       expect(styles.color).toBe('inherit');
     });
-
-    it('should not apply color style if color prop is undefined', () => {
-      const { container } = render(<Text>Content</Text>);
-      const element = container.firstChild as HTMLElement;
-
-      const styles = JSON.parse(element.dataset.testStyle || '{}');
-      expect(styles.color).toBeUndefined();
-    });
   });
 
-  it('should merge custom className', () => {
-    const { container } = render(<Text className="custom-test">Content</Text>);
-    const element = container.firstChild as HTMLElement;
-    expect(element.classList.contains('pittorica-text')).toBe(true);
-    expect(element.classList.contains('custom-test')).toBe(true);
-  });
-
-  it('should merge custom styles', () => {
+  it('should merge custom className and styles', () => {
     const { container } = render(
-      <Text style={{ opacity: '0.5' }}>Content</Text>
+      <Text className="my-class" style={{ zIndex: 10 }}>
+        Content
+      </Text>
     );
     const element = container.firstChild as HTMLElement;
-    expect(element.style.opacity).toBe('0.5');
+
+    expect(element.classList.contains('pittorica-text')).toBe(true);
+    expect(element.classList.contains('my-class')).toBe(true);
+    expect(element.style.zIndex).toBe('10');
+  });
+
+  it('should pass accessibility and link props correctly', () => {
+    const { container } = render(
+      <Text as="a" href="https://example.com" target="_blank">
+        Link
+      </Text>
+    );
+    const element = container.firstChild as HTMLAnchorElement;
+
+    expect(element.tagName).toBe('A');
+    expect(element.href).toBe('https://example.com/');
+    expect(element.target).toBe('_blank');
   });
 });

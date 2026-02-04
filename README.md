@@ -86,16 +86,10 @@ pnpm --filter=@pittorica/button-react test
 
 ### Linting and Formatting
 
-To lint all files:
+To lint and format all files:
 
 ```sh
-pnpm lint
-```
-
-To format all files:
-
-```sh
-pnpm format
+pnpm lint:fmt
 ```
 
 ## Useful Links
@@ -103,3 +97,11 @@ pnpm format
 - [Turborepo Documentation](https://turborepo.dev/docs)
 - [pnpm Documentation](https://pnpm.io/documentation)
 - [React Documentation](https://react.dev/learn)
+
+## License
+
+This project is licensed under the MIT License.
+
+**Copyright (c) 2025 Davide Di Criscito**
+
+For the full details, see the [LICENSE](LICENSE) file.

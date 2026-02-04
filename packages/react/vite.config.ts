@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import external from 'vite-plugin-external';
 import react from '@vitejs/plugin-react';
 
-import pkg from './package.json' assert { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
 
 export default defineConfig({
   plugins: [

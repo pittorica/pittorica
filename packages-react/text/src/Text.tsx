@@ -19,8 +19,25 @@ export type PittoricaColor =
   | 'inherit'
   | (string & {});
 
-export interface TextProps extends BoxProps {
-  size?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type TextSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+interface ResponsiveObject<T> {
+  initial?: T;
+  xs?: T;
+  sm?: T;
+  md?: T;
+  lg?: T;
+  xl?: T;
+}
+
+type Responsive<T> = T | ResponsiveObject<T>;
+
+export interface TextProps extends Omit<BoxProps, 'size'> {
+  /**
+   * Responsive size from 1 to 9.
+   * @default '3'
+   */
+  size?: Responsive<TextSize>;
   weight?: 'light' | 'regular' | 'medium' | 'bold';
   align?: 'left' | 'center' | 'right';
   truncate?: boolean;
@@ -35,6 +52,32 @@ export interface TextProps extends BoxProps {
   htmlFor?: string;
 }
 
+/**
+ * Utility to transform responsive props into CSS classes.
+ */
+const getResponsiveClasses = (
+  propName: string,
+  value: Responsive<TextSize> | undefined
+): string[] => {
+  if (!value) return [];
+
+  if (typeof value === 'string') {
+    return [`pittorica-text--${propName}-${value}`];
+  }
+
+  return Object.entries(value)
+    .filter(([_, val]) => val !== undefined)
+    .map(([bp, val]) =>
+      bp === 'initial'
+        ? `pittorica-text--${propName}-${val}`
+        : `pittorica-text--${bp}-${propName}-${val}`
+    );
+};
+
+/**
+ * Text component for general typography.
+ * Supports responsive sizing via CSS media queries and semantic color tokens.
+ */
 export const Text = ({
   children,
   as: Tag = 'span',
@@ -80,15 +123,17 @@ export const Text = ({
     color: resolvedColor,
   };
 
+  const sizeClasses = getResponsiveClasses('size', size);
+
   return (
     <Box
       as={Tag}
       className={clsx(
         'pittorica-text',
         { 'pittorica-text--truncate': truncate },
+        sizeClasses,
         className
       )}
-      data-size={size}
       data-weight={weight}
       style={textStyles}
       href={href}
