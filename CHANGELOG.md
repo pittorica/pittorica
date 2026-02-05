@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.1](https://github.com/pittorica/ui/compare/v0.22.0...v0.22.1) (2026-02-05)
+
+
+### Bug Fixes
+
+* fix missing colors and heading size ([c67fbb8](https://github.com/pittorica/ui/commit/c67fbb8082e0d3d307d9b995d60473521e242a19))
+
 # [0.22.0](https://github.com/pittorica/ui/compare/v0.21.0...v0.22.0) (2026-02-04)
 
 
