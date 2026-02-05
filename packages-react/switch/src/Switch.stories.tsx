@@ -16,7 +16,7 @@ export const Basic: StoryObj<typeof Switch> = {
   render: () => (
     <Flex align="center" gap="3">
       <Switch id="s1" />
-      <Text as="label" htmlFor="s1" size="2">
+      <Text as="label" htmlFor="s1">
         Enable notifications
       </Text>
     </Flex>

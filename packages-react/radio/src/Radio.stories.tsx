@@ -20,7 +20,7 @@ export const Basic: StoryObj<typeof Radio> = {
     return (
       <Flex align="center" gap="2">
         <Radio id="r1" checked={checked} onCheckedChange={setChecked} />
-        <Text as="label" htmlFor="r1" size="2" style={{ cursor: 'pointer' }}>
+        <Text as="label" htmlFor="r1" style={{ cursor: 'pointer' }}>
           Accept terms and conditions
         </Text>
       </Flex>
@@ -44,15 +44,15 @@ export const States: StoryObj<typeof Radio> = {
     <Flex gap="4" align="center">
       <Flex direction="column" align="center" gap="1">
         <Radio checked={false} />
-        <Text size="1">Unchecked</Text>
+        <Text>Unchecked</Text>
       </Flex>
       <Flex direction="column" align="center" gap="1">
         <Radio checked={true} />
-        <Text size="1">Checked</Text>
+        <Text>Checked</Text>
       </Flex>
       <Flex direction="column" align="center" gap="1">
         <Radio disabled checked={false} />
-        <Text size="1">Disabled</Text>
+        <Text>Disabled</Text>
       </Flex>
     </Flex>
   ),

@@ -46,9 +46,7 @@ export const WrappingChildren: StoryObj = {
       }}
     >
       <Skeleton loading={true}>
-        <Text size="5" weight="bold">
-          Loaded Title
-        </Text>
+        <Text weight="bold">Loaded Title</Text>
         <Text color="slate">
           This description will be hidden by the skeleton.
         </Text>

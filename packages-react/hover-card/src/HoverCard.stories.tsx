@@ -47,20 +47,18 @@ export const UserProfile: StoryObj<typeof HoverCard> = {
               />
               <Flex direction="column" gap="0">
                 <Heading size="3">Davide C.</Heading>
-                <Text size="1" color="slate">
-                  @dcdavidev
-                </Text>
+                <Text color="slate">@dcdavidev</Text>
               </Flex>
             </Flex>
-            <Text size="2">
+            <Text>
               Senior Software Architect and Glassmorphism enthusiast. Building
               the Pittorica UI System.
             </Text>
             <Flex gap="4">
-              <Text size="1">
+              <Text>
                 <strong>128</strong> Following
               </Text>
-              <Text size="1">
+              <Text>
                 <strong>2.4k</strong> Followers
               </Text>
             </Flex>

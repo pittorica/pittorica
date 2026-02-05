@@ -36,13 +36,11 @@ export const GlassCard: StoryObj<typeof Card> = {
           <Avatar fallback="JD" />
           <Box>
             <Heading size="3">Jane Doe</Heading>
-            <Text size="1" color="slate">
-              Software Engineer
-            </Text>
+            <Text color="slate">Software Engineer</Text>
           </Box>
         </Flex>
 
-        <Text size="2">
+        <Text>
           Building delightful user interfaces with Pittorica Design System.
         </Text>
       </Card>
@@ -63,7 +61,7 @@ export const WithImage: StoryObj<typeof Card> = {
         <Heading size="2" mb="2">
           Abstract Composition
         </Heading>
-        <Text size="2" color="slate">
+        <Text color="slate">
           A study of color and form in digital environments.
         </Text>
       </Box>

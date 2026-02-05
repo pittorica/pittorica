@@ -71,8 +71,6 @@ export const Heading = ({
     <Text
       as={Tag}
       weight={weight}
-      // Pass size as undefined to let pittorica-heading classes control dimensions
-      size={undefined}
       className={clsx('pittorica-heading', sizeClasses, className)}
       {...rest} // Correctly forwards 'color' to Text component
     >

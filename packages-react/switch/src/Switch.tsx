@@ -2,7 +2,7 @@ import { type CSSProperties, type Ref, RefObject, useState } from 'react';
 
 import { clsx } from 'clsx';
 
-import { IconToggleLeft, IconToggleRight } from '@tabler/icons-react';
+import { IconCircle, IconCircleFilled } from '@tabler/icons-react';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
@@ -68,9 +68,9 @@ export const Switch = ({
     >
       <span className="pittorica-switch-thumb">
         {isChecked ? (
-          <IconToggleRight size={12} stroke={2.5} />
+          <IconCircleFilled size={12} stroke={2.5} />
         ) : (
-          <IconToggleLeft size={12} stroke={2.5} />
+          <IconCircle size={12} stroke={2.5} />
         )}
       </span>
     </Box>

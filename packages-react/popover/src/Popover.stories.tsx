@@ -26,7 +26,7 @@ export const Basic: StoryObj = {
       <PopoverContent>
         <Box p="1">
           <Text weight="bold">Popover Title</Text>
-          <Text size="2" color="slate">
+          <Text color="slate">
             This content is dynamically positioned using Floating UI.
           </Text>
         </Box>
@@ -45,7 +45,7 @@ export const DestructiveAction: StoryObj = {
       </PopoverTrigger>
       <PopoverContent style={{ width: '200px' }}>
         <Flex direction="column" gap="3">
-          <Text size="2" weight="medium">
+          <Text weight="medium">
             Are you sure you want to delete this item?
           </Text>
           <Flex gap="2">
@@ -77,7 +77,7 @@ export const SettingsMenu: StoryObj = {
           </Text>
           <Flex align="center" gap="2" style={{ cursor: 'pointer' }}>
             <IconInfoCircle size={16} />
-            <Text size="2">Show advanced options</Text>
+            <Text>Show advanced options</Text>
           </Flex>
           <Box
             height="1px"

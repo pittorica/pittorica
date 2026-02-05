@@ -19,17 +19,13 @@ export const Grid: StoryObj<typeof CheckboxCard> = {
       <CheckboxCard.Item value="1" style={{ width: '200px' }}>
         <Flex direction="column" gap="1">
           <Heading size="2">Basic</Heading>
-          <Text size="1" color="slate">
-            Free forever for individuals
-          </Text>
+          <Text color="slate">Free forever for individuals</Text>
         </Flex>
       </CheckboxCard.Item>
       <CheckboxCard.Item value="2" style={{ width: '200px' }}>
         <Flex direction="column" gap="1">
           <Heading size="2">Pro</Heading>
-          <Text size="1" color="slate">
-            $12/month per user
-          </Text>
+          <Text color="slate">$12/month per user</Text>
         </Flex>
       </CheckboxCard.Item>
     </CheckboxCard>

@@ -23,27 +23,21 @@ export const Basic: StoryObj = {
 
       <Tabs.Content value="account">
         <Box p="4">
-          <Text size="3" weight="bold">
-            Account Details
-          </Text>
+          <Text weight="bold">Account Details</Text>
           <Text color="slate">Manage your profile information here.</Text>
         </Box>
       </Tabs.Content>
 
       <Tabs.Content value="password">
         <Box p="4">
-          <Text size="3" weight="bold">
-            Password
-          </Text>
+          <Text weight="bold">Password</Text>
           <Text color="slate">Change your password and security settings.</Text>
         </Box>
       </Tabs.Content>
 
       <Tabs.Content value="settings">
         <Box p="4">
-          <Text size="3" weight="bold">
-            General Settings
-          </Text>
+          <Text weight="bold">General Settings</Text>
           <Text color="slate">Customize your experience.</Text>
         </Box>
       </Tabs.Content>

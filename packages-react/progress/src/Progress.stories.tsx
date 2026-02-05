@@ -48,14 +48,14 @@ export const AnimatedShowcase = {
     return (
       <Flex direction="column" gap="6" width="400px">
         <Box>
-          <Text size="1" mb="2" weight="bold">
+          <Text mb="2" weight="bold">
             System Upload ({progress}%)
           </Text>
           <Progress value={progress} color="indigo" />
         </Box>
 
         <Box>
-          <Text size="1" mb="2" weight="bold">
+          <Text mb="2" weight="bold">
             Funky Wave Download
           </Text>
           <Progress
@@ -67,7 +67,7 @@ export const AnimatedShowcase = {
         </Box>
 
         <Box>
-          <Text size="1" mb="2" weight="bold">
+          <Text mb="2" weight="bold">
             Critical Task
           </Text>
           <Progress value={progress} color={progress > 80 ? 'red' : 'green'} />

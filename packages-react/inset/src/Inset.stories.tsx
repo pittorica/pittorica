@@ -44,9 +44,7 @@ export const ImageInset: Story = {
       <Inset {...args} />
       <Box pt="3">
         <Text weight="bold">Pittorica Project</Text>
-        <Text size="2" color="slate">
-          Modular and accessible design system.
-        </Text>
+        <Text color="slate">Modular and accessible design system.</Text>
       </Box>
     </>
   ),

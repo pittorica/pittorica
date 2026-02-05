@@ -72,7 +72,7 @@ export const Checkbox = ({
       </div>
 
       {label && (
-        <Text size="2" weight="medium" style={{ color: 'inherit' }}>
+        <Text weight="medium" style={{ color: 'inherit' }}>
           {label}
         </Text>
       )}

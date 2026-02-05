@@ -83,11 +83,11 @@ export const ToastProvider = () => {
           aria-live="polite"
         >
           <Box className="pittorica-toast-content">
-            <Text size="2" weight="bold" style={{ display: 'block' }}>
+            <Text weight="bold" style={{ display: 'block' }}>
               {t.title}
             </Text>
             {t.description && (
-              <Text size="2" color="slate" style={{ display: 'block' }}>
+              <Text color="slate" style={{ display: 'block' }}>
                 {t.description}
               </Text>
             )}

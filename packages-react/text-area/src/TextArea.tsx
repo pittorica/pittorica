@@ -69,7 +69,6 @@ export const TextAreaRoot = ({
           <Text
             as="label"
             htmlFor={inputId}
-            size="2"
             weight="medium"
             mb="1"
             style={{ paddingLeft: '4px' }}
