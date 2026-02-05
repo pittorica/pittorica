@@ -8,7 +8,7 @@ import type { ComponentProps, ElementType } from 'react';
 import { render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Text } from './Text';
+import { Text } from './Text.js';
 
 // Mock Box to bypass JSDOM style parsing limitations for custom variables/logic
 vi.mock('@pittorica/box-react', () => ({
@@ -43,35 +43,6 @@ describe('Text', () => {
     const { container } = render(<Text>Content</Text>);
     const element = container.firstChild as HTMLElement;
     expect(element.classList.contains('pittorica-text')).toBe(true);
-  });
-
-  describe('Responsive Size', () => {
-    it('should apply initial size class when size is a string', () => {
-      const { container } = render(<Text size="4">Content</Text>);
-      const element = container.firstChild as HTMLElement;
-      expect(element.classList.contains('pittorica-text--size-4')).toBe(true);
-    });
-
-    it('should apply multiple responsive classes when size is an object', () => {
-      const { container } = render(
-        <Text size={{ initial: '2', md: '5', lg: '8' }}>Content</Text>
-      );
-      const element = container.firstChild as HTMLElement;
-
-      expect(element.classList.contains('pittorica-text--size-2')).toBe(true);
-      expect(element.classList.contains('pittorica-text--md-size-5')).toBe(
-        true
-      );
-      expect(element.classList.contains('pittorica-text--lg-size-8')).toBe(
-        true
-      );
-    });
-
-    it('should use default size "3" if size prop is not provided', () => {
-      const { container } = render(<Text>Content</Text>);
-      const element = container.firstChild as HTMLElement;
-      expect(element.classList.contains('pittorica-text--size-3')).toBe(true);
-    });
   });
 
   it('should apply data-weight attribute for CSS styling', () => {

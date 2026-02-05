@@ -1,18 +1,21 @@
 @layer pittorica-tokens {
   :root {
-    --pittorica-font-family: system-ui, -apple-system, sans-serif;
+    /* Typography */
+    --pittorica-font-family:
+      system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial,
+      sans-serif;
     --pittorica-font-heading: var(--pittorica-font-family);
-    --pittorica-font-code: ui-monospace, SFMono-Regular, monospace;
-    --pittorica-font-strong: inherit;
-    --pittorica-font-em: inherit;
-    --pittorica-font-quote: inherit;
+    --pittorica-font-code:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
+    /* Breakpoints */
     --pittorica-bp-xs: 520px;
     --pittorica-bp-sm: 768px;
     --pittorica-bp-md: 1024px;
     --pittorica-bp-lg: 1280px;
     --pittorica-bp-xl: 1640px;
 
+    /* Spacing & Radius */
     --pittorica-space-0: 0px;
     --pittorica-space-1: 4px;
     --pittorica-space-2: 8px;
@@ -24,225 +27,151 @@
     --pittorica-space-8: 64px;
     --pittorica-space-9: 96px;
 
-    --pittorica-radius-0: 0px;
     --pittorica-radius-1: 4px;
     --pittorica-radius-2: 8px;
     --pittorica-radius-3: 12px;
     --pittorica-radius-4: 16px;
-    --pittorica-radius-5: 24px;
-    --pittorica-radius-6: 32px;
     --pittorica-radius-full: 9999px;
 
-    --pittorica-shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.15);
-    --pittorica-shadow-2: 0 2px 4px -1px rgb(0 0 0 / 0.15);
-    --pittorica-shadow-3: 0 4px 6px -1px rgb(0 0 0 / 0.18);
-    --pittorica-shadow-4: 0 6px 10px -2px rgb(0 0 0 / 0.18);
-    --pittorica-shadow-5: 0 8px 14px -3px rgb(0 0 0 / 0.2);
-    --pittorica-shadow-6: 0 12px 20px -4px rgb(0 0 0 / 0.2);
-    --pittorica-shadow-7: 0 16px 28px -5px rgb(0 0 0 / 0.22);
-    --pittorica-shadow-8: 0 20px 36px -6px rgb(0 0 0 / 0.22);
-    --pittorica-shadow-9: 0 28px 48px -7px rgb(0 0 0 / 0.25);
+    /* Shadows */
+    --pittorica-shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.1);
+    --pittorica-shadow-3:
+      0 4px 6px -1px rgb(0 0 0 / 0.12), 0 2px 4px -2px rgb(0 0 0 / 0.12);
+    --pittorica-shadow-6: 0 12px 20px -4px rgb(0 0 0 / 0.15);
 
-    --pittorica-cursor-button: pointer;
-    --pittorica-cursor-disabled: not-allowed;
-    --pittorica-cursor-text: text;
-
+    /* Typography Scale */
     --pittorica-font-size-1: 12px;
-    --pittorica-font-size-2: 14px;
-    --pittorica-font-size-3: 16px;
-    --pittorica-font-size-4: 18px;
-    --pittorica-font-size-5: 20px;
-    --pittorica-font-size-6: 24px;
-    --pittorica-font-size-7: 28px;
-    --pittorica-font-size-8: 35px;
-    --pittorica-font-size-9: 60px;
-
     --pittorica-line-height-1: 16px;
+    --pittorica-font-size-2: 14px;
     --pittorica-line-height-2: 20px;
+    --pittorica-font-size-3: 16px;
     --pittorica-line-height-3: 24px;
+    --pittorica-font-size-4: 18px;
     --pittorica-line-height-4: 26px;
+    --pittorica-font-size-5: 20px;
     --pittorica-line-height-5: 28px;
+    --pittorica-font-size-6: 24px;
     --pittorica-line-height-6: 30px;
+    --pittorica-font-size-7: 28px;
     --pittorica-line-height-7: 36px;
+    --pittorica-font-size-8: 35px;
     --pittorica-line-height-8: 40px;
-    --pittorica-line-height-9: 72px;
+    --pittorica-font-size-9: 60px;
+    --pittorica-line-height-9: 1.1;
   }
 
   .pittorica-theme {
+    /* Brand logic */
     --pittorica-source-color: #3f51b5;
     --pittorica-on-source-color: #ffffff;
 
+    /* Surface Light */
     --pittorica-surface-0: #ffffff;
     --pittorica-surface-1: color-mix(
       in srgb,
-      var(--pittorica-source-color) 5%,
+      var(--pittorica-source-color) 3%,
       #ffffff
+    );
+    --pittorica-surface-2: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 6%,
+      #ffffff
+    );
+    --pittorica-surface-3: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 9%,
+      #ffffff
+    );
+    --pittorica-surface-4: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 12%,
+      #ffffff
+    );
+
+    /* On Surface Light */
+    --pittorica-on-surface-0: #1a1a1a;
+    --pittorica-on-surface-1: #1a1a1a;
+    --pittorica-on-surface-variant: #454545;
+
+    /* Semantic Palette */
+    --pittorica-blue-9: #005fb8;
+    --pittorica-red-9: #ba1a1a;
+    --pittorica-green-9: #2e7d32;
+    --pittorica-amber-9: #ffbf00;
+    --pittorica-crimson-9: #dc143c;
+    --pittorica-indigo-9: #3f51b5;
+    --pittorica-teal-9: #008080;
+
+    --pittorica-danger-9: var(--pittorica-red-9);
+    --pittorica-success-9: var(--pittorica-green-9);
+    --pittorica-info-9: var(--pittorica-blue-9);
+    --pittorica-warning-9: var(--pittorica-amber-9);
+    --pittorica-danger-9: var(--pittorica-red-9);
+    --pittorica-success-9: var(--pittorica-green-9);
+    --pittorica-info-9: var(--pittorica-blue-9);
+    --pittorica-warning-9: var(--pittorica-amber-9);
+
+    /* Slate logic */
+    --pittorica-slate-3: #f1f5f9;
+    --pittorica-slate-9: #64748b;
+    --pittorica-slate-12: #0f172a;
+  }
+
+  /* Dark Appearance Logic */
+  .pittorica-theme[data-appearance='dark'] {
+    --pittorica-surface-0: #0f111a;
+    --pittorica-surface-1: color-mix(
+      in srgb,
+      var(--pittorica-source-color) 5%,
+      #151720
     );
     --pittorica-surface-2: color-mix(
       in srgb,
       var(--pittorica-source-color) 8%,
-      #ffffff
+      #1a1c26
     );
     --pittorica-surface-3: color-mix(
       in srgb,
       var(--pittorica-source-color) 11%,
-      #ffffff
+      #1f212c
     );
     --pittorica-surface-4: color-mix(
       in srgb,
       var(--pittorica-source-color) 14%,
-      #ffffff
-    );
-    --pittorica-surface-5: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 20%,
-      #ffffff
-    );
-    --pittorica-surface-6: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 30%,
-      #ffffff
-    );
-    --pittorica-surface-7: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 90%,
-      #000000
-    );
-    --pittorica-surface-8: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 65%,
-      #000000
-    );
-    --pittorica-surface-9: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 25%,
-      #000000
+      #242632
     );
 
-    --pittorica-on-surface-0: #000000;
-    --pittorica-on-surface-1: #000000;
-    --pittorica-on-surface-2: #000000;
-    --pittorica-on-surface-3: #000000;
-    --pittorica-on-surface-4: #000000;
-    --pittorica-on-surface-5: #000000;
-    --pittorica-on-surface-6: #000000;
-    --pittorica-on-surface-7: #ffffff;
-    --pittorica-on-surface-8: #ffffff;
-    --pittorica-on-surface-9: #ffffff;
-
-    --pittorica-indigo-3: color-mix(in srgb, #3f51b5 11%, #ffffff);
-    --pittorica-indigo-9: #3f51b5;
-    --pittorica-indigo-11: color-mix(in srgb, #3f51b5 25%, #000000);
-
-    --pittorica-crimson-3: color-mix(in srgb, #dc143c 11%, #ffffff);
-    --pittorica-crimson-9: #dc143c;
-    --pittorica-crimson-11: color-mix(in srgb, #dc143c 25%, #000000);
-
-    --pittorica-teal-3: color-mix(in srgb, #008080 11%, #ffffff);
-    --pittorica-teal-9: #008080;
-    --pittorica-teal-11: color-mix(in srgb, #008080 25%, #000000);
-
-    --pittorica-amber-3: color-mix(in srgb, #ffbf00 11%, #ffffff);
-    --pittorica-amber-9: #ffbf00;
-    --pittorica-amber-11: color-mix(in srgb, #ffbf00 25%, #000000);
-
-    --pittorica-slate-3: color-mix(in srgb, #64748b 11%, #ffffff);
-    --pittorica-slate-4: color-mix(in srgb, #64748b 14%, #ffffff);
-    --pittorica-slate-6: color-mix(in srgb, #64748b 30%, #ffffff);
-    --pittorica-slate-9: #64748b;
-    --pittorica-slate-12: #0f172a;
-
-    --pittorica-danger-9: var(--pittorica-red-9, #ba1a1a);
-    --pittorica-success-9: #2e7d32;
-    --pittorica-info-9: #0288d1;
-    --pittorica-error-9: var(--pittorica-danger-9);
-
-    --pittorica-blue-9: #005fb8;
-    --pittorica-red-9: #ba1a1a;
-    --pittorica-red-2: color-mix(in srgb, #ba1a1a 8%, #ffffff);
-    --pittorica-red-7: color-mix(in srgb, #ba1a1a 90%, #000000);
-  }
-
-  .pittorica-theme[data-appearance='dark'] {
-    --pittorica-surface-0: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 15%,
-      #000000
-    );
-    --pittorica-surface-1: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 20%,
-      #000000
-    );
-    --pittorica-surface-2: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 25%,
-      #000000
-    );
-    --pittorica-surface-3: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 30%,
-      #000000
-    );
-    --pittorica-surface-4: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 35%,
-      #000000
-    );
-    --pittorica-surface-5: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 40%,
-      #000000
-    );
-    --pittorica-surface-6: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 45%,
-      #000000
-    );
-    --pittorica-surface-7: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 50%,
-      #000000
-    );
-    --pittorica-surface-8: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 60%,
-      #000000
-    );
-    --pittorica-surface-9: color-mix(
-      in srgb,
-      var(--pittorica-source-color) 20%,
-      #ffffff
-    );
-
-    --pittorica-on-surface-0: #ffffff;
-    --pittorica-on-surface-1: #ffffff;
-    --pittorica-on-surface-2: #ffffff;
-    --pittorica-on-surface-3: #ffffff;
-    --pittorica-on-surface-4: #ffffff;
-    --pittorica-on-surface-5: #ffffff;
-    --pittorica-on-surface-6: #ffffff;
-    --pittorica-on-surface-7: #ffffff;
-    --pittorica-on-surface-8: #ffffff;
-    --pittorica-on-surface-9: #000000;
+    --pittorica-on-surface-0: #f0f0f0;
+    --pittorica-on-surface-1: #e0e0e0;
+    --pittorica-on-surface-variant: #b0b0b0;
 
     --pittorica-on-source-color: #000000;
 
-    --pittorica-indigo-3: color-mix(in srgb, #3f51b5 30%, #000000);
-    --pittorica-indigo-11: color-mix(in srgb, #3f51b5 20%, #ffffff);
-
-    --pittorica-slate-3: color-mix(in srgb, #64748b 30%, #000000);
-    --pittorica-slate-4: color-mix(in srgb, #64748b 35%, #000000);
+    /* Adjust slate for dark */
+    --pittorica-slate-3: #1e293b;
     --pittorica-slate-12: #f8fafc;
 
-    --pittorica-red-2: color-mix(in srgb, #ba1a1a 25%, #000000);
+    /* Semantic Adjustments */
+    --pittorica-red-9: #ffb4ab;
+    --pittorica-green-9: #b4eeb4;
+    --pittorica-blue-9: #a1c9f9;
+    --pittorica-amber-9: #ffe082;
+    --pittorica-warning-9: var(--pittorica-amber-9);
+
+    /* Other Semantic scales */
+    --pittorica-crimson-9: #ff80ab;
+    --pittorica-indigo-9: #7986cb;
+    --pittorica-teal-9: #4db6ac;
   }
 
+  /* Accents */
   .pittorica-theme[data-accent='blue'] {
     --pittorica-source-color: #005fb8;
   }
-
   .pittorica-theme[data-accent='red'] {
     --pittorica-source-color: #ba1a1a;
+  }
+  .pittorica-theme[data-accent='teal'] {
+    --pittorica-source-color: #008080;
   }
 }

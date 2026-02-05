@@ -2,7 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Heading } from './Heading';
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
+/**
+ * Heading component for titles.
+ * Supports Radix-like responsive size scaling via CSS media queries.
+ */
 const meta: Meta<typeof Heading> = {
   title: 'Components/Heading',
   component: Heading,
@@ -11,18 +14,20 @@ const meta: Meta<typeof Heading> = {
     as: {
       control: 'select',
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      description: 'The HTML heading tag to render.',
+      description: 'The semantic HTML heading tag to render.',
+      table: { defaultValue: { summary: 'h1' } },
     },
     size: {
-      control: 'select',
-      options: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      control: 'object', // Changed to object to support responsive syntax
       description:
-        'Defines the visual size of the heading. Overrides default tag-based sizing.',
+        'Responsive size from 1 to 9. Can be a string or a breakpoint object.',
+      table: { defaultValue: { summary: '6' } },
     },
     weight: {
       control: 'select',
       options: ['light', 'regular', 'medium', 'bold'],
       description: 'Sets the font weight of the heading.',
+      table: { defaultValue: { summary: 'bold' } },
     },
     color: {
       control: 'select',
@@ -40,8 +45,7 @@ const meta: Meta<typeof Heading> = {
         'info',
         'inherit',
       ],
-      description:
-        'Sets the color of the heading. Can be a semantic token or a custom value.',
+      description: 'Sets the color of the heading using semantic tokens.',
     },
   },
 };
@@ -49,9 +53,11 @@ const meta: Meta<typeof Heading> = {
 export default meta;
 type Story = StoryObj<typeof Heading>;
 
+// Default Stories match the current visual styles
 export const H1Default: Story = {
   args: {
     as: 'h1',
+    size: '9', // Explicitly setting the largest size for H1
     children: 'Heading Level 1 (H1)',
   },
 };
@@ -59,6 +65,7 @@ export const H1Default: Story = {
 export const H2Default: Story = {
   args: {
     as: 'h2',
+    size: '8',
     children: 'Heading Level 2 (H2)',
   },
 };
@@ -66,36 +73,17 @@ export const H2Default: Story = {
 export const H3Default: Story = {
   args: {
     as: 'h3',
+    size: '7',
     children: 'Heading Level 3 (H3)',
   },
 };
 
-export const H4Default: Story = {
-  args: {
-    as: 'h4',
-    children: 'Heading Level 4 (H4)',
-  },
-};
-
-export const H5Default: Story = {
-  args: {
-    as: 'h5',
-    children: 'Heading Level 5 (H5)',
-  },
-};
-
-export const H6Default: Story = {
-  args: {
-    as: 'h6',
-    children: 'Heading Level 6 (H6)',
-  },
-};
-
-export const CustomSize: Story = {
+// New Responsive Example
+export const ResponsiveSize: Story = {
   args: {
     as: 'h1',
-    size: '4', // Visually smaller than default H1
-    children: 'H1 with Size 4',
+    size: { initial: '4', sm: '6', md: '9' },
+    children: 'Responsive Heading (Resize your browser)',
   },
 };
 
@@ -110,7 +98,7 @@ export const CustomWeight: Story = {
 export const ColoredHeading: Story = {
   args: {
     as: 'h3',
-    color: 'blue',
-    children: 'Blue H3 Heading',
+    color: 'crimson', // Using one of the specific semantic colors
+    children: 'Crimson H3 Heading',
   },
 };

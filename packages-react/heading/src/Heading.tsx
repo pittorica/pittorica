@@ -63,7 +63,7 @@ export const Heading = ({
   size = '6',
   weight = 'bold',
   className,
-  ...rest
+  ...rest // Captures 'color' and other TextProps
 }: HeadingProps) => {
   const sizeClasses = getResponsiveClasses('size', size);
 
@@ -71,8 +71,10 @@ export const Heading = ({
     <Text
       as={Tag}
       weight={weight}
+      // Pass size as undefined to let pittorica-heading classes control dimensions
+      size={undefined}
       className={clsx('pittorica-heading', sizeClasses, className)}
-      {...rest}
+      {...rest} // Correctly forwards 'color' to Text component
     >
       {children}
     </Text>
