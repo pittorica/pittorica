@@ -693,6 +693,9 @@ importers:
       '@pittorica/box-react':
         specifier: workspace:*
         version: link:../box
+      '@pittorica/flex-react':
+        specifier: workspace:*
+        version: link:../flex
       '@pittorica/icon-button-react':
         specifier: workspace:*
         version: link:../icon-button
