@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.4](https://github.com/pittorica/ui/compare/v0.22.3...v0.22.4) (2026-02-06)
+
+
+### Bug Fixes
+
+* **carousel:** improvements, add navigation ([1a836cd](https://github.com/pittorica/ui/commit/1a836cdee1a7508e2e0f589aa117c3a6489312a8))
+
 ## [0.22.3](https://github.com/pittorica/ui/compare/v0.22.2...v0.22.3) (2026-02-05)
 
 
