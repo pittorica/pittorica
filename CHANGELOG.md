@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.1](https://github.com/pittorica/ui/compare/v0.23.0...v0.23.1) (2026-02-08)
+
+
+### Bug Fixes
+
+* **callout:** fix export ([be3c030](https://github.com/pittorica/ui/commit/be3c030bc6c8f7ffdcf5077c55a226b8a0aebab7))
+
 # [0.23.0](https://github.com/pittorica/ui/compare/v0.22.4...v0.23.0) (2026-02-07)
 
 
