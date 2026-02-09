@@ -12,6 +12,7 @@ interface CheckboxCardContextValue {
   color?: PittoricaColor;
   disabled?: boolean;
   translucent?: boolean;
+  name?: string;
 }
 
 const CheckboxCardContext = createContext<CheckboxCardContextValue | null>(
@@ -26,6 +27,7 @@ export interface CheckboxCardRootProps extends Omit<BoxProps, 'onChange'> {
   color?: PittoricaColor;
   disabled?: boolean;
   translucent?: boolean;
+  name?: string;
 }
 
 const CheckboxCardRoot = ({
@@ -36,6 +38,7 @@ const CheckboxCardRoot = ({
   color = 'indigo',
   disabled,
   translucent,
+  name,
   children,
   className,
   ...props
@@ -61,6 +64,7 @@ const CheckboxCardRoot = ({
         color,
         disabled,
         translucent,
+        name,
       }}
     >
       <Box
@@ -122,6 +126,8 @@ const CheckboxCardItem = ({
         type="checkbox"
         className="pittorica-checkbox-card-input"
         style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+        name={context.name}
+        value={value}
         checked={isChecked}
         disabled={context.disabled}
         onChange={() => context.onItemChange(value)}

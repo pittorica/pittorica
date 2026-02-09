@@ -28,6 +28,7 @@ export interface TextProps extends BoxProps {
   target?: string;
   rel?: string;
   htmlFor?: string;
+  name?: string;
 }
 
 /**
@@ -47,6 +48,7 @@ export const Text = ({
   target,
   rel,
   htmlFor,
+  name,
   ...rest
 }: TextProps) => {
   // Logic: Check if it's a direct color value
@@ -103,6 +105,7 @@ export const Text = ({
       target={target}
       rel={rel}
       htmlFor={htmlFor}
+      name={name}
       {...rest}
     >
       {children}

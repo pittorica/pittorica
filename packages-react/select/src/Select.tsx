@@ -15,6 +15,7 @@ interface SelectContextType {
   helperId: string;
   disabled?: boolean;
   size: SelectSize;
+  name?: string;
 }
 
 const SelectContext = createContext<SelectContextType | null>(null);
@@ -33,10 +34,15 @@ export interface SelectRootProps extends BoxProps {
   error?: boolean;
   color?: PittoricaColor;
   disabled?: boolean;
+  name?: string;
   /** @default 'sm' */
   size?: SelectSize;
 }
 
+/**
+ * Root component for the Select system.
+ * Manages accessibility IDs and shared state.
+ */
 export const SelectRoot = ({
   children,
   label,
@@ -44,6 +50,7 @@ export const SelectRoot = ({
   error,
   color = 'indigo',
   disabled,
+  name,
   size = 'sm',
   className,
   style,
@@ -57,7 +64,7 @@ export const SelectRoot = ({
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
   return (
-    <SelectContext value={{ inputId, helperId, disabled, size }}>
+    <SelectContext value={{ inputId, helperId, disabled, size, name }}>
       <Box
         {...props}
         className={clsx(
@@ -112,16 +119,20 @@ export const SelectRoot = ({
 /* --- Content --- */
 export type SelectContentProps = React.SelectHTMLAttributes<HTMLSelectElement>;
 
+/**
+ * The actual select element. Must be used inside Select.Root.
+ */
 export const SelectContent = ({
   children,
   className,
   ref,
   ...props
 }: SelectContentProps & { ref?: Ref<HTMLSelectElement> }) => {
-  const { inputId, helperId, disabled } = useSelectContext();
+  const { inputId, helperId, disabled, name } = useSelectContext();
 
   return (
     <select
+      name={name}
       {...props}
       id={inputId}
       ref={ref}
@@ -135,6 +146,9 @@ export const SelectContent = ({
 };
 
 /* --- Slot --- */
+/**
+ * Optional slot for icons or additional content inside the select wrapper.
+ */
 export const SelectSlot = ({ children, className, ...props }: BoxProps) => (
   <div className={clsx('pittorica-select-slot', className)} {...props}>
     {children}

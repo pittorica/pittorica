@@ -15,8 +15,13 @@ export interface CheckboxProps extends Omit<BoxProps, 'onChange'> {
   color?: PittoricaColor;
   disabled?: boolean;
   label?: string;
+  name?: string;
+  value?: string;
 }
 
+/**
+ * Checkbox component with custom styling and native input support.
+ */
 export const Checkbox = ({
   checked: controlledChecked,
   defaultChecked,
@@ -24,6 +29,8 @@ export const Checkbox = ({
   color = 'indigo',
   disabled = false,
   label,
+  name,
+  value,
   className,
   style,
   ...props
@@ -57,6 +64,8 @@ export const Checkbox = ({
       <input
         type="checkbox"
         className="pittorica-checkbox-input"
+        name={name}
+        value={value}
         checked={isChecked}
         disabled={disabled}
         onChange={handleChange}

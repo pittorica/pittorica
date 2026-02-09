@@ -13,6 +13,7 @@ interface TextFieldContextType {
   helperId: string;
   disabled?: boolean;
   size: TextFieldSize;
+  name?: string;
 }
 
 const TextFieldContext = createContext<TextFieldContextType | null>(null);
@@ -33,6 +34,7 @@ export interface TextFieldRootProps extends BoxProps {
   error?: boolean;
   color?: PittoricaColor;
   disabled?: boolean;
+  name?: string;
   /** @default 'sm' */
   size?: TextFieldSize;
 }
@@ -47,6 +49,7 @@ export const TextFieldRoot = ({
   error,
   color = 'indigo',
   disabled,
+  name,
   size = 'sm',
   className,
   style,
@@ -60,7 +63,7 @@ export const TextFieldRoot = ({
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
   return (
-    <TextFieldContext value={{ inputId, helperId, disabled, size }}>
+    <TextFieldContext value={{ inputId, helperId, disabled, size, name }}>
       <Box
         {...props}
         className={clsx(
@@ -120,10 +123,11 @@ export const TextFieldInput = ({
   ref,
   ...props
 }: TextFieldInputProps & { ref?: Ref<HTMLInputElement> }) => {
-  const { inputId, helperId, disabled } = useTextFieldContext();
+  const { inputId, helperId, disabled, name } = useTextFieldContext();
 
   return (
     <input
+      name={name}
       {...props}
       id={inputId}
       aria-describedby={helperId}

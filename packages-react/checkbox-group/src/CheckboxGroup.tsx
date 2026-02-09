@@ -11,6 +11,7 @@ interface CheckboxGroupContextValue {
   onItemChange: (val: string) => void;
   color?: PittoricaColor;
   disabled?: boolean;
+  name?: string;
 }
 
 const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(
@@ -24,6 +25,7 @@ export interface CheckboxGroupRootProps extends Omit<BoxProps, 'onChange'> {
   orientation?: 'horizontal' | 'vertical';
   color?: PittoricaColor;
   disabled?: boolean;
+  name?: string;
 }
 
 const CheckboxGroupRoot = ({
@@ -33,6 +35,7 @@ const CheckboxGroupRoot = ({
   orientation = 'vertical',
   color,
   disabled,
+  name,
   children,
   className,
   ...props
@@ -59,6 +62,7 @@ const CheckboxGroupRoot = ({
         onItemChange: handleItemChange,
         color,
         disabled,
+        name,
       }}
     >
       <Box
@@ -89,6 +93,8 @@ const CheckboxGroupItem = ({ value, ...props }: CheckboxGroupItemProps) => {
   return (
     <Checkbox
       {...props}
+      name={context.name}
+      value={value}
       checked={context.value.includes(value)}
       onChange={() => context.onItemChange(value)}
       color={props.color || context.color}

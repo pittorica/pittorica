@@ -14,6 +14,7 @@ export interface RadioProps extends Omit<BoxProps, 'onChange'> {
   /** @default 'indigo' */
   color?: PittoricaColor;
   value?: string;
+  name?: string;
   onCheckedChange?: (checked: boolean) => void;
   ref?: Ref<HTMLButtonElement>;
 }
@@ -28,6 +29,7 @@ export const Radio = ({
   className,
   style,
   onCheckedChange,
+  name,
   ref,
   ...props
 }: RadioProps) => {
@@ -41,6 +43,7 @@ export const Radio = ({
       as="button"
       type="button"
       role="radio"
+      name={name}
       aria-checked={checked}
       data-state={checked ? 'checked' : 'unchecked'}
       disabled={disabled}

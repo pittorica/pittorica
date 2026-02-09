@@ -14,6 +14,7 @@ export interface SwitchProps extends Omit<BoxProps, 'children' | 'onChange'> {
   disabled?: boolean;
   /** @default 'indigo' */
   color?: PittoricaColor;
+  name?: string;
 }
 
 /**
@@ -25,6 +26,7 @@ export const Switch = ({
   onCheckedChange,
   disabled,
   color = 'indigo',
+  name,
   className,
   style,
   ref,
@@ -53,6 +55,7 @@ export const Switch = ({
       as="button"
       type="button"
       role="switch"
+      name={name}
       aria-checked={isChecked}
       data-state={isChecked ? 'checked' : 'unchecked'}
       disabled={disabled}

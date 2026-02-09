@@ -20,6 +20,7 @@ interface TextAreaContextType {
   helperId: string;
   disabled?: boolean;
   size: TextAreaSize;
+  name?: string;
 }
 
 const TextAreaContext = createContext<TextAreaContextType | null>(null);
@@ -38,6 +39,7 @@ export interface TextAreaRootProps extends BoxProps {
   error?: boolean;
   color?: PittoricaColor;
   disabled?: boolean;
+  name?: string;
   /** @default 'sm' */
   size?: TextAreaSize;
 }
@@ -52,6 +54,7 @@ export const TextAreaRoot = ({
   error,
   color = 'indigo',
   disabled,
+  name,
   size = 'sm',
   className,
   style,
@@ -65,7 +68,7 @@ export const TextAreaRoot = ({
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
   return (
-    <TextAreaContext value={{ inputId, helperId, disabled, size }}>
+    <TextAreaContext value={{ inputId, helperId, disabled, size, name }}>
       <Box
         {...props}
         className={clsx(
@@ -129,9 +132,15 @@ export const TextAreaContent = ({
   onChange,
   value,
   defaultValue,
+  name: propsName,
   ...props
 }: TextAreaContentProps) => {
-  const { inputId, helperId, disabled } = useTextAreaContext();
+  const {
+    inputId,
+    helperId,
+    disabled,
+    name: contextName,
+  } = useTextAreaContext();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
@@ -159,6 +168,7 @@ export const TextAreaContent = ({
 
   return (
     <textarea
+      name={propsName ?? contextName}
       {...props}
       id={inputId}
       ref={textareaRef}

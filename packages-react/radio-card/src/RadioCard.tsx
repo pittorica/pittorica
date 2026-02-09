@@ -18,6 +18,7 @@ interface RadioCardContextType {
   onValueChange: (value: string) => void;
   color: PittoricaColor;
   disabled?: boolean;
+  name?: string;
 }
 
 const RadioCardContext = createContext<RadioCardContextType | null>(null);
@@ -31,6 +32,7 @@ const useRadioCardContext = () => {
   return context;
 };
 
+/* --- Root --- */
 export interface RadioCardRootProps extends BoxProps {
   children: ReactNode;
   value?: string;
@@ -39,6 +41,7 @@ export interface RadioCardRootProps extends BoxProps {
   /** @default 'indigo' */
   color?: PittoricaColor;
   disabled?: boolean;
+  name?: string;
   /** Number of columns. @default '1' */
   columns?: string;
 }
@@ -50,6 +53,7 @@ const RadioCardRoot = ({
   onValueChange,
   color = 'indigo',
   disabled,
+  name,
   columns = '1',
   className,
   style,
@@ -70,8 +74,9 @@ const RadioCardRoot = ({
       onValueChange: handleValueChange,
       color,
       disabled,
+      name,
     }),
-    [currentValue, color, disabled]
+    [currentValue, color, disabled, name]
   );
 
   return (
@@ -93,6 +98,7 @@ const RadioCardRoot = ({
   );
 };
 
+/* --- Item --- */
 export interface RadioCardItemProps extends BoxProps {
   value: string;
   disabled?: boolean;
@@ -112,6 +118,7 @@ const RadioCardItem = ({
     onValueChange,
     color,
     disabled: groupDisabled,
+    name,
   } = useRadioCardContext();
 
   const isChecked = value === itemValue;
@@ -127,6 +134,7 @@ const RadioCardItem = ({
       as="button"
       type="button"
       role="radio"
+      name={name}
       aria-checked={isChecked}
       data-state={isChecked ? 'checked' : 'unchecked'}
       disabled={isDisabled}

@@ -18,6 +18,7 @@ interface RadioGroupContextType {
   onValueChange: (value: string) => void;
   color: PittoricaColor;
   disabled?: boolean;
+  name?: string;
 }
 
 const RadioGroupContext = createContext<RadioGroupContextType | null>(null);
@@ -37,6 +38,7 @@ export interface RadioGroupProps extends BoxProps {
   /** @default 'indigo' */
   color?: PittoricaColor;
   disabled?: boolean;
+  name?: string;
 }
 
 /**
@@ -49,6 +51,7 @@ export const RadioGroup = ({
   onValueChange,
   color = 'indigo',
   disabled,
+  name,
   className,
   ...props
 }: RadioGroupProps) => {
@@ -68,8 +71,9 @@ export const RadioGroup = ({
       onValueChange: handleValueChange,
       color,
       disabled,
+      name,
     }),
-    [currentValue, color, disabled]
+    [currentValue, color, disabled, name]
   );
 
   return (
@@ -106,6 +110,7 @@ export const RadioGroupItem = ({
     onValueChange,
     color,
     disabled: groupDisabled,
+    name,
   } = useRadioGroupContext();
 
   const isChecked = value === itemValue;
@@ -114,6 +119,8 @@ export const RadioGroupItem = ({
   return (
     <Radio
       {...props}
+      name={name}
+      value={itemValue}
       ref={ref}
       color={color}
       checked={isChecked}
