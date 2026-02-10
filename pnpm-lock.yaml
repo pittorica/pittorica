@@ -715,6 +715,9 @@ importers:
         specifier: '>=19'
         version: 19.2.4(react@19.2.4)
     devDependencies:
+      '@pittorica/button-react':
+        specifier: workspace:*
+        version: link:../button
       '@pittorica/text-react':
         specifier: workspace:*
         version: link:../text

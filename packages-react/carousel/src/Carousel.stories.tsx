@@ -1,11 +1,12 @@
 import { Box } from '@pittorica/box-react';
+import { Button } from '@pittorica/button-react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Carousel } from './Carousel.js';
 
 /**
- * MD3 Hero Carousel with portrait-first layout.
- * Features an entrance "slam" animation and dynamic width masking.
+ * MD3 Hero Carousel with Glass-Blur background.
+ * Features "contain" scaling for full image visibility and responsive slots.
  */
 const meta: Meta<typeof Carousel.Root> = {
   title: 'Media/Carousel',
@@ -18,7 +19,6 @@ const meta: Meta<typeof Carousel.Root> = {
 
 export default meta;
 
-// Mock data using portrait-oriented images (800x1200)
 const mockImages = [
   {
     id: 10,
@@ -36,11 +36,11 @@ export const Default: StoryObj<typeof Carousel.Root> = {
     <Box p="4">
       <Carousel.Root {...args}>
         {mockImages.map((img) => (
-          <Carousel.Item key={img.id}>
-            <img
-              src={`https://picsum.photos/id/${img.id}/800/1200`}
-              alt={img.title}
-            />
+          <Carousel.Item
+            key={img.id}
+            src={`https://picsum.photos/id/${img.id}/800/1200`}
+            alt={img.title}
+          >
             <Carousel.Description>
               {img.title}
               <br />
@@ -53,6 +53,11 @@ export const Default: StoryObj<typeof Carousel.Root> = {
               >
                 {img.desc}
               </span>
+              <Box mt="3">
+                <Button href="https://google.com" target="_blank">
+                  View more
+                </Button>
+              </Box>
             </Carousel.Description>
           </Carousel.Item>
         ))}
@@ -62,8 +67,33 @@ export const Default: StoryObj<typeof Carousel.Root> = {
 };
 
 /**
- * Demonstrates the entrance animation where the viewport "slams" from right to left.
- * To re-trigger, refresh the Storybook canvas.
+ * Demonstrates the contained layout where landscape or portrait images
+ * are fully visible without cropping.
+ */
+export const MixedAspectRatios: StoryObj<typeof Carousel.Root> = {
+  render: (args) => (
+    <Box p="4">
+      <Carousel.Root {...args}>
+        <Carousel.Item
+          src="https://picsum.photos/id/10/800/1200"
+          alt="Portrait"
+        />
+        <Carousel.Item
+          src="https://picsum.photos/id/20/1200/800"
+          alt="Landscape"
+        />
+        <Carousel.Item
+          src="https://picsum.photos/id/30/1000/1000"
+          alt="Square"
+        />
+      </Carousel.Root>
+    </Box>
+  ),
+};
+
+/**
+ * Displays the dynamic viewport logic where the active item takes 60% width
+ * while the background fills remaining gaps with blur.
  */
 export const EntranceAnimation: StoryObj<typeof Carousel.Root> = {
   ...Default,
@@ -74,24 +104,4 @@ export const EntranceAnimation: StoryObj<typeof Carousel.Root> = {
       },
     },
   },
-};
-
-/**
- * Shows how items are clipped (masking effect) starting from the third element.
- */
-export const DynamicMasking: StoryObj<typeof Carousel.Root> = {
-  render: (args) => (
-    <Box p="4">
-      <Carousel.Root {...args}>
-        {mockImages.slice(0, 4).map((img) => (
-          <Carousel.Item key={img.id}>
-            <img
-              src={`https://picsum.photos/id/${img.id}/800/1200`}
-              alt={img.title}
-            />
-          </Carousel.Item>
-        ))}
-      </Carousel.Root>
-    </Box>
-  ),
 };

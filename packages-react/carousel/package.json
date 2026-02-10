@@ -26,6 +26,7 @@
     "motion": "^12.30.0"
   },
   "devDependencies": {
+    "@pittorica/button-react": "workspace:*",
     "@pittorica/text-react": "workspace:*",
     "@pittorica/theme-react": "workspace:*",
     "@testing-library/jest-dom": "^6.9.1",
