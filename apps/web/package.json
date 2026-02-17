@@ -1,5 +1,6 @@
 {
   "name": "web",
+  "version": "0.24.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -30,6 +31,5 @@
     "typescript": "^5.9.2",
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4"
-  },
-  "version": "0.24.0"
+  }
 }

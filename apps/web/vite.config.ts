@@ -1,27 +1,48 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { reactRouter } from '@react-router/dev/vite';
 
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths()],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
 
-  resolve: {
-    dedupe: ['react', 'react-dom', 'react-router'],
-  },
+  return {
+    plugins: [reactRouter(), tsconfigPaths()],
 
-  esbuild: {
-    jsx: 'automatic',
-    jsxDev: false,
-  },
+    assetsInclude: ['**/*.lottie'],
 
-  build: {
-    minify: true,
-    rollupOptions: {
-      external: [],
+    define: {
+      'process.env': env,
     },
-  },
 
-  ssr: {
-    noExternal: [/^@pittorica\/.*/, '@tabler/icons-react', 'pittorica'],
-  },
+    server: {
+      port: 4000,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000/api',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
+
+    resolve: {
+      dedupe: ['react', 'react-dom', 'react-router'],
+    },
+
+    ssr: {
+      noExternal: true,
+    },
+
+    esbuild: {
+      jsx: 'automatic',
+      jsxDev: false,
+    },
+
+    build: {
+      minify: true,
+      rollupOptions: {
+        external: [],
+      },
+    },
+  };
 });
