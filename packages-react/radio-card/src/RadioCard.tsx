@@ -1,8 +1,7 @@
 import {
   createContext,
+  type ElementType,
   type ReactNode,
-  type Ref,
-  RefObject,
   use,
   useMemo,
   useState,
@@ -33,7 +32,11 @@ const useRadioCardContext = () => {
 };
 
 /* --- Root --- */
-export interface RadioCardRootProps extends BoxProps {
+
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type RadioCardRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   children: ReactNode;
   value?: string;
   defaultValue?: string;
@@ -44,9 +47,9 @@ export interface RadioCardRootProps extends BoxProps {
   name?: string;
   /** Number of columns. @default '1' */
   columns?: string;
-}
+};
 
-const RadioCardRoot = ({
+const RadioCardRoot = <E extends ElementType = 'div'>({
   children,
   value: controlledValue,
   defaultValue,
@@ -57,8 +60,9 @@ const RadioCardRoot = ({
   columns = '1',
   className,
   style,
+  as,
   ...props
-}: RadioCardRootProps) => {
+}: RadioCardRootProps<E>) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : uncontrolledValue;
@@ -79,10 +83,13 @@ const RadioCardRoot = ({
     [currentValue, color, disabled, name]
   );
 
+  const Tag = as || 'div';
+
   return (
     <RadioCardContext value={contextValue}>
       <Box
-        {...props}
+        as={Tag as ElementType}
+        {...(props as BoxProps<E>)}
         role="radiogroup"
         className={clsx('pittorica-radio-card-root', className)}
         style={{
@@ -99,20 +106,25 @@ const RadioCardRoot = ({
 };
 
 /* --- Item --- */
-export interface RadioCardItemProps extends BoxProps {
-  value: string;
-  disabled?: boolean;
-}
 
-const RadioCardItem = ({
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias. Default to 'button' for interaction.
+ */
+export type RadioCardItemProps<E extends ElementType = 'button'> =
+  BoxProps<E> & {
+    value: string;
+    disabled?: boolean;
+  };
+
+const RadioCardItem = <E extends ElementType = 'button'>({
   children,
   value: itemValue,
   disabled: itemDisabled,
   className,
   style,
-  ref,
+  as,
   ...props
-}: RadioCardItemProps & { ref?: Ref<HTMLButtonElement> }) => {
+}: RadioCardItemProps<E>) => {
   const {
     value,
     onValueChange,
@@ -128,11 +140,13 @@ const RadioCardItem = ({
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'button';
+
   return (
     <Box
-      {...props}
-      as="button"
-      type="button"
+      as={Tag as ElementType}
+      /* Logic: Set button type only if effectively rendering a button */
+      type={Tag === 'button' ? 'button' : undefined}
       role="radio"
       name={name}
       aria-checked={isChecked}
@@ -140,13 +154,13 @@ const RadioCardItem = ({
       disabled={isDisabled}
       className={clsx('pittorica-radio-card-item', className)}
       onClick={() => !isDisabled && onValueChange(itemValue)}
-      ref={ref as RefObject<HTMLButtonElement>}
       style={
         {
           '--pittorica-source-color': resolvedColor,
           ...style,
         } as React.CSSProperties
       }
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>

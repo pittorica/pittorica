@@ -1,4 +1,9 @@
-import { type CSSProperties, type Ref, RefObject, useState } from 'react';
+import {
+  type CSSProperties,
+  type ElementType,
+  type MouseEvent,
+  useState,
+} from 'react';
 
 import { clsx } from 'clsx';
 
@@ -7,7 +12,13 @@ import { IconCircle, IconCircleFilled } from '@tabler/icons-react';
 import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 
-export interface SwitchProps extends Omit<BoxProps, 'children' | 'onChange'> {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type SwitchProps<E extends ElementType = 'button'> = Omit<
+  BoxProps<E>,
+  'children' | 'onChange'
+> & {
   checked?: boolean;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
@@ -15,12 +26,13 @@ export interface SwitchProps extends Omit<BoxProps, 'children' | 'onChange'> {
   /** @default 'indigo' */
   color?: PittoricaColor;
   name?: string;
-}
+};
 
 /**
  * Switch component for binary toggling.
+ * Fully polymorphic and agnostic foundation.
  */
-export const Switch = ({
+export const Switch = <E extends ElementType = 'button'>({
   checked: controlledChecked,
   defaultChecked,
   onCheckedChange,
@@ -29,9 +41,9 @@ export const Switch = ({
   name,
   className,
   style,
-  ref,
+  as,
   ...props
-}: SwitchProps & { ref?: Ref<HTMLButtonElement> }) => {
+}: SwitchProps<E>) => {
   const [uncontrolledChecked, setUncontrolledChecked] = useState(
     defaultChecked ?? false
   );
@@ -39,21 +51,27 @@ export const Switch = ({
   const isControlled = controlledChecked !== undefined;
   const isChecked = isControlled ? controlledChecked : uncontrolledChecked;
 
-  const handleToggle = () => {
+  const handleToggle = (e: MouseEvent<HTMLElement>) => {
     if (disabled) return;
     if (!isControlled) setUncontrolledChecked(!isChecked);
     onCheckedChange?.(!isChecked);
+
+    // Maintain standard click propagation for polymorphic containers
+    if (typeof props.onClick === 'function') {
+      (props.onClick as (event: MouseEvent<HTMLElement>) => void)(e);
+    }
   };
 
   const isSemantic =
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'button';
+
   return (
     <Box
-      {...props}
-      as="button"
-      type="button"
+      as={Tag as ElementType}
+      type={Tag === 'button' ? 'button' : undefined}
       role="switch"
       name={name}
       aria-checked={isChecked}
@@ -61,13 +79,13 @@ export const Switch = ({
       disabled={disabled}
       onClick={handleToggle}
       className={clsx('pittorica-switch-root', className)}
-      ref={ref as RefObject<HTMLButtonElement>}
       style={
         {
           '--pittorica-source-color': resolvedColor,
           ...style,
         } as CSSProperties
       }
+      {...(props as BoxProps<E>)}
     >
       <span className="pittorica-switch-thumb">
         {isChecked ? (

@@ -1,5 +1,8 @@
-import React, {
+import {
   createContext,
+  type ElementType,
+  type MouseEvent,
+  type ReactNode,
   use,
   useCallback,
   useEffect,
@@ -11,7 +14,9 @@ import React, {
 
 import { createPortal } from 'react-dom';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
+
+import { Box, type BoxProps } from '@pittorica/box-react';
 
 interface MenuContextValue {
   activeIndex: number;
@@ -21,10 +26,12 @@ interface MenuContextValue {
 
 const MenuContext = createContext<MenuContextValue | null>(null);
 
+/* --- Internal Content --- */
+
 interface MenuContentProps {
   x: number;
   y: number;
-  children: React.ReactNode;
+  children: ReactNode;
   onClose: () => void;
   itemCount: number;
 }
@@ -42,7 +49,8 @@ const MenuContent = ({
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    const frame = requestAnimationFrame(() => setIsClient(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useLayoutEffect(() => {
@@ -51,11 +59,14 @@ const MenuContent = ({
     const { innerWidth: ww, innerHeight: wh } = globalThis;
     const { offsetWidth: mw, offsetHeight: mh } = menuRef.current;
 
-    // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
-    setAdjustedPos({
-      left: x + mw > ww ? x - mw : x,
-      top: y + mh > wh ? y - mh : y,
+    const frame = requestAnimationFrame(() => {
+      setAdjustedPos({
+        left: x + mw > ww ? x - mw : x,
+        top: y + mh > wh ? y - mh : y,
+      });
     });
+
+    return () => cancelAnimationFrame(frame);
   }, [x, y]);
 
   useEffect(() => {
@@ -79,6 +90,7 @@ const MenuContent = ({
         }
       }
     };
+
     globalThis.addEventListener('keydown', handleKeyDown);
     globalThis.addEventListener('click', onClose);
     return () => {
@@ -96,9 +108,7 @@ const MenuContent = ({
     [localIndex, onClose]
   );
 
-  if (!isClient) {
-    return null;
-  }
+  if (!isClient) return null;
 
   return createPortal(
     <MenuContext value={contextValue}>
@@ -107,6 +117,7 @@ const MenuContent = ({
         className="pittorica-context-menu-content"
         style={{ top: adjustedPos.top, left: adjustedPos.left }}
         onClick={(e) => e.stopPropagation()}
+        role="menu"
       >
         {children}
       </div>
@@ -115,30 +126,40 @@ const MenuContent = ({
   );
 };
 
-export interface ContextMenuProps {
-  trigger: React.ReactNode;
-  children: React.ReactNode;
-  itemCount: number;
-}
+/* --- Public Components --- */
 
-export const ContextMenu = ({
+export type ContextMenuProps<E extends ElementType = 'div'> = BoxProps<E> & {
+  trigger: ReactNode;
+  itemCount: number;
+};
+
+export const ContextMenu = <E extends ElementType = 'div'>({
   trigger,
   children,
   itemCount,
-}: ContextMenuProps) => {
+  as,
+  ...props
+}: ContextMenuProps<E>) => {
   const [coords, setCoords] = useState<{ x: number; y: number } | null>(null);
 
   const closeAll = useCallback(() => {
     setCoords(null);
   }, []);
 
-  const handleContextMenu = (e: React.MouseEvent) => {
+  const handleContextMenu = (e: MouseEvent) => {
     e.preventDefault();
     setCoords({ x: e.clientX, y: e.clientY });
   };
 
+  const Tag = as || 'div';
+
   return (
-    <div onContextMenu={handleContextMenu} style={{ display: 'inline-block' }}>
+    <Box
+      as={Tag as ElementType}
+      onContextMenu={handleContextMenu}
+      style={{ display: 'inline-block' }}
+      {...(props as BoxProps<E>)}
+    >
       {trigger}
       {coords && (
         <MenuContent
@@ -150,64 +171,69 @@ export const ContextMenu = ({
           {children}
         </MenuContent>
       )}
-    </div>
+    </Box>
   );
 };
 
-interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  onClick?: () => void;
-  index: number;
-}
+export type ContextMenuItemProps<E extends ElementType = 'div'> =
+  BoxProps<E> & {
+    index: number;
+  };
 
-export const ContextMenuItem = ({
+export const ContextMenuItem = <E extends ElementType = 'div'>({
   children,
   onClick,
   index,
   className,
-  style,
+  as,
   ...props
-}: ItemProps) => {
+}: ContextMenuItemProps<E>) => {
   const context = use(MenuContext);
   if (!context) return null;
 
   const isActive = context.activeIndex === index;
+  const Tag = as || 'div';
+
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+    // We use a type-safe signature to invoke the callback without 'any'
+    if (onClick) {
+      (onClick as (event: MouseEvent<HTMLElement>) => void)(e);
+    }
+    context.closeAll();
+  };
 
   return (
-    <div
-      {...props}
+    <Box
+      as={Tag as ElementType}
       className={clsx('pittorica-context-menu-item', className)}
       data-active={isActive}
-      style={style}
       onMouseEnter={() => context.setActiveIndex(index)}
-      onClick={() => {
-        onClick?.();
-        context.closeAll();
-      }}
+      onClick={handleClick}
+      role="menuitem"
+      {...(props as BoxProps<E>)}
     >
       {children}
-    </div>
+    </Box>
   );
 };
 
-interface SubProps extends React.HTMLAttributes<HTMLDivElement> {
+export type ContextMenuSubProps<E extends ElementType = 'div'> = BoxProps<E> & {
   label: string;
-  children: React.ReactNode;
   index: number;
   itemCount: number;
-}
+};
 
-export const ContextMenuSub = ({
+export const ContextMenuSub = <E extends ElementType = 'div'>({
   label,
   children,
   index,
   itemCount,
   className,
-  style,
+  as,
   ...props
-}: SubProps) => {
+}: ContextMenuSubProps<E>) => {
   const context = use(MenuContext);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const [subMenuPos, setSubMenuPos] = useState<{ x: number; y: number } | null>(
     null
   );
@@ -219,23 +245,34 @@ export const ContextMenuSub = ({
   useLayoutEffect(() => {
     if (isActive && ref.current) {
       const rect = ref.current.getBoundingClientRect();
-      setSubMenuPos({ x: rect.right, y: rect.top });
-    } else {
-      setSubMenuPos(null);
+      const frame = requestAnimationFrame(() => {
+        setSubMenuPos({ x: rect.right, y: rect.top });
+      });
+      return () => cancelAnimationFrame(frame);
     }
+
+    // Fix: Defer nulling the state as well to satisfy the linter
+    const frame = requestAnimationFrame(() => setSubMenuPos(null));
+    return () => cancelAnimationFrame(frame);
   }, [isActive]);
 
+  const Tag = as || 'div';
+
   return (
-    <div
-      {...props}
+    <Box
+      as={Tag as ElementType}
       ref={ref}
       className={clsx('pittorica-context-menu-item', className)}
       data-active={isActive}
-      style={style}
       onMouseEnter={() => context.setActiveIndex(index)}
+      role="menuitem"
+      aria-haspopup="true"
+      {...(props as BoxProps<E>)}
     >
       {label}
-      <span className="pittorica-context-menu-chevron">▶</span>
+      <span className="pittorica-context-menu-chevron" aria-hidden="true">
+        ▶
+      </span>
       {isActive && subMenuPos && (
         <MenuContent
           x={subMenuPos.x}
@@ -246,6 +283,10 @@ export const ContextMenuSub = ({
           {children}
         </MenuContent>
       )}
-    </div>
+    </Box>
   );
 };
+
+ContextMenu.displayName = 'ContextMenu';
+ContextMenuItem.displayName = 'ContextMenu.Item';
+ContextMenuSub.displayName = 'ContextMenu.Sub';

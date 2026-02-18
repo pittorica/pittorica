@@ -17,7 +17,11 @@ describe('Button', () => {
   });
 
   it('renders as an anchor when href is provided', () => {
-    render(<Button href="https://google.com">Link</Button>);
+    render(
+      <Button as="a" href="https://google.com">
+        Link
+      </Button>
+    );
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'https://google.com');
     expect(link.tagName).toBe('A');

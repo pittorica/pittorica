@@ -1,7 +1,6 @@
 import {
   type CSSProperties,
-  type Ref,
-  RefObject,
+  type ElementType,
   useCallback,
   useRef,
   useState,
@@ -12,10 +11,10 @@ import { clsx } from 'clsx';
 import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 
-export interface SliderProps extends Omit<
-  BoxProps,
+export type SliderProps<E extends ElementType = 'div'> = Omit<
+  BoxProps<E>,
   'onChange' | 'value' | 'defaultValue'
-> {
+> & {
   value?: number;
   defaultValue?: number;
   min?: number;
@@ -24,12 +23,13 @@ export interface SliderProps extends Omit<
   disabled?: boolean;
   color?: PittoricaColor;
   onValueChange?: (value: number) => void;
-}
+};
 
 /**
  * Slider component for numeric input via dragging.
+ * Fully polymorphic and agnostic using Box foundation.
  */
-export const Slider = ({
+export const Slider = <E extends ElementType = 'div'>({
   value: controlledValue,
   defaultValue = 0,
   min = 0,
@@ -40,9 +40,9 @@ export const Slider = ({
   onValueChange,
   className,
   style,
-  ref,
+  as,
   ...props
-}: SliderProps & { ref?: Ref<HTMLDivElement> }) => {
+}: SliderProps<E>) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -51,21 +51,15 @@ export const Slider = ({
 
   const percentage = ((currentValue - min) / (max - min)) * 100;
 
-  /**
-   * Updates the slider value based on coordinate and target element.
-   * Target is used as fallback for tests where refs might be tricky.
-   */
   const updateValue = useCallback(
     (clientX: number, target?: HTMLElement) => {
       const element = trackRef.current || target;
       if (!element) return;
 
       const rect = element.getBoundingClientRect();
-
       if (!rect || rect.width <= 0) return;
 
       const xPos = typeof clientX === 'number' ? clientX : 0;
-
       const x = Math.max(0, Math.min(xPos - (rect.left || 0), rect.width));
       const rawValue = (x / rect.width) * (max - min) + min;
 
@@ -82,8 +76,6 @@ export const Slider = ({
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (disabled) return;
-
-    // Use currentTarget to ensure we have the element geometry immediately
     updateValue(event.clientX, event.currentTarget);
 
     const handlePointerMove = (e: PointerEvent) => updateValue(e.clientX);
@@ -100,16 +92,19 @@ export const Slider = ({
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'div';
+
   return (
     <Box
-      {...props}
-      ref={ref as RefObject<HTMLDivElement>}
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
       className={clsx('pittorica-slider-root', className)}
       data-disabled={disabled}
       onPointerDown={handlePointerDown}
       style={
         { '--pittorica-source-color': resolvedColor, ...style } as CSSProperties
       }
+      {...(props as BoxProps<E>)}
     >
       <div className="pittorica-slider-track" ref={trackRef}>
         <div

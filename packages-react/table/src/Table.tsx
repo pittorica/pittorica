@@ -1,94 +1,127 @@
-import type { Ref, RefObject } from 'react';
+import { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
 /* --- Container --- */
-const TableContainer = ({ children, className, ...props }: BoxProps) => (
-  <Box className={clsx('pittorica-table-container', className)} {...props}>
+const TableContainer = <E extends ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => (
+  <Box
+    as={(as || 'div') as ElementType}
+    className={clsx('pittorica-table-container', className)}
+    {...(props as BoxProps<E>)}
+  >
     {children}
   </Box>
 );
 
 /* --- Root --- */
-const TableRoot = ({
+const TableRoot = <E extends ElementType = 'table'>({
   children,
   className,
-  ref,
+  as,
   ...props
-}: BoxProps & { ref?: Ref<HTMLTableElement> }) => (
+}: BoxProps<E>) => (
   <Box
-    as="table"
+    as={(as || 'table') as ElementType}
     className={clsx('pittorica-table-root', className)}
-    ref={ref as RefObject<HTMLDivElement>}
-    {...props}
+    {...(props as BoxProps<E>)}
   >
     {children}
   </Box>
 );
 
 /* --- Header --- */
-const TableHeader = ({ children, className, ...props }: BoxProps) => (
+const TableHeader = <E extends ElementType = 'thead'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => (
   <Box
-    as="thead"
+    as={(as || 'thead') as ElementType}
     className={clsx('pittorica-table-header', className)}
-    {...props}
+    {...(props as BoxProps<E>)}
   >
     {children}
   </Box>
 );
 
 /* --- Body --- */
-const TableBody = ({ children, className, ...props }: BoxProps) => (
+const TableBody = <E extends ElementType = 'tbody'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => (
   <Box
-    as="tbody"
+    as={(as || 'tbody') as ElementType}
     className={clsx('pittorica-table-body', className)}
-    {...props}
+    {...(props as BoxProps<E>)}
   >
     {children}
   </Box>
 );
 
 /* --- Row --- */
-const TableRow = ({ children, className, ...props }: BoxProps) => (
-  <Box as="tr" className={clsx('pittorica-table-row', className)} {...props}>
-    {children}
-  </Box>
-);
-
-/* --- Cell & ColumnHeader --- */
-interface CellProps extends BoxProps {
-  align?: 'left' | 'center' | 'right';
-}
-
-const TableCell = ({
+const TableRow = <E extends ElementType = 'tr'>({
   children,
-  align = 'left',
   className,
+  as,
   ...props
-}: CellProps) => (
+}: BoxProps<E>) => (
   <Box
-    as="td"
-    data-align={align}
-    className={clsx('pittorica-table-cell', className)}
-    {...props}
+    as={(as || 'tr') as ElementType}
+    className={clsx('pittorica-table-row', className)}
+    {...(props as BoxProps<E>)}
   >
     {children}
   </Box>
 );
 
-const TableColumnHeader = ({
+/* --- Cell & ColumnHeader --- */
+
+/**
+ * Fix TS2314: Use 'type' for intersection with polymorphic BoxProps<E>.
+ */
+export type CellProps<E extends ElementType> = BoxProps<E> & {
+  align?: 'left' | 'center' | 'right';
+};
+
+const TableCell = <E extends ElementType = 'td'>({
   children,
   align = 'left',
   className,
+  as,
   ...props
-}: CellProps) => (
+}: CellProps<E>) => (
   <Box
-    as="th"
+    as={(as || 'td') as ElementType}
+    data-align={align}
+    className={clsx('pittorica-table-cell', className)}
+    {...(props as BoxProps<E>)}
+  >
+    {children}
+  </Box>
+);
+
+const TableColumnHeader = <E extends ElementType = 'th'>({
+  children,
+  align = 'left',
+  className,
+  as,
+  ...props
+}: CellProps<E>) => (
+  <Box
+    as={(as || 'th') as ElementType}
     data-align={align}
     className={clsx('pittorica-table-column-header', className)}
-    {...props}
+    {...(props as BoxProps<E>)}
   >
     {children}
   </Box>
@@ -103,3 +136,6 @@ export const Table = {
   Cell: TableCell,
   ColumnHeader: TableColumnHeader,
 };
+
+TableRoot.displayName = 'Table.Root';
+TableCell.displayName = 'Table.Cell';

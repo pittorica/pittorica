@@ -1,40 +1,45 @@
+import { type ElementType } from 'react';
+
 import { clsx } from 'clsx';
 
 import { Text, type TextProps } from '@pittorica/text-react';
 
-export interface LinkProps extends TextProps {
+export type LinkProps<E extends ElementType = 'a'> = TextProps<E> & {
   underline?: 'always' | 'hover' | 'none';
-  href?: string;
-  target?: string;
-}
+};
 
 /**
  * Link component for navigation.
+ * Fully polymorphic and agnostic, defaulting to an anchor tag.
  */
-export const Link = ({
+export const Link = <E extends ElementType = 'a'>({
   underline = 'hover',
   className,
   style,
   color = 'indigo',
-  href,
-  target,
+  as,
   ...props
-}: LinkProps) => (
-  <Text
-    as="a"
-    href={href}
-    target={target}
-    className={clsx(
-      'pittorica-link',
-      `pittorica-link--underline-${underline}`,
-      className
-    )}
-    color={color}
-    style={{
-      textDecoration: underline === 'always' ? 'underline' : 'none',
-      cursor: 'pointer',
-      ...style,
-    }}
-    {...props}
-  />
-);
+}: LinkProps<E>) => {
+  const Tag = as || 'a';
+
+  return (
+    <Text
+      /* Pass the polymorphic tag and cast props for type alignment */
+      as={Tag as ElementType}
+      className={clsx(
+        'pittorica-link',
+        `pittorica-link--underline-${underline}`,
+        className
+      )}
+      color={color}
+      style={{
+        textDecoration: underline === 'always' ? 'underline' : 'none',
+        cursor: 'pointer',
+        ...style,
+      }}
+      {...(props as TextProps<E>)}
+    />
+  );
+};
+
+Link.displayName = 'Link';

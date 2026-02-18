@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { type ElementType, useEffect, useState } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface AvatarProps extends BoxProps {
+export type AvatarProps<E extends ElementType = 'div'> = BoxProps<E> & {
   src?: string;
   alt?: string;
   fallback?: React.ReactNode;
@@ -12,12 +12,13 @@ export interface AvatarProps extends BoxProps {
   size?: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
   /** @default 'full' */
   radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
-}
+};
 
 /**
  * Avatar component with automatic fallback handling.
+ * Fully polymorphic and agnostic.
  */
-export const Avatar = ({
+export const Avatar = <E extends ElementType = 'div'>({
   src,
   alt,
   fallback,
@@ -25,16 +26,15 @@ export const Avatar = ({
   radius = 'full',
   className,
   style,
+  as,
   ...props
-}: AvatarProps) => {
+}: AvatarProps<E>) => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'loaded' | 'error'>(
     src ? 'loading' : 'idle'
   );
 
   useEffect(() => {
-    if (!src) {
-      return;
-    }
+    if (!src) return;
 
     const img = new Image();
     const handleLoad = () => setStatus('loaded');
@@ -63,9 +63,12 @@ export const Avatar = ({
   };
 
   const finalSize = sizeMap[size];
+  const Tag = as || 'div';
 
   return (
     <Box
+      /* Explicitly pass the polymorphic tag to Box */
+      as={Tag as ElementType}
       className={clsx('pittorica-avatar', className)}
       style={{
         width: finalSize,
@@ -75,7 +78,7 @@ export const Avatar = ({
         fontSize: `calc(${finalSize} / 2.5)`,
         ...style,
       }}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {status === 'loaded' && src ? (
         <img src={src} alt={alt} className="pittorica-avatar-image" />
@@ -87,3 +90,5 @@ export const Avatar = ({
     </Box>
   );
 };
+
+Avatar.displayName = 'Avatar';

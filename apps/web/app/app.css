@@ -46,3 +46,12 @@ html {
   padding: 0 var(--pittorica-space-4);
   margin: 0 auto;
 }
+
+.pittorica-nav-item:hover {
+  /* Step 3: Ideal for subtle interactive backgrounds */
+  background-color: var(--pittorica-slate-3);
+}
+
+.pittorica-nav-item:active {
+  background-color: var(--pittorica-slate-4);
+}

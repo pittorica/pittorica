@@ -1,4 +1,10 @@
-import { createContext, type ReactNode, type Ref, use, useId } from 'react';
+import React, {
+  createContext,
+  type ElementType,
+  type ReactNode,
+  use,
+  useId,
+} from 'react';
 
 import { clsx } from 'clsx';
 
@@ -28,7 +34,11 @@ const useTextFieldContext = () => {
 };
 
 /* --- Root --- */
-export interface TextFieldRootProps extends BoxProps {
+
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type TextFieldRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   label?: ReactNode;
   helperText?: ReactNode;
   error?: boolean;
@@ -37,12 +47,12 @@ export interface TextFieldRootProps extends BoxProps {
   name?: string;
   /** @default 'sm' */
   size?: TextFieldSize;
-}
+};
 
 /**
  * Root container for TextField. Orchestrates layout, context, and sizes.
  */
-export const TextFieldRoot = ({
+export const TextFieldRoot = <E extends ElementType = 'div'>({
   children,
   label,
   helperText,
@@ -53,8 +63,9 @@ export const TextFieldRoot = ({
   size = 'sm',
   className,
   style,
+  as,
   ...props
-}: TextFieldRootProps) => {
+}: TextFieldRootProps<E>) => {
   const inputId = useId();
   const helperId = useId();
 
@@ -62,16 +73,19 @@ export const TextFieldRoot = ({
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'div';
+
   return (
     <TextFieldContext value={{ inputId, helperId, disabled, size, name }}>
       <Box
-        {...props}
+        as={Tag as ElementType}
         className={clsx(
           'pittorica-text-field-root',
           `pittorica-text-field--${size}`,
           className
         )}
         data-error={error}
+        {...(props as BoxProps<E>)}
       >
         {label && (
           <Text
@@ -113,6 +127,11 @@ export const TextFieldRoot = ({
 };
 
 /* --- Input --- */
+
+/**
+ * Fix ESLint: @typescript-eslint/no-empty-object-type
+ * Changed from interface to type alias.
+ */
 export type TextFieldInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 /**
@@ -120,9 +139,8 @@ export type TextFieldInputProps = React.InputHTMLAttributes<HTMLInputElement>;
  */
 export const TextFieldInput = ({
   className,
-  ref,
   ...props
-}: TextFieldInputProps & { ref?: Ref<HTMLInputElement> }) => {
+}: TextFieldInputProps) => {
   const { inputId, helperId, disabled, name } = useTextFieldContext();
 
   return (
@@ -132,24 +150,41 @@ export const TextFieldInput = ({
       id={inputId}
       aria-describedby={helperId}
       disabled={disabled}
-      ref={ref}
       className={clsx('pittorica-text-field-input', className)}
     />
   );
 };
 
 /* --- Slot --- */
+
 /**
  * Visual slot for icons or interactive elements.
+ * Aligned with the polymorphic Box architecture.
  */
-export const TextFieldSlot = ({ children, className, ...props }: BoxProps) => (
-  <div className={clsx('pittorica-text-field-slot', className)} {...props}>
-    {children}
-  </div>
-);
+export const TextFieldSlot = <E extends ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => {
+  const Tag = as || 'div';
+  return (
+    <Box
+      as={Tag as ElementType}
+      className={clsx('pittorica-text-field-slot', className)}
+      {...(props as BoxProps<E>)}
+    >
+      {children}
+    </Box>
+  );
+};
 
 export const TextField = {
   Root: TextFieldRoot,
   Input: TextFieldInput,
   Slot: TextFieldSlot,
 };
+
+TextFieldRoot.displayName = 'TextField.Root';
+TextFieldInput.displayName = 'TextField.Input';
+TextFieldSlot.displayName = 'TextField.Slot';

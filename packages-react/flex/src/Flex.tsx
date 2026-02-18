@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -21,43 +21,29 @@ interface ResponsiveObject<T> {
 
 type Responsive<T> = T | ResponsiveObject<T>;
 
-export interface FlexProps extends BoxProps {
+export type FlexProps<E extends ElementType = 'div'> = BoxProps<E> & {
   direction?: Responsive<Direction>;
   align?: Responsive<Align>;
   justify?: Responsive<Justify>;
   wrap?: Responsive<Wrap>;
   gap?: Responsive<Spacing>;
-  /** * Custom fluid basis for children.
-   * Format: 'auto-200px' sets a min-width/basis for items.
-   */
   basis?: string;
-}
+};
 
-/**
- * Extended CSS Properties to support custom variables without 'any'
- */
 interface FlexCustomProperties extends React.CSSProperties {
   '--pittorica-flex-basis'?: string;
 }
 
-/**
- * Checks if a value is a fluid instruction.
- */
 const isFluid = (val: unknown): val is string =>
   typeof val === 'string' && val.startsWith('auto-');
 
-/**
- * Utility to transform responsive props into CSS classes.
- */
 function getFlexResponsiveClasses<T extends string>(
   propName: string,
   value: Responsive<T> | undefined
 ): string[] {
   if (!value || isFluid(value)) return [];
-
-  if (typeof value === 'string') {
+  if (typeof value === 'string')
     return [`pittorica-flex--${propName}-${value}`];
-  }
 
   return Object.entries(value)
     .filter(([, val]) => val !== undefined && !isFluid(val))
@@ -68,10 +54,7 @@ function getFlexResponsiveClasses<T extends string>(
     );
 }
 
-/**
- * Flex component for responsive and fluid layouts.
- */
-export const Flex = ({
+export const Flex = <E extends ElementType = 'div'>({
   children,
   direction,
   align,
@@ -81,8 +64,11 @@ export const Flex = ({
   basis,
   className,
   style,
+  as,
   ...props
-}: FlexProps) => {
+}: FlexProps<E>) => {
+  const Tag = as || 'div';
+
   const responsiveClasses = [
     ...getFlexResponsiveClasses('direction', direction),
     ...getFlexResponsiveClasses('align', align),
@@ -93,18 +79,20 @@ export const Flex = ({
 
   const fluidStyles: FlexCustomProperties = { ...style };
 
-  // If basis is fluid (auto-200px), we apply it to children via CSS variable
   if (isFluid(basis)) {
     fluidStyles['--pittorica-flex-basis'] = basis.split('-')[1];
   }
 
   return (
     <Box
+      as={Tag as ElementType}
       className={clsx('pittorica-flex', responsiveClasses, className)}
-      style={{ ...style, ...fluidStyles }}
-      {...props}
+      style={fluidStyles}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
   );
 };
+
+Flex.displayName = 'Flex';

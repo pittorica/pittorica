@@ -1,8 +1,7 @@
 import {
   createContext,
+  type ElementType,
   type ReactNode,
-  type Ref,
-  RefObject,
   use,
   useMemo,
   useState,
@@ -32,17 +31,23 @@ const useSegmentedControlContext = () => {
   return context;
 };
 
-export interface SegmentedControlRootProps extends BoxProps {
-  children: ReactNode;
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string) => void;
-  /** @default 'indigo' */
-  color?: PittoricaColor;
-  disabled?: boolean;
-}
+/* --- Root --- */
 
-const SegmentedControlRoot = ({
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type SegmentedControlRootProps<E extends ElementType = 'div'> =
+  BoxProps<E> & {
+    children: ReactNode;
+    value?: string;
+    defaultValue?: string;
+    onValueChange?: (value: string) => void;
+    /** @default 'indigo' */
+    color?: PittoricaColor;
+    disabled?: boolean;
+  };
+
+const SegmentedControlRoot = <E extends ElementType = 'div'>({
   children,
   value: controlledValue,
   defaultValue,
@@ -50,8 +55,9 @@ const SegmentedControlRoot = ({
   color = 'indigo',
   disabled,
   className,
+  as,
   ...props
-}: SegmentedControlRootProps) => {
+}: SegmentedControlRootProps<E>) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : uncontrolledValue;
@@ -71,10 +77,13 @@ const SegmentedControlRoot = ({
     [currentValue, color, disabled]
   );
 
+  const Tag = as || 'div';
+
   return (
     <SegmentedControlContext value={contextValue}>
       <Box
-        {...props}
+        as={Tag as ElementType}
+        {...(props as BoxProps<E>)}
         role="radiogroup"
         className={clsx('pittorica-segmented-control-root', className)}
       >
@@ -84,20 +93,26 @@ const SegmentedControlRoot = ({
   );
 };
 
-export interface SegmentedControlItemProps extends BoxProps {
-  value: string;
-  disabled?: boolean;
-}
+/* --- Item --- */
 
-const SegmentedControlItem = ({
+/**
+ * Item is forced to ElementType 'button' as its primary behavior is a radio toggle.
+ */
+export type SegmentedControlItemProps<E extends ElementType = 'button'> =
+  BoxProps<E> & {
+    value: string;
+    disabled?: boolean;
+  };
+
+const SegmentedControlItem = <E extends ElementType = 'button'>({
   children,
   value: itemValue,
   disabled: itemDisabled,
   className,
   style,
-  ref,
+  as,
   ...props
-}: SegmentedControlItemProps & { ref?: Ref<HTMLButtonElement> }) => {
+}: SegmentedControlItemProps<E>) => {
   const {
     value,
     onValueChange,
@@ -112,24 +127,25 @@ const SegmentedControlItem = ({
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'button';
+
   return (
     <Box
-      {...props}
-      as="button"
-      type="button"
+      as={Tag as ElementType}
+      type={Tag === 'button' ? 'button' : undefined}
       role="radio"
       aria-checked={isChecked}
       data-state={isChecked ? 'checked' : 'unchecked'}
       disabled={isDisabled}
       className={clsx('pittorica-segmented-control-item', className)}
       onClick={() => !isDisabled && onValueChange(itemValue)}
-      ref={ref as RefObject<HTMLButtonElement>}
       style={
         {
           '--pittorica-source-color': resolvedColor,
           ...style,
         } as React.CSSProperties
       }
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>

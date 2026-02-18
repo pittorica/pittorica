@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface ContainerProps extends BoxProps {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type ContainerProps<E extends ElementType = 'div'> = BoxProps<E> & {
   /**
    * Determine the maximum width of the container.
    * Corresponds to the design system breakpoints.
@@ -19,20 +22,27 @@ export interface ContainerProps extends BoxProps {
    * Removes the default left and right padding.
    */
   disableGutters?: boolean;
-}
+};
 
-export const Container = ({
+/**
+ * Container component to center and constrain content horizontally.
+ * Fully polymorphic and agnostic foundation.
+ */
+export const Container = <E extends ElementType = 'div'>({
   children,
   maxWidth = 'lg',
   fixed = false,
   disableGutters = false,
   className,
   style,
+  as,
   ...props
-}: ContainerProps) => {
+}: ContainerProps<E>) => {
+  const Tag = as || 'div';
+
   const containerStyles: React.CSSProperties = {
     ...style,
-    // If maxWidth is a string, we map it to the token. If false, it's 100%.
+    // Logic: Map maxWidth to breakpoint token or set to 100% if false
     maxWidth:
       maxWidth && !fixed ? `var(--pittorica-bp-${maxWidth})` : undefined,
     paddingLeft: disableGutters ? '0px' : undefined,
@@ -41,12 +51,16 @@ export const Container = ({
 
   return (
     <Box
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
       className={clsx('pittorica-container', className)}
       data-fixed={fixed}
       style={containerStyles}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
   );
 };
+
+Container.displayName = 'Container';

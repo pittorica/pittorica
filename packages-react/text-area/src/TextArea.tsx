@@ -1,5 +1,6 @@
-import {
+import React, {
   createContext,
+  type ElementType,
   type ReactNode,
   use,
   useEffect,
@@ -33,7 +34,11 @@ const useTextAreaContext = () => {
 };
 
 /* --- Root --- */
-export interface TextAreaRootProps extends BoxProps {
+
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type TextAreaRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   label?: ReactNode;
   helperText?: ReactNode;
   error?: boolean;
@@ -42,12 +47,13 @@ export interface TextAreaRootProps extends BoxProps {
   name?: string;
   /** @default 'sm' */
   size?: TextAreaSize;
-}
+};
 
 /**
  * Radix-like Outlined TextArea Root with support for multiple sizes.
+ * Polymorphic and agnostic implementation.
  */
-export const TextAreaRoot = ({
+export const TextAreaRoot = <E extends ElementType = 'div'>({
   children,
   label,
   helperText,
@@ -58,8 +64,9 @@ export const TextAreaRoot = ({
   size = 'sm',
   className,
   style,
+  as,
   ...props
-}: TextAreaRootProps) => {
+}: TextAreaRootProps<E>) => {
   const inputId = useId();
   const helperId = useId();
 
@@ -67,16 +74,19 @@ export const TextAreaRoot = ({
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'div';
+
   return (
     <TextAreaContext value={{ inputId, helperId, disabled, size, name }}>
       <Box
-        {...props}
+        as={Tag as ElementType}
         className={clsx(
           'pittorica-textarea-root',
           `pittorica-textarea--${size}`,
           className
         )}
         data-error={error}
+        {...(props as BoxProps<E>)}
       >
         {label && (
           <Text
@@ -118,6 +128,7 @@ export const TextAreaRoot = ({
 };
 
 /* --- Content --- */
+
 export interface TextAreaContentProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** Enables automatic vertical resizing based on content */
   autoResize?: boolean;

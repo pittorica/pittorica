@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -42,7 +42,10 @@ interface ResponsiveObject<T> {
 
 type Responsive<T> = T | ResponsiveObject<T>;
 
-export interface GridProps extends Omit<BoxProps, 'display'> {
+export type GridProps<E extends ElementType = 'div'> = Omit<
+  BoxProps<E>,
+  'display'
+> & {
   columns?: Responsive<GridRepeat>;
   rows?: Responsive<GridRepeat>;
   gap?: Responsive<Spacing>;
@@ -51,18 +54,11 @@ export interface GridProps extends Omit<BoxProps, 'display'> {
   flow?: Responsive<GridFlow>;
   align?: Responsive<GridAlign>;
   justify?: Responsive<GridJustify>;
-}
+};
 
-/**
- * Checks if a value is a fluid grid instruction (e.g., 'auto-200px').
- * Moved to outer scope to satisfy unicorn/consistent-function-scoping.
- */
 const isFluid = (val: unknown): val is string =>
   typeof val === 'string' && val.startsWith('auto-');
 
-/**
- * Utility to transform responsive props into CSS classes.
- */
 function getGridResponsiveClasses<T extends string>(
   propName: string,
   value: Responsive<T> | undefined
@@ -84,8 +80,9 @@ function getGridResponsiveClasses<T extends string>(
 
 /**
  * Grid component supporting both fixed responsive columns and fluid auto-wrapping.
+ * Polymorphic and agnostic implementation.
  */
-export const Grid = ({
+export const Grid = <E extends ElementType = 'div'>({
   children,
   columns,
   rows,
@@ -97,8 +94,11 @@ export const Grid = ({
   justify,
   className,
   style,
+  as,
   ...props
-}: GridProps) => {
+}: GridProps<E>) => {
+  const Tag = as || 'div';
+
   const responsiveClasses = [
     ...getGridResponsiveClasses('columns', columns),
     ...getGridResponsiveClasses('rows', rows),
@@ -122,11 +122,15 @@ export const Grid = ({
 
   return (
     <Box
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
       className={clsx('pittorica-grid', responsiveClasses, className)}
       style={{ ...style, ...fluidStyles }}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
   );
 };
+
+Grid.displayName = 'Grid';

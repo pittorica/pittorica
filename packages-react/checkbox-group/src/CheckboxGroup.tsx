@@ -1,4 +1,4 @@
-import { createContext, use, useState } from 'react';
+import { createContext, type ElementType, use, useMemo, useState } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -18,7 +18,15 @@ const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(
   null
 );
 
-export interface CheckboxGroupRootProps extends Omit<BoxProps, 'onChange'> {
+/* --- Root --- */
+
+/**
+ * Fix TS2314: Use 'type' for intersection with polymorphic BoxProps<E>.
+ */
+export type CheckboxGroupRootProps<E extends ElementType = 'div'> = Omit<
+  BoxProps<E>,
+  'onChange' | 'value' | 'defaultValue'
+> & {
   value?: string[];
   defaultValue?: string[];
   onValueChange?: (value: string[]) => void;
@@ -26,9 +34,9 @@ export interface CheckboxGroupRootProps extends Omit<BoxProps, 'onChange'> {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
-}
+};
 
-const CheckboxGroupRoot = ({
+const CheckboxGroupRoot = <E extends ElementType = 'div'>({
   value: controlledValue,
   defaultValue = [],
   onValueChange,
@@ -38,8 +46,9 @@ const CheckboxGroupRoot = ({
   name,
   children,
   className,
+  as,
   ...props
-}: CheckboxGroupRootProps) => {
+}: CheckboxGroupRootProps<E>) => {
   const [internalValue, setInternalValue] = useState(defaultValue);
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : internalValue;
@@ -55,21 +64,27 @@ const CheckboxGroupRoot = ({
     onValueChange?.(nextValue);
   };
 
+  const contextValue = useMemo(
+    () => ({
+      value: currentValue,
+      onItemChange: handleItemChange,
+      color,
+      disabled,
+      name,
+    }),
+    [currentValue, color, disabled, name]
+  );
+
+  const Tag = as || 'div';
+
   return (
-    <CheckboxGroupContext
-      value={{
-        value: currentValue,
-        onItemChange: handleItemChange,
-        color,
-        disabled,
-        name,
-      }}
-    >
+    <CheckboxGroupContext value={contextValue}>
       <Box
+        as={Tag as ElementType}
         className={clsx('pittorica-checkbox-group-root', className)}
         data-orientation={orientation}
         role="group"
-        {...props}
+        {...(props as BoxProps<E>)}
       >
         {children}
       </Box>
@@ -77,11 +92,23 @@ const CheckboxGroupRoot = ({
   );
 };
 
-export interface CheckboxGroupItemProps extends Omit<CheckboxProps, 'value'> {
-  value: string;
-}
+/* --- Item --- */
 
-const CheckboxGroupItem = ({ value, ...props }: CheckboxGroupItemProps) => {
+/**
+ * Fix TS2314: Extend CheckboxProps with generic E.
+ */
+export type CheckboxGroupItemProps<E extends ElementType = 'label'> = Omit<
+  CheckboxProps<E>,
+  'value'
+> & {
+  value: string;
+};
+
+const CheckboxGroupItem = <E extends ElementType = 'label'>({
+  value,
+  as,
+  ...props
+}: CheckboxGroupItemProps<E>) => {
   const context = use(CheckboxGroupContext);
 
   if (!context) {
@@ -90,9 +117,12 @@ const CheckboxGroupItem = ({ value, ...props }: CheckboxGroupItemProps) => {
     );
   }
 
+  const Tag = as || 'label';
+
   return (
     <Checkbox
-      {...props}
+      as={Tag as ElementType}
+      {...(props as CheckboxProps<E>)}
       name={context.name}
       value={value}
       checked={context.value.includes(value)}
@@ -106,3 +136,6 @@ const CheckboxGroupItem = ({ value, ...props }: CheckboxGroupItemProps) => {
 export const CheckboxGroup = Object.assign(CheckboxGroupRoot, {
   Item: CheckboxGroupItem,
 });
+
+CheckboxGroupRoot.displayName = 'CheckboxGroup.Root';
+CheckboxGroupItem.displayName = 'CheckboxGroup.Item';

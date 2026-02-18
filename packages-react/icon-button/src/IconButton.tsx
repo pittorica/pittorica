@@ -1,11 +1,14 @@
-import { type CSSProperties, RefObject } from 'react';
+import { type CSSProperties, type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 
-export interface IconButtonProps extends BoxProps {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type IconButtonProps<E extends ElementType = 'button'> = BoxProps<E> & {
   /** @default 'filled' */
   variant?: 'filled' | 'tonal' | 'outlined' | 'text';
   /** @default 'indigo' */
@@ -13,22 +16,22 @@ export interface IconButtonProps extends BoxProps {
   /** @default '3' */
   size?: '1' | '2' | '3' | '4';
   disabled?: boolean;
-}
+};
 
 /**
  * A button component optimized for displaying a single icon.
- * In React 19, ref is passed as a regular prop.
+ * Fully polymorphic and agnostic foundation.
  */
-export const IconButton = ({
+export const IconButton = <E extends ElementType = 'button'>({
   children,
   variant = 'filled',
   color = 'indigo',
   size = '3',
   className,
   style,
-  ref,
+  as,
   ...props
-}: IconButtonProps & { ref?: React.Ref<HTMLButtonElement> }) => {
+}: IconButtonProps<E>) => {
   const isSemantic =
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
 
@@ -40,11 +43,13 @@ export const IconButton = ({
     '--pittorica-on-source-color': '#ffffff',
   } as CSSProperties;
 
+  // Logic: automatic tag switching if not explicitly provided via 'as'
+  const Tag = as || (props.href ? 'a' : 'button');
+
   return (
     <Box
-      {...props}
-      as={props.href ? 'a' : 'button'}
-      ref={ref as RefObject<HTMLButtonElement>}
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
       className={clsx(
         'pittorica-icon-button',
         `pittorica-icon-button--${variant}`,
@@ -52,6 +57,7 @@ export const IconButton = ({
         className
       )}
       style={buttonStyles}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>

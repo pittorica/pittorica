@@ -1,4 +1,10 @@
-import { type ReactNode, useEffect } from 'react';
+import {
+  type ElementType,
+  type MouseEvent,
+  type ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -9,7 +15,14 @@ import { IconX } from '@tabler/icons-react';
 import { Box, type BoxProps } from '@pittorica/box-react';
 import { IconButton } from '@pittorica/icon-button-react';
 
-export interface SheetProps extends BoxProps {
+/* --- Props Types --- */
+
+export type SheetSide = 'top' | 'right' | 'bottom' | 'left';
+
+/**
+ * Fix TS2314: Use 'type' and generic E for polymorphic BoxProps.
+ */
+export type SheetProps<E extends ElementType = 'div'> = BoxProps<E> & {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
@@ -17,37 +30,54 @@ export interface SheetProps extends BoxProps {
    * Direction from which the sheet appears.
    * @default 'right'
    */
-  side?: 'top' | 'right' | 'bottom' | 'left';
+  side?: SheetSide;
   title?: string;
-}
+};
 
 /**
  * Sheet component following MD3 guidelines for modal panels.
- * Supports positioning from all four viewport edges.
+ * Fully polymorphic and agnostic foundation.
  */
-export const Sheet = ({
+export const Sheet = <E extends ElementType = 'div'>({
   isOpen,
   onClose,
   children,
   side = 'right',
   title,
   className,
+  as,
   ...props
-}: SheetProps) => {
+}: SheetProps<E>) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Fix: @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
   useEffect(() => {
+    const frame = requestAnimationFrame(() => setIsMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
 
-  if (!isOpen || typeof document === 'undefined') return null;
+  if (!isOpen || !isMounted || typeof document === 'undefined') return null;
+
+  const Tag = as || 'div';
 
   return createPortal(
     <>
-      <div className="pittorica-sheet-overlay" onClick={onClose} />
+      <div
+        className="pittorica-sheet-overlay"
+        onClick={onClose}
+        aria-hidden="true"
+      />
       <Box
-        {...props}
+        as={Tag as ElementType}
         className={clsx(
           'pittorica-sheet-content',
           `pittorica-sheet--${side}`,
@@ -55,6 +85,7 @@ export const Sheet = ({
         )}
         role="dialog"
         aria-modal="true"
+        {...(props as BoxProps<E>)}
       >
         {(side === 'bottom' || side === 'top') && (
           <div className="pittorica-sheet-handle" />
@@ -76,8 +107,12 @@ export const Sheet = ({
           <IconButton
             variant="text"
             color="slate"
-            onClick={onClose}
+            onClick={(e: MouseEvent<HTMLButtonElement>) => {
+              e.stopPropagation();
+              onClose();
+            }}
             aria-label="Close"
+            as="button"
           >
             <IconX size={20} />
           </IconButton>
@@ -91,3 +126,5 @@ export const Sheet = ({
     document.body
   );
 };
+
+Sheet.displayName = 'Sheet';

@@ -1,11 +1,14 @@
-import { type CSSProperties, useId } from 'react';
+import { type CSSProperties, type ElementType, useId } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 
-export interface ProgressProps extends BoxProps {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type ProgressProps<E extends ElementType = 'div'> = BoxProps<E> & {
   /** @default 0 */
   value?: number;
   /** @default 100 */
@@ -14,20 +17,22 @@ export interface ProgressProps extends BoxProps {
   color?: PittoricaColor;
   /** @default 'default' */
   variant?: 'default' | 'wave';
-}
+};
 
 /**
  * Funky Progress component using SVG Patterns for decorative effects.
+ * Fully polymorphic and agnostic foundation.
  */
-export const Progress = ({
+export const Progress = <E extends ElementType = 'div'>({
   value = 0,
   max = 100,
   color = 'indigo',
   variant = 'default',
   className,
   style,
+  as,
   ...props
-}: ProgressProps) => {
+}: ProgressProps<E>) => {
   const uniqueId = useId();
   const percentage = Math.min(Math.max(0, (value / max) * 100), 100);
 
@@ -36,10 +41,11 @@ export const Progress = ({
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
   const patternId = `pittorica-progress-pattern-${uniqueId}`;
+  const Tag = as || 'div';
 
   return (
     <Box
-      {...props}
+      as={Tag as ElementType}
       role="progressbar"
       aria-valuenow={value}
       aria-valuemin={0}
@@ -51,6 +57,7 @@ export const Progress = ({
           ...style,
         } as CSSProperties
       }
+      {...(props as BoxProps<E>)}
     >
       {/* Background/Base bar */}
       <div

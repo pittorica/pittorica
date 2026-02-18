@@ -36,6 +36,7 @@ import {
 import './app.css';
 
 import type { Route } from './+types/root';
+import { Sidebar } from './components/Sidebar';
 
 export const links: Route.LinksFunction = () => [
   {
@@ -59,11 +60,10 @@ export const meta: Route.MetaFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  // Logic: Initial state based on data-appearance or default 'dark'
   const [appearance, setAppearance] = useState<'light' | 'dark'>('light');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sourceColor = '#29294b';
 
-  // Logic: Toggle function
   const toggleAppearance = () => {
     setAppearance((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
@@ -83,9 +83,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         data-source-color={sourceColor}
       >
         <PittoricaTheme appearance={appearance} sourceColor={sourceColor}>
+          <Sidebar
+            isOpen={isSidebarOpen}
+            onClose={() => setIsSidebarOpen(false)}
+          />
+
           <Card as="header" translucent className="pittorica-app-bar">
             <Box className="pittorica-app-bar-content">
-              <IconButton variant="text" color="inherit">
+              <IconButton
+                variant="text"
+                color="inherit"
+                onClick={() => setIsSidebarOpen(true)}
+              >
                 <IconLayoutSidebarLeftExpand />
               </IconButton>
 

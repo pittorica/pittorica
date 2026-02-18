@@ -23,7 +23,7 @@ export const SideExample: StoryObj = {
           isOpen={open}
           onClose={() => setOpen(false)}
           title="Filters"
-          side="side"
+          side="right"
         >
           <Text color="slate">
             Side sheets show secondary content on desktop.

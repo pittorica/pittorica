@@ -1,33 +1,42 @@
+import React, { type ElementType } from 'react';
+
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface AspectRatioProps extends BoxProps {
-  /**
-   * The aspect ratio of the container.
-   * @default 1 / 1
-   */
+/**
+ * AspectRatioProps uses a type alias to support intersection with polymorphic BoxProps.
+ */
+export type AspectRatioProps<E extends ElementType = 'div'> = BoxProps<E> & {
+  /** @default 1 / 1 */
   ratio?: number;
   children?: React.ReactNode;
-}
+};
 
-export const AspectRatio = ({
+/**
+ * Component to maintain a consistent width-to-height ratio.
+ */
+export const AspectRatio = <E extends ElementType = 'div'>({
   ratio = 1 / 1,
   children,
   className,
   style,
+  as,
   ...props
-}: AspectRatioProps) => {
+}: AspectRatioProps<E>) => {
   return (
     <Box
+      as={as || 'div'}
       className={clsx('pittorica-aspect-ratio', className)}
       style={{
         aspectRatio: `${ratio}`,
         ...style,
       }}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
   );
 };
+
+AspectRatio.displayName = 'AspectRatio';

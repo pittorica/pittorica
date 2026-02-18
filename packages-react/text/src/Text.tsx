@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { type CSSProperties, type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -19,39 +19,30 @@ export type PittoricaColor =
   | 'inherit'
   | (string & {});
 
-export interface TextProps extends BoxProps {
+export type TextProps<E extends ElementType = 'span'> = BoxProps<E> & {
   weight?: 'light' | 'regular' | 'medium' | 'bold';
   align?: 'left' | 'center' | 'right';
   truncate?: boolean;
   color?: PittoricaColor;
-  href?: string;
-  target?: string;
-  rel?: string;
-  htmlFor?: string;
-  name?: string;
-}
+};
 
 /**
  * Text component for general typography.
- * Fixed color resolution for semantic tokens and custom values.
+ * Supports polymorphic tags and agnostic routing via Box.
  */
-export const Text = ({
+export const Text = <E extends ElementType = 'span'>({
   children,
-  as: Tag = 'span',
+  as,
   weight = 'regular',
   align,
   truncate = false,
   color,
   className,
   style,
-  href,
-  target,
-  rel,
-  htmlFor,
-  name,
   ...rest
-}: TextProps) => {
-  // Logic: Check if it's a direct color value
+}: TextProps<E>) => {
+  const Tag = as || 'span';
+
   const isDirectColor =
     color?.startsWith('#') ||
     color?.startsWith('rgb') ||
@@ -76,12 +67,11 @@ export const Text = ({
     if (color === 'inherit') return 'inherit';
     if (isDirectColor) return color;
 
-    // Check if the color exists in our semantic list
     if (semanticColors.has(color as string)) {
+      /* Use the standard step 9 for semantic text */
       return `var(--pittorica-${color}-9)`;
     }
 
-    // Fallback for custom string colors that don't start with #/rgb/hsl
     return color;
   })();
 
@@ -93,7 +83,8 @@ export const Text = ({
 
   return (
     <Box
-      as={Tag}
+      /* Explicitly pass Tag and cast rest props to align polymorphic types */
+      as={Tag as ElementType}
       className={clsx(
         'pittorica-text',
         { 'pittorica-text--truncate': truncate },
@@ -101,14 +92,11 @@ export const Text = ({
       )}
       data-weight={weight}
       style={textStyles}
-      href={href}
-      target={target}
-      rel={rel}
-      htmlFor={htmlFor}
-      name={name}
-      {...rest}
+      {...(rest as BoxProps<E>)}
     >
       {children}
     </Box>
   );
 };
+
+Text.displayName = 'Text';

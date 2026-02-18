@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { type ElementType, useId } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -19,7 +19,13 @@ const PATTERNS = {
   dots: { d: `M0 ${CENTER_Y} H0.1`, w: 16 },
 };
 
-export interface DividerProps extends Omit<BoxProps, 'children'> {
+/**
+ * Fix TS2314 & TS2312: Use 'type' for intersection with polymorphic BoxProps<E>.
+ */
+export type DividerProps<E extends ElementType = 'hr'> = Omit<
+  BoxProps<E>,
+  'children'
+> & {
   /** @default 'solid' */
   variant?: 'solid' | keyof typeof PATTERNS;
   /** @default 'slate' */
@@ -28,20 +34,21 @@ export interface DividerProps extends Omit<BoxProps, 'children'> {
   thickness?: string | number;
   /** Optional text or icon. Only works with 'solid' variant. */
   children?: React.ReactNode;
-}
+};
 
 /**
- * Divider.tsx
+ * Divider component with SVG pattern support and semantic tokens.
  */
-export const Divider = ({
+export const Divider = <E extends ElementType = 'hr'>({
   variant = 'solid',
   color = 'slate',
   thickness = '1px',
   children,
   className,
   style,
+  as,
   ...props
-}: DividerProps) => {
+}: DividerProps<E>) => {
   const uniqueId = useId();
   const isSvgVariant = variant !== 'solid' && variant in PATTERNS;
 
@@ -59,7 +66,8 @@ export const Divider = ({
 
     return (
       <Box
-        as="div"
+        /* Logic: SVG variants always render as div for layout safety */
+        as={(as || 'div') as ElementType}
         role="separator"
         aria-orientation="horizontal"
         className={clsx(
@@ -68,7 +76,7 @@ export const Divider = ({
           className
         )}
         style={{ color: resolvedColor, ...style }}
-        {...props}
+        {...(props as BoxProps<E>)}
       >
         <svg
           width="100%"
@@ -98,11 +106,12 @@ export const Divider = ({
     );
   }
 
-  const Tag = children ? 'div' : 'hr';
+  // Logic: Use 'div' if children are present to be valid HTML, else 'hr'
+  const Tag = as || (children ? 'div' : 'hr');
 
   return (
     <Box
-      as={Tag}
+      as={Tag as ElementType}
       {...(children ? { role: 'separator' } : {})}
       className={clsx(
         'pittorica-divider',
@@ -118,7 +127,7 @@ export const Divider = ({
           ...style,
         } as React.CSSProperties
       }
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children && (
         <span className="pittorica-divider__content">{children}</span>
@@ -126,3 +135,5 @@ export const Divider = ({
     </Box>
   );
 };
+
+Divider.displayName = 'Divider';

@@ -1,9 +1,8 @@
 import {
   createContext,
   type CSSProperties,
+  type ElementType,
   type ReactNode,
-  type Ref,
-  RefObject,
   use,
   useMemo,
   useState,
@@ -27,6 +26,8 @@ import {
 } from '@floating-ui/react';
 import { Box, type BoxProps } from '@pittorica/box-react';
 
+/* --- Context --- */
+
 interface PopoverContextType {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
@@ -49,11 +50,13 @@ const usePopoverContext = () => {
   return context;
 };
 
-export interface PopoverProps {
+/* --- Root --- */
+
+export type PopoverProps = {
   children: ReactNode;
   /** @default 'bottom' */
   placement?: Placement;
-}
+};
 
 export const Popover = ({ children, placement = 'bottom' }: PopoverProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -91,15 +94,19 @@ export const Popover = ({ children, placement = 'bottom' }: PopoverProps) => {
   return <PopoverContext value={value}>{children}</PopoverContext>;
 };
 
-export interface PopoverTriggerProps {
-  children: ReactNode;
-  ref?: Ref<HTMLElement>;
-}
+/* --- Trigger --- */
 
-export const PopoverTrigger = ({
+/**
+ * Fix TS2314: Use 'type' and generic E for polymorphic BoxProps.
+ */
+export type PopoverTriggerProps<E extends ElementType = 'span'> = BoxProps<E>;
+
+export const PopoverTrigger = <E extends ElementType = 'span'>({
   children,
+  as,
   ref: externalRef,
-}: PopoverTriggerProps) => {
+  ...props
+}: PopoverTriggerProps<E>) => {
   const { refs, getReferenceProps } = usePopoverContext();
 
   const setRefs = (node: HTMLElement | null) => {
@@ -107,56 +114,66 @@ export const PopoverTrigger = ({
     if (!externalRef) return;
     if (typeof externalRef === 'function') {
       externalRef(node);
-    } else {
+    } else if (typeof externalRef === 'object') {
       (externalRef as React.RefObject<HTMLElement | null>).current = node;
     }
   };
 
+  const Tag = as || 'span';
+
   return (
     <Box
-      as="span"
+      as={Tag as ElementType}
       display="inline-flex"
       {...getReferenceProps()}
-      ref={setRefs as unknown as RefObject<HTMLElement>}
+      ref={setRefs}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
   );
 };
 
-export interface PopoverContentProps extends BoxProps {
-  ref?: Ref<HTMLElement>;
-}
+/* --- Content --- */
 
-export const PopoverContent = ({
+/**
+ * Fix TS2314: Use 'type' and generic E for polymorphic BoxProps.
+ */
+export type PopoverContentProps<E extends ElementType = 'div'> = BoxProps<E>;
+
+export const PopoverContent = <E extends ElementType = 'div'>({
   children,
   className,
+  as,
   ref: externalRef,
   ...props
-}: PopoverContentProps) => {
+}: PopoverContentProps<E>) => {
   const { isOpen, refs, floatingStyles, getFloatingProps } =
     usePopoverContext();
-
-  if (!isOpen) return null;
 
   const setFloatingRefs = (node: HTMLElement | null) => {
     refs.setFloating(node);
     if (!externalRef) return;
     if (typeof externalRef === 'function') {
       externalRef(node);
-    } else {
+    } else if (typeof externalRef === 'object') {
       (externalRef as React.RefObject<HTMLElement | null>).current = node;
     }
   };
 
+  if (!isOpen) return null;
+
+  const Tag = as || 'div';
+
   return (
     <FloatingPortal>
       <Box
-        {...props}
+        as={Tag as ElementType}
         {...getFloatingProps()}
-        ref={setFloatingRefs as unknown as RefObject<HTMLElement>}
+        ref={setFloatingRefs}
         className={clsx('pittorica-popover-content', className)}
         style={{ ...floatingStyles, ...props.style }}
+        {...(props as BoxProps<E>)}
       >
         {children}
       </Box>
@@ -165,5 +182,5 @@ export const PopoverContent = ({
 };
 
 Popover.displayName = 'Popover';
-PopoverTrigger.displayName = 'PopoverTrigger';
-PopoverContent.displayName = 'PopoverContent';
+PopoverTrigger.displayName = 'Popover.Trigger';
+PopoverContent.displayName = 'Popover.Content';

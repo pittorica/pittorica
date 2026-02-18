@@ -54,7 +54,7 @@ export const Default: StoryObj<typeof Carousel.Root> = {
                 {img.desc}
               </span>
               <Box mt="3">
-                <Button href="https://google.com" target="_blank">
+                <Button as="a" href="https://google.com" target="_blank">
                   View more
                 </Button>
               </Box>

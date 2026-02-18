@@ -1,10 +1,13 @@
-import type { Ref, RefObject } from 'react';
+import { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface InsetProps extends BoxProps {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type InsetProps<E extends ElementType = 'div'> = BoxProps<E> & {
   /**
    * Which sides should be inset.
    * @default 'all'
@@ -15,29 +18,33 @@ export interface InsetProps extends BoxProps {
    * @default true
    */
   clip?: boolean;
-}
+};
 
 /**
  * Inset is used to stretch content to the edges of its container.
+ * Fully polymorphic and agnostic foundation.
  */
-export const Inset = ({
+export const Inset = <E extends ElementType = 'div'>({
   children,
   side = 'all',
   clip = true,
   className,
   style,
-  ref,
+  as,
   ...props
-}: InsetProps & { ref?: Ref<HTMLElement> }) => {
+}: InsetProps<E>) => {
+  const Tag = as || 'div';
+
   return (
     <Box
-      {...props}
-      ref={ref as RefObject<HTMLDivElement>}
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
       className={clsx('pittorica-inset', `pittorica-inset--${side}`, className)}
       style={{
         overflow: clip ? 'hidden' : 'visible',
         ...style,
       }}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>

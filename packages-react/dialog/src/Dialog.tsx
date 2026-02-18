@@ -1,7 +1,9 @@
-/* eslint-disable @eslint-react/no-use-context */
-import React, {
+import {
+  type ComponentProps,
   createContext,
-  useContext,
+  type ElementType,
+  type MouseEvent,
+  use,
   useEffect,
   useId,
   useLayoutEffect,
@@ -14,20 +16,28 @@ import { createPortal } from 'react-dom';
 
 import { clsx } from 'clsx';
 
-import { Box } from '@pittorica/box-react';
+import { Box, type BoxProps } from '@pittorica/box-react';
 import { Heading } from '@pittorica/heading-react';
 
-export interface DialogProps {
+/* --- Types --- */
+
+/**
+ * Appearance types for the Dialog.
+ */
+export type DialogAppearance = 'light' | 'dark' | 'inherit';
+
+/**
+ * Polymorphic props for the Dialog component.
+ */
+export type DialogProps<E extends ElementType = 'div'> = BoxProps<E> & {
   open: boolean;
   onClose: () => void;
-  children: React.ReactNode;
-  className?: string;
-  appearance?: 'light' | 'dark' | 'inherit';
+  appearance?: DialogAppearance;
   /** @default true */
   closeOnOverlayClick?: boolean;
   /** @default true */
   closeOnEsc?: boolean;
-}
+};
 
 interface DialogContextValue {
   titleId: string;
@@ -37,22 +47,22 @@ interface DialogContextValue {
 const DialogContext = createContext<DialogContextValue | null>(null);
 
 /**
- * Hook to access Dialog context.
- * Ensures compound components are used within a Dialog provider.
+ * Internal hook to consume DialogContext safely.
  */
-const useDialogContext = () => {
-  const context = useContext(DialogContext);
+const useDialogContext = (): DialogContextValue => {
+  const context = use(DialogContext);
   if (!context) {
     throw new Error('Dialog compound components must be used within a Dialog');
   }
   return context;
 };
 
+/* --- Main Component --- */
+
 /**
- * Dialog component.
- * Provides a modal window with focus trap and scroll lock.
+ * Dialog component providing a modal window with focus trap and scroll lock.
  */
-export const Dialog = ({
+export const Dialog = <E extends ElementType = 'div'>({
   open,
   onClose,
   children,
@@ -60,19 +70,21 @@ export const Dialog = ({
   appearance,
   closeOnOverlayClick = true,
   closeOnEsc = true,
-}: DialogProps): React.ReactNode => {
+  as,
+  ...props
+}: DialogProps<E>) => {
   const titleId = useId();
   const descriptionId = useId();
   const [inheritedAppearance, setInheritedAppearance] =
-    useState<DialogProps['appearance']>();
+    useState<DialogAppearance>();
   const anchorRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    const frame = requestAnimationFrame(() => setIsMounted(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
-  // Handle ESC key
   useEffect(() => {
     if (!open) return;
     const handleEsc = (e: KeyboardEvent) => {
@@ -82,7 +94,6 @@ export const Dialog = ({
     return () => globalThis.removeEventListener('keydown', handleEsc);
   }, [open, onClose, closeOnEsc]);
 
-  // Body Scroll Lock
   useEffect(() => {
     if (!open) return;
     const originalStyle = globalThis.getComputedStyle(document.body).overflow;
@@ -92,23 +103,26 @@ export const Dialog = ({
     };
   }, [open]);
 
-  // Theme inheritance logic
   useLayoutEffect(() => {
     if (open && anchorRef.current) {
-      const themeElement = anchorRef.current.closest('.pittorica-theme');
+      const themeElement = anchorRef.current.closest(
+        '.pittorica-theme'
+      ) as HTMLElement | null;
       if (themeElement) {
-        // eslint-disable-next-line unicorn/prefer-dom-node-dataset
-        const app = themeElement.getAttribute(
-          'data-appearance'
-        ) as DialogProps['appearance'];
-        setInheritedAppearance(app || undefined);
+        const app = themeElement.dataset.appearance as DialogAppearance;
+        const frame = requestAnimationFrame(() =>
+          setInheritedAppearance(app || undefined)
+        );
+        return () => cancelAnimationFrame(frame);
       }
     }
+    return;
   }, [open]);
 
   if (!open || !isMounted) return null;
 
   const finalAppearance = appearance ?? inheritedAppearance;
+  const Tag = as || 'div';
 
   return (
     <>
@@ -122,12 +136,14 @@ export const Dialog = ({
         >
           <FocusLock returnFocus={true}>
             <Box
+              as={Tag as ElementType}
               className={clsx('pittorica-dialog-content', className)}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
               aria-describedby={descriptionId}
+              {...(props as BoxProps<E>)}
             >
               <DialogContext value={{ titleId, descriptionId }}>
                 {children}
@@ -141,6 +157,8 @@ export const Dialog = ({
   );
 };
 
+/* --- Compound Components --- */
+
 /**
  * Accessible title for the Dialog.
  */
@@ -148,7 +166,7 @@ export const DialogTitle = ({
   children,
   id: _id,
   ...props
-}: React.ComponentProps<typeof Heading>) => {
+}: ComponentProps<typeof Heading>) => {
   const { titleId } = useDialogContext();
   return (
     <Heading as="h2" id={titleId} size="6" mb="3" {...props}>
@@ -160,11 +178,11 @@ export const DialogTitle = ({
 /**
  * Accessible description for the Dialog.
  */
-export const DialogDescription = ({
+export const DialogDescription = <E extends ElementType = 'div'>({
   children,
   id: _id,
   ...props
-}: React.ComponentProps<typeof Box>) => {
+}: BoxProps<E>) => {
   const { descriptionId } = useDialogContext();
   return (
     <Box
@@ -174,7 +192,7 @@ export const DialogDescription = ({
         color: 'inherit',
         fontSize: 'var(--pittorica-font-size-3)',
       }}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
@@ -184,7 +202,10 @@ export const DialogDescription = ({
 /**
  * Container for Dialog actions (usually buttons).
  */
-export const DialogActions = ({ children }: { children: React.ReactNode }) => (
+export const DialogActions = <E extends ElementType = 'div'>({
+  children,
+  ...props
+}: BoxProps<E>) => (
   <Box
     style={{
       display: 'flex',
@@ -192,7 +213,13 @@ export const DialogActions = ({ children }: { children: React.ReactNode }) => (
       gap: 'var(--pittorica-space-3)',
       marginTop: 'var(--pittorica-space-6)',
     }}
+    {...(props as BoxProps<E>)}
   >
     {children}
   </Box>
 );
+
+Dialog.displayName = 'Dialog';
+DialogTitle.displayName = 'Dialog.Title';
+DialogDescription.displayName = 'Dialog.Description';
+DialogActions.displayName = 'Dialog.Actions';

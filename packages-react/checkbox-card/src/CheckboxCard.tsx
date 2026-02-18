@@ -1,4 +1,10 @@
-import React, { createContext, use, useState } from 'react';
+import React, {
+  createContext,
+  type ElementType,
+  use,
+  useMemo,
+  useState,
+} from 'react';
 
 import { clsx } from 'clsx';
 
@@ -19,7 +25,15 @@ const CheckboxCardContext = createContext<CheckboxCardContextValue | null>(
   null
 );
 
-export interface CheckboxCardRootProps extends Omit<BoxProps, 'onChange'> {
+/* --- Root --- */
+
+/**
+ * Fix TS2314: Use 'type' for intersection with polymorphic BoxProps<E>.
+ */
+export type CheckboxCardRootProps<E extends ElementType = 'div'> = Omit<
+  BoxProps<E>,
+  'onChange' | 'value' | 'defaultValue'
+> & {
   value?: string[];
   defaultValue?: string[];
   onValueChange?: (value: string[]) => void;
@@ -28,9 +42,9 @@ export interface CheckboxCardRootProps extends Omit<BoxProps, 'onChange'> {
   disabled?: boolean;
   translucent?: boolean;
   name?: string;
-}
+};
 
-const CheckboxCardRoot = ({
+const CheckboxCardRoot = <E extends ElementType = 'div'>({
   value: controlledValue,
   defaultValue = [],
   onValueChange,
@@ -41,8 +55,9 @@ const CheckboxCardRoot = ({
   name,
   children,
   className,
+  as,
   ...props
-}: CheckboxCardRootProps) => {
+}: CheckboxCardRootProps<E>) => {
   const [internalValue, setInternalValue] = useState(defaultValue);
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : internalValue;
@@ -56,22 +71,28 @@ const CheckboxCardRoot = ({
     onValueChange?.(nextValue);
   };
 
+  const contextValue = useMemo(
+    () => ({
+      value: currentValue,
+      onItemChange: handleItemChange,
+      color,
+      disabled,
+      translucent,
+      name,
+    }),
+    [currentValue, color, disabled, translucent, name]
+  );
+
+  const Tag = as || 'div';
+
   return (
-    <CheckboxCardContext
-      value={{
-        value: currentValue,
-        onItemChange: handleItemChange,
-        color,
-        disabled,
-        translucent,
-        name,
-      }}
-    >
+    <CheckboxCardContext value={contextValue}>
       <Box
+        as={Tag as ElementType}
         className={clsx('pittorica-checkbox-card-root', className)}
         data-orientation={orientation}
         role="group"
-        {...props}
+        {...(props as BoxProps<E>)}
       >
         {children}
       </Box>
@@ -79,18 +100,25 @@ const CheckboxCardRoot = ({
   );
 };
 
-export interface CheckboxCardItemProps extends CardProps {
-  value: string;
-}
+/* --- Item --- */
 
-const CheckboxCardItem = ({
+/**
+ * Fix TS2314: Extend CardProps with generic E.
+ */
+export type CheckboxCardItemProps<E extends ElementType = 'label'> =
+  CardProps<E> & {
+    value: string;
+  };
+
+const CheckboxCardItem = <E extends ElementType = 'label'>({
   value,
   children,
   className,
   style,
   translucent: itemTranslucent,
+  as,
   ...props
-}: CheckboxCardItemProps) => {
+}: CheckboxCardItemProps<E>) => {
   const context = use(CheckboxCardContext);
   if (!context)
     throw new Error('CheckboxCard.Item must be used within CheckboxCard.Root');
@@ -107,10 +135,11 @@ const CheckboxCardItem = ({
     ? `var(--pittorica-${context.color}-9)`
     : context.color;
 
+  const Tag = as || 'label';
+
   return (
     <Card
-      {...props}
-      as="label"
+      as={Tag as ElementType}
       translucent={isTranslucent}
       className={clsx('pittorica-checkbox-card-item', className)}
       data-state={isChecked ? 'checked' : 'unchecked'}
@@ -121,6 +150,7 @@ const CheckboxCardItem = ({
           ...style,
         } as React.CSSProperties
       }
+      {...(props as CardProps<E>)}
     >
       <input
         type="checkbox"
@@ -140,3 +170,6 @@ const CheckboxCardItem = ({
 export const CheckboxCard = Object.assign(CheckboxCardRoot, {
   Item: CheckboxCardItem,
 });
+
+CheckboxCardRoot.displayName = 'CheckboxCard.Root';
+CheckboxCardItem.displayName = 'CheckboxCard.Item';

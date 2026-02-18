@@ -1,4 +1,12 @@
-import { createContext, type ReactNode, type Ref, use, useId } from 'react';
+import {
+  type ComponentPropsWithoutRef,
+  createContext,
+  type CSSProperties,
+  type ElementType,
+  type ReactNode,
+  use,
+  useId,
+} from 'react';
 
 import { clsx } from 'clsx';
 
@@ -8,7 +16,9 @@ import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 import { Text } from '@pittorica/text-react';
 
-type SelectSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+/* --- Types --- */
+
+export type SelectSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 interface SelectContextType {
   inputId: string;
@@ -28,7 +38,11 @@ const useSelectContext = () => {
 };
 
 /* --- Root --- */
-export interface SelectRootProps extends BoxProps {
+
+/**
+ * Fix TS2314: Use 'type' for intersection with polymorphic BoxProps<E>.
+ */
+export type SelectRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   label?: ReactNode;
   helperText?: ReactNode;
   error?: boolean;
@@ -37,13 +51,13 @@ export interface SelectRootProps extends BoxProps {
   name?: string;
   /** @default 'sm' */
   size?: SelectSize;
-}
+};
 
 /**
  * Root component for the Select system.
- * Manages accessibility IDs and shared state.
+ * Fully polymorphic and agnostic foundation.
  */
-export const SelectRoot = ({
+export const SelectRoot = <E extends ElementType = 'div'>({
   children,
   label,
   helperText,
@@ -54,8 +68,9 @@ export const SelectRoot = ({
   size = 'sm',
   className,
   style,
+  as,
   ...props
-}: SelectRootProps) => {
+}: SelectRootProps<E>) => {
   const inputId = useId();
   const helperId = useId();
 
@@ -63,16 +78,19 @@ export const SelectRoot = ({
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'div';
+
   return (
     <SelectContext value={{ inputId, helperId, disabled, size, name }}>
       <Box
-        {...props}
+        as={Tag as ElementType}
         className={clsx(
           'pittorica-select-root',
           `pittorica-select--${size}`,
           className
         )}
         data-error={error}
+        {...(props as BoxProps<E>)}
       >
         {label && (
           <Text
@@ -97,7 +115,7 @@ export const SelectRoot = ({
             {
               '--pittorica-source-color': resolvedColor,
               ...style,
-            } as React.CSSProperties
+            } as CSSProperties
           }
         >
           {children}
@@ -117,46 +135,70 @@ export const SelectRoot = ({
 };
 
 /* --- Content --- */
-export type SelectContentProps = React.SelectHTMLAttributes<HTMLSelectElement>;
+
+/**
+ * Fix TS2314: Extend SelectHTMLAttributes with generic E.
+ */
+export type SelectContentProps<E extends ElementType = 'select'> = BoxProps<E> &
+  ComponentPropsWithoutRef<'select'>;
 
 /**
  * The actual select element. Must be used inside Select.Root.
  */
-export const SelectContent = ({
+export const SelectContent = <E extends ElementType = 'select'>({
   children,
   className,
-  ref,
+  as,
   ...props
-}: SelectContentProps & { ref?: Ref<HTMLSelectElement> }) => {
+}: SelectContentProps<E>) => {
   const { inputId, helperId, disabled, name } = useSelectContext();
 
+  const Tag = as || 'select';
+
   return (
-    <select
+    <Box
+      as={Tag as ElementType}
       name={name}
-      {...props}
       id={inputId}
-      ref={ref}
       disabled={disabled}
       aria-describedby={helperId}
       className={clsx('pittorica-select-input', className)}
+      {...(props as BoxProps<E>)}
     >
       {children}
-    </select>
+    </Box>
   );
 };
 
 /* --- Slot --- */
+
 /**
  * Optional slot for icons or additional content inside the select wrapper.
  */
-export const SelectSlot = ({ children, className, ...props }: BoxProps) => (
-  <div className={clsx('pittorica-select-slot', className)} {...props}>
-    {children}
-  </div>
-);
+export const SelectSlot = <E extends ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => {
+  const Tag = as || 'div';
+  return (
+    <Box
+      as={Tag as ElementType}
+      className={clsx('pittorica-select-slot', className)}
+      {...(props as BoxProps<E>)}
+    >
+      {children}
+    </Box>
+  );
+};
 
 export const Select = {
   Root: SelectRoot,
   Content: SelectContent,
   Slot: SelectSlot,
 };
+
+SelectRoot.displayName = 'Select.Root';
+SelectContent.displayName = 'Select.Content';
+SelectSlot.displayName = 'Select.Slot';

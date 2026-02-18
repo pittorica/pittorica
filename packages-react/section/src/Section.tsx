@@ -1,31 +1,42 @@
+import { type ElementType } from 'react';
+
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface SectionProps extends BoxProps {
+export type SectionProps<E extends ElementType = 'section'> = BoxProps<E> & {
   /**
    * Vertical padding size.
    * Maps to responsive padding values in CSS.
    * @default '3'
    */
   size?: '1' | '2' | '3';
-}
+};
 
-export const Section = ({
+/**
+ * Section component for high-level page layout.
+ * Fully polymorphic and agnostic.
+ */
+export const Section = <E extends ElementType = 'section'>({
   children,
-  as: Tag = 'section',
+  as,
   size = '3',
   className,
   ...props
-}: SectionProps) => {
+}: SectionProps<E>) => {
+  const Tag = as || 'section';
+
   return (
     <Box
-      as={Tag}
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
       className={clsx('pittorica-section', className)}
       data-size={size}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
   );
 };
+
+Section.displayName = 'Section';

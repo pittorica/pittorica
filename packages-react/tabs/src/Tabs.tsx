@@ -1,5 +1,6 @@
 import {
   createContext,
+  type ElementType,
   type KeyboardEvent,
   use,
   useMemo,
@@ -28,22 +29,23 @@ const useTabsContext = () => {
 };
 
 /* --- Root --- */
-export interface TabsRootProps extends BoxProps {
+export type TabsRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
   color?: PittoricaColor;
-}
+};
 
-const TabsRoot = ({
+const TabsRoot = <E extends ElementType = 'div'>({
   children,
   defaultValue,
   value: controlledValue,
   onValueChange,
   color = 'indigo',
   className,
+  as,
   ...props
-}: TabsRootProps) => {
+}: TabsRootProps<E>) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : uncontrolledValue;
@@ -62,9 +64,15 @@ const TabsRoot = ({
     [currentValue, color]
   );
 
+  const Tag = as || 'div';
+
   return (
     <TabsContext value={contextValue}>
-      <Box {...props} className={clsx('pittorica-tabs-root', className)}>
+      <Box
+        as={Tag as ElementType}
+        className={clsx('pittorica-tabs-root', className)}
+        {...(props as BoxProps<E>)}
+      >
         {children}
       </Box>
     </TabsContext>
@@ -72,11 +80,16 @@ const TabsRoot = ({
 };
 
 /* --- List --- */
-const TabsList = ({ children, className, ...props }: BoxProps) => {
-  const listRef = useRef<HTMLDivElement>(null);
+const TabsList = <E extends ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => {
+  const listRef = useRef<HTMLElement>(null);
   const { onValueChange } = useTabsContext();
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     const target = event.target as HTMLElement;
     if (target.getAttribute('role') !== 'tab') return;
 
@@ -115,13 +128,16 @@ const TabsList = ({ children, className, ...props }: BoxProps) => {
     }
   };
 
+  const Tag = as || 'div';
+
   return (
     <Box
+      as={Tag as ElementType}
       ref={listRef}
       role="tablist"
       onKeyDown={handleKeyDown}
       className={clsx('pittorica-tabs-list', className)}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
@@ -129,17 +145,18 @@ const TabsList = ({ children, className, ...props }: BoxProps) => {
 };
 
 /* --- Trigger --- */
-export interface TabsTriggerProps extends BoxProps {
+export type TabsTriggerProps<E extends ElementType = 'button'> = BoxProps<E> & {
   value: string;
-}
+};
 
-const TabsTrigger = ({
+const TabsTrigger = <E extends ElementType = 'button'>({
   value: itemValue,
   children,
   className,
   style,
+  as,
   ...props
-}: TabsTriggerProps) => {
+}: TabsTriggerProps<E>) => {
   const { value, onValueChange, color } = useTabsContext();
   const isActive = value === itemValue;
 
@@ -147,11 +164,13 @@ const TabsTrigger = ({
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
   const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
 
+  const Tag = as || 'button';
+
   return (
     <Box
-      as="button"
+      as={Tag as ElementType}
       role="tab"
-      type="button"
+      type={Tag === 'button' ? 'button' : undefined}
       aria-selected={isActive}
       tabIndex={isActive ? 0 : -1}
       data-state={isActive ? 'active' : 'inactive'}
@@ -164,7 +183,7 @@ const TabsTrigger = ({
           ...style,
         } as React.CSSProperties
       }
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
@@ -172,26 +191,30 @@ const TabsTrigger = ({
 };
 
 /* --- Content --- */
-export interface TabsContentProps extends BoxProps {
+export type TabsContentProps<E extends ElementType = 'div'> = BoxProps<E> & {
   value: string;
-}
+};
 
-const TabsContent = ({
+const TabsContent = <E extends ElementType = 'div'>({
   value: itemValue,
   children,
   className,
+  as,
   ...props
-}: TabsContentProps) => {
+}: TabsContentProps<E>) => {
   const { value } = useTabsContext();
   const isActive = value === itemValue;
 
+  const Tag = as || 'div';
+
   return (
     <Box
+      as={Tag as ElementType}
       role="tabpanel"
       tabIndex={0}
       data-state={isActive ? 'active' : 'inactive'}
       className={clsx('pittorica-tabs-content', className)}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {isActive ? children : null}
     </Box>
@@ -204,3 +227,8 @@ export const Tabs = {
   Trigger: TabsTrigger,
   Content: TabsContent,
 };
+
+TabsRoot.displayName = 'Tabs.Root';
+TabsList.displayName = 'Tabs.List';
+TabsTrigger.displayName = 'Tabs.Trigger';
+TabsContent.displayName = 'Tabs.Content';

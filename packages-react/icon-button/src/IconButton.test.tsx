@@ -17,7 +17,11 @@ describe('IconButton', () => {
   });
 
   it('renders as an anchor when href is provided', () => {
-    render(<IconButton href="https://pittorica.it">Link</IconButton>);
+    render(
+      <IconButton as="a" href="https://pittorica.it">
+        Link
+      </IconButton>
+    );
     const link = screen.getByRole('link');
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('href', 'https://pittorica.it');

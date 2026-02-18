@@ -1,10 +1,10 @@
-import { type Ref, RefObject } from 'react';
+import { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface SkeletonProps extends BoxProps {
+export type SkeletonProps<E extends ElementType = 'div'> = BoxProps<E> & {
   /**
    * If true, shows the skeleton. If false, shows the children.
    * @default true
@@ -15,28 +15,30 @@ export interface SkeletonProps extends BoxProps {
    * @default 'rect'
    */
   variant?: 'rect' | 'circle' | 'text';
-}
+};
 
 /**
  * Skeleton placeholder for loading states.
- * Fully hides children content including text nodes to avoid bleed-through.
+ * Fully polymorphic and agnostic foundation.
  */
-export const Skeleton = ({
+export const Skeleton = <E extends ElementType = 'div'>({
   children,
   loading = true,
   variant = 'rect',
   className,
   style,
-  ref,
+  as,
   ...props
-}: SkeletonProps & { ref?: Ref<HTMLElement> }) => {
-  // Return children directly if not loading
+}: SkeletonProps<E>) => {
+  // Logic: Return children directly if not loading
   if (!loading) return <>{children}</>;
+
+  const Tag = as || 'div';
 
   return (
     <Box
-      {...props}
-      ref={ref as RefObject<HTMLDivElement>}
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
       className={clsx(
         'pittorica-skeleton',
         'pittorica-skeleton--loading',
@@ -52,6 +54,7 @@ export const Skeleton = ({
         width: variant === 'text' && !props.width ? '100%' : props.width,
         ...style,
       }}
+      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>

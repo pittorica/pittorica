@@ -1,3 +1,5 @@
+import { type ElementType } from 'react';
+
 import { clsx } from 'clsx';
 
 import { Text, type TextProps } from '@pittorica/text-react';
@@ -16,33 +18,28 @@ interface ResponsiveObject<T> {
 
 type Responsive<T> = T | ResponsiveObject<T>;
 
-export interface HeadingProps extends Omit<TextProps, 'as' | 'size'> {
-  /**
-   * The semantic HTML tag.
-   * @default 'h1'
-   */
-  as?: HeadingTag;
+/**
+ * Fix TS2322: Use 'type' alias and ensure E defaults to HeadingTag.
+ * We extend TextProps<E> to inherit all typography and polymorphic behavior.
+ */
+export type HeadingProps<E extends ElementType = HeadingTag> = Omit<
+  TextProps<E>,
+  'size'
+> & {
   /**
    * Responsive size from 1 to 9.
-   * Can be a string or an object with breakpoints.
    * @default '6'
    */
   size?: Responsive<HeadingSize>;
-}
+};
 
-/**
- * Utility to transform responsive props into CSS classes.
- * Ensures zero usage of 'any' for strict type safety.
- */
 const getResponsiveClasses = (
   propName: string,
   value: Responsive<HeadingSize> | undefined
 ): string[] => {
   if (!value) return [];
-
-  if (typeof value === 'string') {
+  if (typeof value === 'string')
     return [`pittorica-heading--${propName}-${value}`];
-  }
 
   return Object.entries(value)
     .filter(([_, val]) => val !== undefined)
@@ -55,26 +52,32 @@ const getResponsiveClasses = (
 
 /**
  * Heading component for titles.
- * Supports Radix-like responsive size scaling via CSS media queries.
+ * Supports polymorphic tags and responsive scaling.
  */
-export const Heading = ({
+export const Heading = <E extends ElementType = 'h1'>({
   children,
-  as: Tag = 'h1',
+  as,
   size = '6',
   weight = 'bold',
   className,
-  ...rest // Captures 'color' and other TextProps
-}: HeadingProps) => {
+  ...rest
+}: HeadingProps<E>) => {
   const sizeClasses = getResponsiveClasses('size', size);
+  const Tag = as || 'h1';
 
   return (
     <Text
-      as={Tag}
+      /* Logic: Explicitly cast 'as' to ElementType to align the generic E
+         of Heading with the generic E of Text. This resolves the Ref mismatch.
+      */
+      as={Tag as ElementType}
       weight={weight}
       className={clsx('pittorica-heading', sizeClasses, className)}
-      {...rest} // Correctly forwards 'color' to Text component
+      {...(rest as TextProps<E>)}
     >
       {children}
     </Text>
   );
 };
+
+Heading.displayName = 'Heading';

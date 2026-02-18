@@ -1,5 +1,15 @@
-import { useEffect, useState } from 'react';
-import type { Prism as SyntaxHighlighterType } from 'react-syntax-highlighter';
+import {
+  type ComponentPropsWithoutRef,
+  type CSSProperties,
+  type ElementType,
+  type ReactNode,
+  useEffect,
+  useState,
+} from 'react';
+import type {
+  Prism as SyntaxHighlighterType,
+  SyntaxHighlighterProps,
+} from 'react-syntax-highlighter';
 
 import { clsx } from 'clsx';
 
@@ -7,33 +17,41 @@ import { IconClipboard, IconClipboardCheckFilled } from '@tabler/icons-react';
 
 import { type TextProps } from '@pittorica/text-react';
 
-export interface CodeProps extends TextProps {
+/* --- Props Types --- */
+
+export type CodeProps<E extends ElementType = 'code'> = Omit<
+  TextProps<E>,
+  'as'
+> & {
+  children?: ReactNode;
   language?: string;
   showLineNumbers?: boolean;
   theme?: 'dark' | 'light';
-}
+  as?: E;
+};
 
 interface HighlightingAssets {
   Highlighter: typeof SyntaxHighlighterType;
   themes: {
-    oneLight: Record<string, React.CSSProperties>;
-    vscDarkPlus: Record<string, React.CSSProperties>;
+    oneLight: Record<string, CSSProperties>;
+    vscDarkPlus: Record<string, CSSProperties>;
   };
 }
 
 /**
  * Code component with syntax highlighting support.
- * Zero 'any' usage. All dynamic imports are strictly typed.
+ * Strict typing with zero 'any' usage.
  */
-export const Code = ({
+export const Code = <E extends ElementType = 'code'>({
   children,
   language = 'typescript',
   showLineNumbers = false,
   theme = 'dark',
   className,
   style,
+  as,
   ...props
-}: CodeProps) => {
+}: CodeProps<E>) => {
   const [assets, setAssets] = useState<HighlightingAssets | null>(null);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -49,7 +67,10 @@ export const Code = ({
 
       setAssets({
         Highlighter: Prism,
-        themes: { oneLight, vscDarkPlus },
+        themes: {
+          oneLight: oneLight as Record<string, CSSProperties>,
+          vscDarkPlus: vscDarkPlus as Record<string, CSSProperties>,
+        },
       });
     };
 
@@ -65,10 +86,19 @@ export const Code = ({
     }
   };
 
+  const Tag = (as || (isInline ? 'code' : 'pre')) as ElementType;
+
+  /**
+   * Fix TS2769 & TS2503:
+   * Instead of using JSX namespace, we extract the type directly from the library props.
+   * This is the safest way to ensure compatibility without 'any'.
+   */
+  const preTag = Tag as NonNullable<SyntaxHighlighterProps['PreTag']>;
+
   if (!assets) {
-    const FallbackTag = isInline ? 'code' : 'pre';
+    const Fallback = Tag;
     return (
-      <FallbackTag
+      <Fallback
         className={clsx(
           isInline ? 'pittorica-code-inline' : 'pittorica-code-block',
           className
@@ -83,10 +113,10 @@ export const Code = ({
           fontSize: isInline ? undefined : 'var(--pittorica-font-size-2)',
           ...style,
         }}
-        {...props}
+        {...(props as ComponentPropsWithoutRef<E>)}
       >
         {children}
-      </FallbackTag>
+      </Fallback>
     );
   }
 
@@ -99,7 +129,7 @@ export const Code = ({
         language={language}
         style={syntaxTheme}
         showLineNumbers={false}
-        PreTag="span"
+        PreTag={preTag}
         className={clsx('pittorica-code-inline', className)}
         customStyle={{
           padding: '0.2em 0.4em',
@@ -107,7 +137,7 @@ export const Code = ({
           fontFamily: 'var(--pittorica-font-mono)',
           ...style,
         }}
-        {...props}
+        {...(props as ComponentPropsWithoutRef<E>)}
       >
         {content}
       </Highlighter>
@@ -120,6 +150,7 @@ export const Code = ({
       style={{ position: 'relative' }}
     >
       <button
+        type="button"
         onClick={handleCopy}
         style={{
           position: 'absolute',
@@ -145,6 +176,7 @@ export const Code = ({
         language={language}
         style={syntaxTheme}
         showLineNumbers={showLineNumbers}
+        PreTag={preTag}
         customStyle={{
           margin: 'var(--pittorica-space-4) 0',
           borderRadius: 'var(--pittorica-radius-2)',
@@ -157,3 +189,5 @@ export const Code = ({
     </div>
   );
 };
+
+Code.displayName = 'Code';

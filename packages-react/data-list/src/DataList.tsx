@@ -1,44 +1,75 @@
+import { type ElementType } from 'react';
+
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface DataListRootProps extends BoxProps {
+export type DataListRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   /** @default 'horizontal' */
   orientation?: 'horizontal' | 'vertical';
-}
+};
 
-const DataListRoot = ({
+const DataListRoot = <E extends ElementType = 'div'>({
   orientation = 'horizontal',
   children,
   className,
+  as,
   ...props
-}: DataListRootProps) => (
+}: DataListRootProps<E>) => (
   <Box
+    as={as || 'div'}
     className={clsx(
       'pittorica-data-list-root',
       `pittorica-data-list-root--orientation-${orientation}`,
       className
     )}
-    {...props}
+    {...(props as BoxProps<E>)}
   >
     {children}
   </Box>
 );
 
-const DataListItem = ({ children, className, ...props }: BoxProps) => (
-  <Box className={clsx('pittorica-data-list-item', className)} {...props}>
+const DataListItem = <E extends ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => (
+  <Box
+    as={as || 'div'}
+    className={clsx('pittorica-data-list-item', className)}
+    {...(props as BoxProps<E>)}
+  >
     {children}
   </Box>
 );
 
-const DataListLabel = ({ children, className, ...props }: BoxProps) => (
-  <Box className={clsx('pittorica-data-list-label', className)} {...props}>
+const DataListLabel = <E extends ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => (
+  <Box
+    as={as || 'div'}
+    className={clsx('pittorica-data-list-label', className)}
+    {...(props as BoxProps<E>)}
+  >
     {children}
   </Box>
 );
 
-const DataListValue = ({ children, className, ...props }: BoxProps) => (
-  <Box className={clsx('pittorica-data-list-value', className)} {...props}>
+const DataListValue = <E extends ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...props
+}: BoxProps<E>) => (
+  <Box
+    as={as || 'div'}
+    className={clsx('pittorica-data-list-value', className)}
+    {...(props as BoxProps<E>)}
+  >
     {children}
   </Box>
 );

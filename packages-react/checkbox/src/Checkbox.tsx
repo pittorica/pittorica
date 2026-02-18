@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
@@ -8,7 +8,13 @@ import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 import { Text } from '@pittorica/text-react';
 
-export interface CheckboxProps extends Omit<BoxProps, 'onChange'> {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type CheckboxProps<E extends ElementType = 'label'> = Omit<
+  BoxProps<E>,
+  'onChange'
+> & {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -17,12 +23,13 @@ export interface CheckboxProps extends Omit<BoxProps, 'onChange'> {
   label?: string;
   name?: string;
   value?: string;
-}
+};
 
 /**
  * Checkbox component with custom styling and native input support.
+ * Fully polymorphic and agnostic foundation.
  */
-export const Checkbox = ({
+export const Checkbox = <E extends ElementType = 'label'>({
   checked: controlledChecked,
   defaultChecked,
   onChange,
@@ -33,8 +40,9 @@ export const Checkbox = ({
   value,
   className,
   style,
+  as,
   ...props
-}: CheckboxProps) => {
+}: CheckboxProps<E>) => {
   const [internalChecked, setInternalChecked] = React.useState(
     defaultChecked ?? false
   );
@@ -52,14 +60,17 @@ export const Checkbox = ({
     onChange?.(newChecked);
   };
 
+  const Tag = as || 'label';
+
   return (
     <Box
-      as="label"
+      as={Tag as ElementType}
       className={clsx('pittorica-checkbox-root', className)}
       data-disabled={disabled}
       style={
         { '--_checkbox-color': resolvedColor, ...style } as React.CSSProperties
       }
+      {...(props as BoxProps<E>)}
     >
       <input
         type="checkbox"
@@ -69,10 +80,9 @@ export const Checkbox = ({
         checked={isChecked}
         disabled={disabled}
         onChange={handleChange}
-        {...props}
       />
 
-      <div className="pittorica-checkbox-control">
+      <div className="pittorica-checkbox-control" aria-hidden="true">
         {isChecked ? (
           <IconSquareCheckFilled size={20} />
         ) : (
@@ -88,3 +98,5 @@ export const Checkbox = ({
     </Box>
   );
 };
+
+Checkbox.displayName = 'Checkbox';

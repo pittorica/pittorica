@@ -1,7 +1,7 @@
 import {
   createContext,
+  type ElementType,
   type ReactNode,
-  type Ref,
   use,
   useMemo,
   useState,
@@ -30,7 +30,12 @@ const useRadioGroupContext = () => {
   return context;
 };
 
-export interface RadioGroupProps extends BoxProps {
+/* --- Root --- */
+
+/**
+ * Fix TS2314: Use 'type' for intersection with polymorphic BoxProps<E>.
+ */
+export type RadioGroupRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   children: ReactNode;
   value?: string;
   defaultValue?: string;
@@ -39,12 +44,13 @@ export interface RadioGroupProps extends BoxProps {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
-}
+};
 
 /**
  * RadioGroup orchestrates multiple Radio items.
+ * Fully polymorphic and agnostic foundation.
  */
-export const RadioGroup = ({
+export const RadioGroup = <E extends ElementType = 'div'>({
   children,
   value: controlledValue,
   defaultValue,
@@ -53,8 +59,9 @@ export const RadioGroup = ({
   disabled,
   name,
   className,
+  as,
   ...props
-}: RadioGroupProps) => {
+}: RadioGroupRootProps<E>) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
 
   const isControlled = controlledValue !== undefined;
@@ -76,12 +83,15 @@ export const RadioGroup = ({
     [currentValue, color, disabled, name]
   );
 
+  const Tag = as || 'div';
+
   return (
     <RadioGroupContext value={contextValue}>
       <Box
-        {...props}
+        as={Tag as ElementType}
         role="radiogroup"
         className={clsx('pittorica-radio-group-root', className)}
+        {...(props as BoxProps<E>)}
       >
         {children}
       </Box>
@@ -89,22 +99,27 @@ export const RadioGroup = ({
   );
 };
 
-export interface RadioGroupItemProps extends Omit<
-  RadioProps,
+/* --- Item --- */
+
+/**
+ * Fix TS2314: Extend RadioProps with generic E.
+ */
+export type RadioGroupItemProps<E extends ElementType = 'button'> = Omit<
+  RadioProps<E>,
   'checked' | 'onCheckedChange'
-> {
+> & {
   value: string;
-}
+};
 
 /**
  * An item within a RadioGroup.
  */
-export const RadioGroupItem = ({
+export const RadioGroupItem = <E extends ElementType = 'button'>({
   value: itemValue,
   disabled: itemDisabled,
-  ref,
+  as,
   ...props
-}: RadioGroupItemProps & { ref?: Ref<HTMLButtonElement> }) => {
+}: RadioGroupItemProps<E>) => {
   const {
     value,
     onValueChange,
@@ -116,16 +131,21 @@ export const RadioGroupItem = ({
   const isChecked = value === itemValue;
   const isDisabled = groupDisabled || itemDisabled;
 
+  const Tag = as || 'button';
+
   return (
     <Radio
-      {...props}
+      as={Tag as ElementType}
       name={name}
       value={itemValue}
-      ref={ref}
       color={color}
       checked={isChecked}
       disabled={isDisabled}
       onCheckedChange={() => onValueChange(itemValue)}
+      {...(props as RadioProps<E>)}
     />
   );
 };
+
+RadioGroup.displayName = 'RadioGroup';
+RadioGroupItem.displayName = 'RadioGroup.Item';

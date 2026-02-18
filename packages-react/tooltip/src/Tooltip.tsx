@@ -1,5 +1,6 @@
 import {
   type CSSProperties,
+  type ElementType,
   type ReactNode,
   useCallback,
   useRef,
@@ -12,7 +13,13 @@ import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
-export interface TooltipProps extends Omit<BoxProps, 'content'> {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type TooltipProps<E extends ElementType = 'span'> = Omit<
+  BoxProps<E>,
+  'content'
+> & {
   /** The content to display inside the tooltip */
   content: ReactNode;
   /** The element that triggers the tooltip */
@@ -22,20 +29,25 @@ export interface TooltipProps extends Omit<BoxProps, 'content'> {
    * @default 'top'
    */
   side?: 'top' | 'bottom';
-}
+};
 
-export const Tooltip = ({
+/**
+ * Tooltip component for displaying contextual information.
+ * The trigger element is polymorphic and defaults to span.
+ */
+export const Tooltip = <E extends ElementType = 'span'>({
   children,
   content,
   side: preferredSide = 'top',
   className,
+  as,
   ...props
-}: TooltipProps) => {
+}: TooltipProps<E>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [coords, setCoords] = useState({ top: 0, left: 0 });
   const [actualSide, setActualSide] = useState(preferredSide);
 
-  const triggerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   const updatePosition = useCallback(() => {
@@ -72,16 +84,18 @@ export const Tooltip = ({
 
   const handleClose = () => setIsOpen(false);
 
+  const Tag = as || 'span';
+
   return (
     <Box
+      as={Tag as ElementType}
       ref={triggerRef}
-      as="span"
       className={clsx('pittorica-tooltip-root', className)}
       onMouseEnter={handleOpen}
       onMouseLeave={handleClose}
       onFocus={handleOpen}
       onBlur={handleClose}
-      {...props}
+      {...(props as BoxProps<E>)}
     >
       {children}
       {isOpen &&
@@ -100,6 +114,7 @@ export const Tooltip = ({
                     ? 'translate(-50%, -100%)'
                     : 'translate(-50%, 0)',
                 position: 'fixed',
+                pointerEvents: 'none',
               } as CSSProperties
             }
           >

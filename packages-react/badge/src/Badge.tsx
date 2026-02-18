@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 
-export interface BadgeProps extends BoxProps {
+/**
+ * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
+ */
+export type BadgeProps<E extends ElementType = 'span'> = BoxProps<E> & {
   /** The content to show inside the badge (usually a number) */
   badgeContent?: React.ReactNode;
   /** @default 'standard' */
@@ -18,9 +21,13 @@ export interface BadgeProps extends BoxProps {
   max?: number;
   /** The anchor element */
   children: React.ReactNode;
-}
+};
 
-export const Badge = ({
+/**
+ * Badge component for notifications and status indicators.
+ * The badge element itself is polymorphic (defaults to span).
+ */
+export const Badge = <E extends ElementType = 'span'>({
   children,
   badgeContent,
   variant = 'standard',
@@ -29,8 +36,9 @@ export const Badge = ({
   max = 99,
   className,
   style,
+  as,
   ...props
-}: BadgeProps) => {
+}: BadgeProps<E>) => {
   const isDot = variant === 'dot';
 
   // Logic for display content
@@ -50,21 +58,25 @@ export const Badge = ({
 
   if (invisible) return <>{children}</>;
 
+  const Tag = as || 'span';
+
   return (
     <div className="pittorica-badge-container">
       {children}
       <Box
-        as="span"
+        as={Tag as ElementType}
         className={clsx(
           'pittorica-badge',
           `pittorica-badge--${variant}`,
           className
         )}
         style={badgeStyles}
-        {...props}
+        {...(props as BoxProps<E>)}
       >
         {!isDot && displayContent}
       </Box>
     </div>
   );
 };
+
+Badge.displayName = 'Badge';
