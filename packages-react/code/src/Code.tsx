@@ -1,9 +1,11 @@
+/* eslint-disable @eslint-react/no-array-index-key */
 import {
   type ComponentPropsWithoutRef,
   type CSSProperties,
   type ElementType,
   type ReactNode,
   useEffect,
+  useId,
   useState,
 } from 'react';
 import type {
@@ -15,7 +17,9 @@ import { clsx } from 'clsx';
 
 import { IconClipboard, IconClipboardCheckFilled } from '@tabler/icons-react';
 
-import { type TextProps } from '@pittorica/text-react';
+import { Box } from '@pittorica/box-react';
+import { Flex } from '@pittorica/flex-react';
+import { Text, type TextProps } from '@pittorica/text-react';
 
 /* --- Props Types --- */
 
@@ -26,27 +30,64 @@ export type CodeProps<E extends ElementType = 'code'> = Omit<
   children?: ReactNode;
   language?: string;
   showLineNumbers?: boolean;
-  theme?: 'dark' | 'light';
   as?: E;
+  filename?: string;
 };
 
 interface HighlightingAssets {
   Highlighter: typeof SyntaxHighlighterType;
-  themes: {
-    oneLight: Record<string, CSSProperties>;
-    vscDarkPlus: Record<string, CSSProperties>;
-  };
+  theme: Record<string, CSSProperties>;
 }
 
-/**
- * Code component with syntax highlighting support.
- * Strict typing with zero 'any' usage.
- */
+/* --- Internal Skeleton --- */
+
+const CodeSkeleton = ({
+  lines = 5,
+  showLineNumbers = true,
+}: {
+  lines?: number;
+  showLineNumbers?: boolean;
+}) => {
+  const skeletonId = useId();
+  return (
+    <Box p="4" className="pittorica-code-skeleton">
+      {Array.from({ length: lines }).map((_, i) => (
+        <Flex key={`${skeletonId}-${i}`} align="center" gap="4" mb="3">
+          {showLineNumbers && (
+            <Text
+              size="1"
+              style={{
+                width: '20px',
+                opacity: 0.1,
+                textAlign: 'right',
+                fontFamily: 'var(--pittorica-font-mono)',
+                color: 'var(--pittorica-white)',
+              }}
+            >
+              {i + 1}
+            </Text>
+          )}
+          <Box
+            style={{
+              height: '14px',
+              width: `${Math.floor(Math.random() * (80 - 30 + 1) + 30)}%`,
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: 'var(--pittorica-radius-1)',
+            }}
+          />
+        </Flex>
+      ))}
+    </Box>
+  );
+};
+
+/* --- Main Component --- */
+
 export const Code = <E extends ElementType = 'code'>({
   children,
   language = 'typescript',
-  showLineNumbers = false,
-  theme = 'dark',
+  showLineNumbers = true,
+  filename,
   className,
   style,
   as,
@@ -60,22 +101,19 @@ export const Code = <E extends ElementType = 'code'>({
 
   useEffect(() => {
     const loadAssets = async () => {
-      const [{ Prism }, { oneLight, vscDarkPlus }] = await Promise.all([
+      const [{ Prism }, { vscDarkPlus }] = await Promise.all([
         import('react-syntax-highlighter'),
         import('react-syntax-highlighter/dist/esm/styles/prism'),
       ]);
 
       setAssets({
         Highlighter: Prism,
-        themes: {
-          oneLight: oneLight as Record<string, CSSProperties>,
-          vscDarkPlus: vscDarkPlus as Record<string, CSSProperties>,
-        },
+        theme: vscDarkPlus as Record<string, CSSProperties>,
       });
     };
 
-    loadAssets();
-  }, []);
+    if (!isInline) loadAssets();
+  }, [isInline]);
 
   const handleCopy = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
@@ -87,106 +125,135 @@ export const Code = <E extends ElementType = 'code'>({
   };
 
   const Tag = (as || (isInline ? 'code' : 'pre')) as ElementType;
-
-  /**
-   * Fix TS2769 & TS2503:
-   * Instead of using JSX namespace, we extract the type directly from the library props.
-   * This is the safest way to ensure compatibility without 'any'.
-   */
   const preTag = Tag as NonNullable<SyntaxHighlighterProps['PreTag']>;
 
-  if (!assets) {
-    const Fallback = Tag;
-    return (
-      <Fallback
-        className={clsx(
-          isInline ? 'pittorica-code-inline' : 'pittorica-code-block',
-          className
-        )}
-        style={{
-          padding: isInline ? '0.2em 0.4em' : undefined,
-          margin: isInline ? undefined : 'var(--pittorica-space-4) 0',
-          borderRadius: isInline
-            ? 'var(--pittorica-radius-1)'
-            : 'var(--pittorica-radius-2)',
-          fontFamily: 'var(--pittorica-font-mono)',
-          fontSize: isInline ? undefined : 'var(--pittorica-font-size-2)',
-          ...style,
-        }}
-        {...(props as ComponentPropsWithoutRef<E>)}
-      >
-        {children}
-      </Fallback>
-    );
-  }
-
-  const { Highlighter, themes } = assets;
-  const syntaxTheme = theme === 'light' ? themes.oneLight : themes.vscDarkPlus;
-
   if (isInline) {
+    if (!assets)
+      return (
+        <Tag
+          className="pittorica-code-inline"
+          {...(props as ComponentPropsWithoutRef<E>)}
+        >
+          {children}
+        </Tag>
+      );
     return (
-      <Highlighter
+      <assets.Highlighter
         language={language}
-        style={syntaxTheme}
-        showLineNumbers={false}
+        style={assets.theme}
         PreTag={preTag}
         className={clsx('pittorica-code-inline', className)}
-        customStyle={{
-          padding: '0.2em 0.4em',
-          borderRadius: 'var(--pittorica-radius-1)',
-          fontFamily: 'var(--pittorica-font-mono)',
-          ...style,
-        }}
         {...(props as ComponentPropsWithoutRef<E>)}
       >
         {content}
-      </Highlighter>
+      </assets.Highlighter>
     );
   }
 
   return (
-    <div
-      className={clsx('pittorica-code-block', className)}
-      style={{ position: 'relative' }}
+    <Box
+      className={clsx('pittorica-code-container', className)}
+      style={{
+        borderRadius: 'var(--pittorica-radius-4)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        backgroundColor: '#1e1e1e',
+        overflow: 'hidden',
+        boxShadow: 'var(--pittorica-shadow-4)',
+        ...style,
+      }}
     >
-      <button
-        type="button"
-        onClick={handleCopy}
+      {/* Header Banner */}
+      <Flex
+        align="center"
+        justify="between"
+        px="4"
+        py="3"
         style={{
-          position: 'absolute',
-          zIndex: 10,
-          top: 'var(--pittorica-space-2)',
-          right: 'var(--pittorica-space-2)',
-          padding: 'var(--pittorica-space-1) var(--pittorica-space-2)',
-          fontSize: '0.75rem',
-          borderRadius: 'var(--pittorica-radius-1)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          background: 'rgba(255, 255, 255, 0.1)',
-          color: theme === 'light' ? '#333' : '#fff',
-          cursor: 'pointer',
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
-        {isCopied ? (
-          <IconClipboardCheckFilled size={16} />
+        <Text
+          weight="bold"
+          color="white"
+          style={{
+            fontSize: 'var(--pittorica-font-size-2)',
+            color: 'var(--pittorica-white)',
+            textTransform: 'lowercase',
+          }}
+        >
+          {filename || language}
+        </Text>
+
+        <button
+          type="button"
+          onClick={handleCopy}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '4px',
+            color: 'rgba(255, 255, 255, 0.5)',
+            borderRadius: 'var(--pittorica-radius-1)',
+            display: 'flex',
+            alignItems: 'center',
+            transition: 'color 0.2s, background-color 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--pittorica-white)';
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'rgba(255, 255, 255, 0.5)';
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
+        >
+          {isCopied ? (
+            <IconClipboardCheckFilled
+              size={18}
+              color="var(--pittorica-green-9)"
+            />
+          ) : (
+            <IconClipboard size={18} />
+          )}
+        </button>
+      </Flex>
+
+      {/* Code Area */}
+      <Box style={{ position: 'relative' }}>
+        {assets ? (
+          <assets.Highlighter
+            language={language}
+            style={assets.theme}
+            showLineNumbers={showLineNumbers}
+            PreTag={preTag}
+            lineNumberStyle={{
+              minWidth: '2.5em',
+              paddingRight: '1.5em',
+              opacity: 0.2,
+              textAlign: 'right',
+              userSelect: 'none',
+              color: 'var(--pittorica-white)',
+            }}
+            customStyle={{
+              margin: 0,
+              padding: '1.5rem',
+              fontSize: 'var(--pittorica-font-size-2)',
+              backgroundColor: 'transparent',
+              lineHeight: '1.7',
+              fontFamily: 'var(--pittorica-font-mono)',
+            }}
+          >
+            {content.replace(/\n$/, '')}
+          </assets.Highlighter>
         ) : (
-          <IconClipboard size={16} />
+          <CodeSkeleton
+            lines={content.split('\n').length || 5}
+            showLineNumbers={showLineNumbers}
+          />
         )}
-      </button>
-      <Highlighter
-        language={language}
-        style={syntaxTheme}
-        showLineNumbers={showLineNumbers}
-        PreTag={preTag}
-        customStyle={{
-          margin: 'var(--pittorica-space-4) 0',
-          borderRadius: 'var(--pittorica-radius-2)',
-          fontSize: 'var(--pittorica-font-size-2)',
-          ...style,
-        }}
-      >
-        {content.replace(/\n$/, '')}
-      </Highlighter>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

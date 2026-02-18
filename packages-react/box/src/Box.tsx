@@ -23,28 +23,24 @@ interface BoxOwnProps<E extends ElementType> {
   mr?: Spacing;
   mb?: Spacing;
   ml?: Spacing;
+  mx?: Spacing;
+  my?: Spacing;
   p?: Spacing;
   pt?: Spacing;
   pr?: Spacing;
   pb?: Spacing;
   pl?: Spacing;
+  px?: Spacing;
+  py?: Spacing;
   width?: string;
   height?: string;
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
   disabled?: boolean;
 }
 
-/**
- * Merges BoxOwnProps with the props of the selected ElementType E.
- * Omit helps avoid collisions between Box props and native props.
- */
 export type BoxProps<E extends ElementType> = BoxOwnProps<E> &
   Omit<ComponentPropsWithRef<E>, keyof BoxOwnProps<E>>;
 
-/**
- * Agnostic and strongly typed foundation component.
- * Manages spacing, layout, and polymorphism without external dependencies.
- */
 export const Box = <E extends ElementType = 'div'>({
   as,
   children,
@@ -54,11 +50,15 @@ export const Box = <E extends ElementType = 'div'>({
   mr,
   mb,
   ml,
+  mx,
+  my,
   p,
   pt,
   pr,
   pb,
   pl,
+  px,
+  py,
   width,
   height,
   position,
@@ -76,19 +76,39 @@ export const Box = <E extends ElementType = 'div'>({
   if (height) utilityStyles.height = height;
   if (position) utilityStyles.position = position;
 
-  // Margin Mapping via Design Tokens
+  // --- Margin Mapping ---
   if (m) utilityStyles.margin = `var(--pittorica-space-${m})`;
   if (mt) utilityStyles.marginTop = `var(--pittorica-space-${mt})`;
   if (mr) utilityStyles.marginRight = `var(--pittorica-space-${mr})`;
   if (mb) utilityStyles.marginBottom = `var(--pittorica-space-${mb})`;
   if (ml) utilityStyles.marginLeft = `var(--pittorica-space-${ml})`;
 
-  // Padding Mapping via Design Tokens
+  // Axis Mapping (mx, my)
+  if (mx) {
+    utilityStyles.marginLeft = `var(--pittorica-space-${mx})`;
+    utilityStyles.marginRight = `var(--pittorica-space-${mx})`;
+  }
+  if (my) {
+    utilityStyles.marginTop = `var(--pittorica-space-${my})`;
+    utilityStyles.marginBottom = `var(--pittorica-space-${my})`;
+  }
+
+  // --- Padding Mapping ---
   if (p) utilityStyles.padding = `var(--pittorica-space-${p})`;
   if (pt) utilityStyles.paddingTop = `var(--pittorica-space-${pt})`;
   if (pr) utilityStyles.paddingRight = `var(--pittorica-space-${pr})`;
   if (pb) utilityStyles.paddingBottom = `var(--pittorica-space-${pb})`;
   if (pl) utilityStyles.paddingLeft = `var(--pittorica-space-${pl})`;
+
+  // Axis Mapping (px, py)
+  if (px) {
+    utilityStyles.paddingLeft = `var(--pittorica-space-${px})`;
+    utilityStyles.paddingRight = `var(--pittorica-space-${px})`;
+  }
+  if (py) {
+    utilityStyles.paddingTop = `var(--pittorica-space-${py})`;
+    utilityStyles.paddingBottom = `var(--pittorica-space-${py})`;
+  }
 
   const finalStyles: React.CSSProperties = {
     ...style,

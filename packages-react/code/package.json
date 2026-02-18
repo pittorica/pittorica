@@ -17,6 +17,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@pittorica/box-react": "workspace:*",
+    "@pittorica/flex-react": "workspace:*",
     "@pittorica/text-react": "workspace:*",
     "@tabler/icons-react": "^3.36.1",
     "clsx": "^2.1.1",

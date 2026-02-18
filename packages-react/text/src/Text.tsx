@@ -4,6 +4,8 @@ import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 
+/* --- Types --- */
+
 export type PittoricaColor =
   | 'indigo'
   | 'crimson'
@@ -19,20 +21,38 @@ export type PittoricaColor =
   | 'inherit'
   | (string & {});
 
+type SizeValue = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+/**
+ * Responsive size configuration for breakpoints.
+ */
+interface ResponsiveSize {
+  initial?: SizeValue;
+  xs?: SizeValue;
+  sm?: SizeValue;
+  md?: SizeValue;
+  lg?: SizeValue;
+  xl?: SizeValue;
+}
+
 export type TextProps<E extends ElementType = 'span'> = BoxProps<E> & {
+  size?: SizeValue | ResponsiveSize;
   weight?: 'light' | 'regular' | 'medium' | 'bold';
   align?: 'left' | 'center' | 'right';
   truncate?: boolean;
   color?: PittoricaColor;
 };
 
+/* --- Component --- */
+
 /**
  * Text component for general typography.
- * Supports polymorphic tags and agnostic routing via Box.
+ * Supports polymorphic tags, agnostic routing via Box, and responsive sizing.
  */
 export const Text = <E extends ElementType = 'span'>({
   children,
   as,
+  size,
   weight = 'regular',
   align,
   truncate = false,
@@ -43,6 +63,7 @@ export const Text = <E extends ElementType = 'span'>({
 }: TextProps<E>) => {
   const Tag = as || 'span';
 
+  /* --- Color Resolution --- */
   const isDirectColor =
     color?.startsWith('#') ||
     color?.startsWith('rgb') ||
@@ -68,11 +89,30 @@ export const Text = <E extends ElementType = 'span'>({
     if (isDirectColor) return color;
 
     if (semanticColors.has(color as string)) {
-      /* Use the standard step 9 for semantic text */
       return `var(--pittorica-${color}-9)`;
     }
 
     return color;
+  })();
+
+  /* --- Size/Responsive Classes Resolution --- */
+  const sizeClasses = (() => {
+    if (!size) return null;
+
+    // Single value: size="3"
+    if (typeof size === 'string') {
+      return `pittorica-text--size-${size}`;
+    }
+
+    // Responsive object: size={{ initial: '2', md: '4' }}
+    return clsx({
+      [`pittorica-text--size-${size.initial}`]: size.initial,
+      [`pittorica-text--xs-size-${size.xs}`]: size.xs,
+      [`pittorica-text--sm-size-${size.sm}`]: size.sm,
+      [`pittorica-text--md-size-${size.md}`]: size.md,
+      [`pittorica-text--lg-size-${size.lg}`]: size.lg,
+      [`pittorica-text--xl-size-${size.xl}`]: size.xl,
+    });
   })();
 
   const textStyles: CSSProperties = {
@@ -83,10 +123,10 @@ export const Text = <E extends ElementType = 'span'>({
 
   return (
     <Box
-      /* Explicitly pass Tag and cast rest props to align polymorphic types */
       as={Tag as ElementType}
       className={clsx(
         'pittorica-text',
+        sizeClasses,
         { 'pittorica-text--truncate': truncate },
         className
       )}
