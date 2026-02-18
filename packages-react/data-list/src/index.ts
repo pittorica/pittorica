@@ -1,1 +1,1 @@
-export type { DataListRootProps } from './DataList.js';
+export * from './DataList';

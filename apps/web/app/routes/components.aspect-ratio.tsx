@@ -7,6 +7,7 @@ import {
   Flex,
   Heading,
   Section,
+  Table,
   Text,
 } from '@pittorica/react';
 
@@ -84,7 +85,7 @@ export const Example = () => {
         </Section>
 
         {/* Implementation Code */}
-        <Box>
+        <Box mb="9">
           <Heading size="4" mb="4">
             Implementation
           </Heading>
@@ -92,6 +93,45 @@ export const Example = () => {
             {codeExample}
           </Code>
         </Box>
+
+        {/* Api Reference */}
+        <Section>
+          <Flex direction="column" gap="4">
+            <Heading size="4" mb="4">
+              Api
+            </Heading>
+            <Text mb="4" color="gray">
+              Aspect Ratio component accepts all standard Box props in addition
+              to the following:
+            </Text>
+            <Table.Root>
+              <Table.Header>
+                <Table.Row>
+                  <Table.ColumnHeader>Prop</Table.ColumnHeader>
+                  <Table.ColumnHeader>Type</Table.ColumnHeader>
+                  <Table.ColumnHeader>Default</Table.ColumnHeader>
+                  <Table.ColumnHeader>Description</Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>
+                    <Code>ratio</Code>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text size="2">number</Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text size="2">1 / 1</Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text size="2">The desired aspect ratio.</Text>
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table.Root>
+          </Flex>
+        </Section>
       </Flex>
     </Container>
   );

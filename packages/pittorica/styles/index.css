@@ -13,6 +13,11 @@
 @import './colors/surface.css' layer(pittorica-tokens);
 @import './colors/slate.css' layer(pittorica-tokens);
 @import './colors/indigo.css' layer(pittorica-tokens);
+@import './colors/crimson.css' layer(pittorica-tokens);
+@import './colors/red.css' layer(pittorica-tokens);
+@import './colors/teal.css' layer(pittorica-tokens);
+@import './colors/amber.css' layer(pittorica-tokens);
+@import './colors/blue.css' layer(pittorica-tokens);
 
 @import './fonts.css' layer(pittorica-tokens);
 @import './breakpoints.css' layer(pittorica-tokens);

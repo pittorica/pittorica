@@ -1,3 +1,8 @@
+/**
+ * @file AlertDialog.tsx
+ * Standalone AlertDialog component with corrected text visibility for dark mode.
+ */
+
 import { type ReactNode, useEffect, useId, useState } from 'react';
 
 import { createPortal } from 'react-dom';
@@ -8,9 +13,6 @@ import { Box } from '@pittorica/box-react';
 
 /* --- Internal Types --- */
 
-/**
- * Props for the standalone AlertDialog component.
- */
 export interface AlertDialogProps {
   open: boolean;
   onClose: () => void;
@@ -24,9 +26,6 @@ export interface AlertDialogProps {
 
 /* --- Standalone Compound Components --- */
 
-/**
- * Title component for the AlertDialog.
- */
 export const AlertDialogTitle = ({
   children,
   color,
@@ -39,7 +38,7 @@ export const AlertDialogTitle = ({
       style={{
         margin: 0,
         fontSize: 'var(--pittorica-font-size-5)',
-        color: color ? `var(--pittorica-${color}-9)` : 'inherit',
+        color: color ? `var(--pittorica-${color}-9)` : 'var(--pittorica-white)',
       }}
     >
       {children}
@@ -47,9 +46,6 @@ export const AlertDialogTitle = ({
   </Box>
 );
 
-/**
- * Description component for the AlertDialog.
- */
 export const AlertDialogDescription = ({
   children,
 }: {
@@ -59,7 +55,8 @@ export const AlertDialogDescription = ({
     <p
       style={{
         margin: 0,
-        color: 'var(--pittorica-slate-11)',
+        color: 'var(--pittorica-white)',
+        opacity: 0.7,
         fontSize: 'var(--pittorica-font-size-3)',
         lineHeight: '1.6',
       }}
@@ -69,9 +66,6 @@ export const AlertDialogDescription = ({
   </Box>
 );
 
-/**
- * Actions container for the AlertDialog buttons.
- */
 export const AlertDialogActions = ({ children }: { children: ReactNode }) => (
   <Box mt="6">
     <div
@@ -88,9 +82,6 @@ export const AlertDialogActions = ({ children }: { children: ReactNode }) => (
 
 /* --- Main Standalone Component --- */
 
-/**
- * AlertDialog built from scratch to avoid Context conflicts with the standard Dialog.
- */
 export const AlertDialog = ({
   open,
   onClose,
@@ -135,7 +126,7 @@ export const AlertDialog = ({
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
           backdropFilter: 'blur(4px)',
           zIndex: 1000,
         }}
@@ -155,10 +146,11 @@ export const AlertDialog = ({
           maxWidth: '500px',
           backgroundColor: 'var(--pittorica-slate-1)',
           borderRadius: 'var(--pittorica-radius-4)',
-          boxShadow: 'var(--pittorica-shadow-5)',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
           padding: 'var(--pittorica-space-6)',
           zIndex: 1001,
           outline: 'none',
+          color: 'var(--pittorica-white)',
         }}
       >
         {children}

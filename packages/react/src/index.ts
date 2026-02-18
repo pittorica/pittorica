@@ -44,6 +44,7 @@ export * from '@pittorica/stack-react';
 export * from '@pittorica/strong-react';
 export * from '@pittorica/switch-react';
 export * from '@pittorica/table-react';
+export * from '@pittorica/tabs-react';
 export * from '@pittorica/text-area-react';
 export * from '@pittorica/text-field-react';
 export * from '@pittorica/text-react';

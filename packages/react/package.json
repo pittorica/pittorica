@@ -63,6 +63,7 @@
     "@pittorica/strong-react": "workspace:*",
     "@pittorica/switch-react": "workspace:*",
     "@pittorica/table-react": "workspace:*",
+    "@pittorica/tabs-react": "workspace:*",
     "@pittorica/text-area-react": "workspace:*",
     "@pittorica/text-field-react": "workspace:*",
     "@pittorica/text-react": "workspace:*",

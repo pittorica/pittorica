@@ -13,6 +13,7 @@ import {
   Flex,
   Heading,
   Section,
+  Table,
   Text,
 } from '@pittorica/react';
 
@@ -104,7 +105,7 @@ export const Example = () => {
         </Section>
 
         {/* Implementation Code */}
-        <Box>
+        <Box mb="9">
           <Heading size="4" mb="4">
             Implementation
           </Heading>
@@ -112,6 +113,127 @@ export const Example = () => {
             {codeExample}
           </Code>
         </Box>
+
+        {/* Api Reference */}
+        <Section>
+          <Flex direction="column" gap="4">
+            <Heading size="4" mb="4">
+              Api
+            </Heading>
+
+            <Box mb="6">
+              <Heading size="3" mb="3">
+                AlertDialog
+              </Heading>
+              <Table.Root>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.ColumnHeader>Prop</Table.ColumnHeader>
+                    <Table.ColumnHeader>Type</Table.ColumnHeader>
+                    <Table.ColumnHeader>Default</Table.ColumnHeader>
+                    <Table.ColumnHeader>Description</Table.ColumnHeader>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Code>open</Code>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">boolean</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">-</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">If true, the dialog is open.</Text>
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Code>onClose</Code>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">() ={'>'} void</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">-</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">
+                        Callback fired when the dialog is closed.
+                      </Text>
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Code>closeOnOverlayClick</Code>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">boolean</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">false</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">
+                        If true, closing is allowed via overlay click.
+                      </Text>
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Code>closeOnEsc</Code>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">boolean</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">false</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">
+                        If true, closing is allowed via Esc key.
+                      </Text>
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table.Root>
+            </Box>
+
+            <Box>
+              <Heading size="3" mb="3">
+                AlertDialogTitle
+              </Heading>
+              <Table.Root>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.ColumnHeader>Prop</Table.ColumnHeader>
+                    <Table.ColumnHeader>Type</Table.ColumnHeader>
+                    <Table.ColumnHeader>Default</Table.ColumnHeader>
+                    <Table.ColumnHeader>Description</Table.ColumnHeader>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Code>color</Code>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">string</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">inherit</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">The semantic color of the title.</Text>
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table.Root>
+            </Box>
+          </Flex>
+        </Section>
 
         {/* Component Instance */}
         <AlertDialog open={open} onClose={() => setOpen(false)}>
@@ -123,7 +245,7 @@ export const Example = () => {
             account and remove your data from our servers.
           </AlertDialogDescription>
           <AlertDialogActions>
-            <Button variant="text" color="slate" onClick={() => setOpen(false)}>
+            <Button variant="text" color="white" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button variant="filled" color="red" onClick={() => setOpen(false)}>

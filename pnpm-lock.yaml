@@ -3247,6 +3247,9 @@ importers:
       '@pittorica/table-react':
         specifier: workspace:*
         version: link:../../packages-react/table
+      '@pittorica/tabs-react':
+        specifier: workspace:*
+        version: link:../../packages-react/tabs
       '@pittorica/text-area-react':
         specifier: workspace:*
         version: link:../../packages-react/text-area
