@@ -1,1 +1,1 @@
-export { AlertDialog } from './AlertDialog.js';
+export * from './AlertDialog';

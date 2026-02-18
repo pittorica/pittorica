@@ -225,9 +225,9 @@ importers:
 
   packages-react/alert-dialog:
     dependencies:
-      '@pittorica/dialog-react':
+      '@pittorica/box-react':
         specifier: workspace:*
-        version: link:../dialog
+        version: link:../box
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

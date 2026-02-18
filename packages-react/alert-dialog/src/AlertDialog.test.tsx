@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-global-this */
 /**
  * @vitest-environment jsdom
  */
@@ -6,31 +7,34 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
+/**
+ * Fix: Use the new AlertDialog compound component names.
+ * These are now prefixed with 'Alert' to avoid naming collisions.
+ */
 import {
-  DialogActions,
-  DialogDescription,
-  DialogTitle,
-} from '@pittorica/dialog-react';
-
-import { AlertDialog } from './AlertDialog.js';
+  AlertDialog,
+  AlertDialogActions,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from './AlertDialog.js';
 
 describe('AlertDialog', () => {
   it('renders with correct role for accessibility', () => {
     render(
       <AlertDialog open={true} onClose={() => {}}>
-        <DialogTitle>Critical Action</DialogTitle>
-        <DialogDescription>content</DialogDescription>
+        <AlertDialogTitle>Critical Action</AlertDialogTitle>
+        <AlertDialogDescription>content</AlertDialogDescription>
       </AlertDialog>
     );
 
-    expect(screen.getByRole('alertdialog', { hidden: true })).toBeTruthy();
+    expect(screen.getByRole('alertdialog')).toBeTruthy();
   });
 
   it('does NOT call onClose when clicking the overlay by default', () => {
     const handleClose = vi.fn();
     render(
       <AlertDialog open={true} onClose={handleClose}>
-        <DialogDescription>content</DialogDescription>
+        <AlertDialogDescription>content</AlertDialogDescription>
       </AlertDialog>
     );
 
@@ -48,11 +52,11 @@ describe('AlertDialog', () => {
     const handleClose = vi.fn();
     render(
       <AlertDialog open={true} onClose={handleClose}>
-        <DialogDescription>content</DialogDescription>
+        <AlertDialogDescription>content</AlertDialogDescription>
       </AlertDialog>
     );
 
-    // eslint-disable-next-line unicorn/prefer-global-this
+    // We target window as global listener is attached there
     fireEvent.keyDown(window, { key: 'Escape' });
 
     expect(handleClose).not.toHaveBeenCalled();
@@ -62,9 +66,9 @@ describe('AlertDialog', () => {
     const handleClose = vi.fn();
     render(
       <AlertDialog open={true} onClose={handleClose}>
-        <DialogActions>
+        <AlertDialogActions>
           <button onClick={handleClose}>Confirm</button>
-        </DialogActions>
+        </AlertDialogActions>
       </AlertDialog>
     );
 
@@ -74,26 +78,40 @@ describe('AlertDialog', () => {
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
-  it('allows overriding safety constraints', () => {
+  it('allows overriding safety constraints with closeOnEsc', () => {
     const handleClose = vi.fn();
     render(
       <AlertDialog open={true} onClose={handleClose} closeOnEsc={true}>
-        <DialogDescription>content</DialogDescription>
+        <AlertDialogDescription>content</AlertDialogDescription>
       </AlertDialog>
     );
 
-    // eslint-disable-next-line unicorn/prefer-global-this
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
-  it('maintains focus lock and scroll lock like a standard dialog', () => {
+  it('allows overriding safety constraints with closeOnOverlayClick', () => {
+    const handleClose = vi.fn();
     render(
-      <AlertDialog open={true} onClose={() => {}}>
-        <DialogTitle>Title</DialogTitle>
+      <AlertDialog open={true} onClose={handleClose} closeOnOverlayClick={true}>
+        <AlertDialogDescription>content</AlertDialogDescription>
       </AlertDialog>
     );
 
+    const overlay = document.querySelector('.pittorica-dialog-overlay');
+    if (overlay) {
+      fireEvent.click(overlay);
+    }
+    expect(handleClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('mantains scroll lock on the body when open', () => {
+    render(
+      <AlertDialog open={true} onClose={() => {}}>
+        <AlertDialogTitle>Title</AlertDialogTitle>
+      </AlertDialog>
+    );
+    // Verifies the manual body style manipulation
     expect(document.body.style.overflow).toBe('hidden');
   });
 });

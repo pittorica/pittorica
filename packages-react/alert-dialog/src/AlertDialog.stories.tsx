@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import { Button } from '@pittorica/button-react';
-import {
-  DialogActions,
-  DialogDescription,
-  DialogTitle,
-} from '@pittorica/dialog-react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { AlertDialog } from './AlertDialog.js';
+import {
+  AlertDialog,
+  AlertDialogActions,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from './AlertDialog.js';
 
 const meta: Meta<typeof AlertDialog> = {
   title: 'Feedback/AlertDialog',
@@ -44,19 +44,21 @@ export const Destructive: Story = {
         </Button>
 
         <AlertDialog {...args} open={open} onClose={handleClose}>
-          <DialogTitle color="red">Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
+          <AlertDialogTitle color="red">
+            Are you absolutely sure?
+          </AlertDialogTitle>
+          <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
-          </DialogDescription>
-          <DialogActions>
+          </AlertDialogDescription>
+          <AlertDialogActions>
             <Button variant="text" color="slate" onClick={handleClose}>
               Cancel
             </Button>
             <Button variant="filled" color="red" onClick={handleClose}>
               Yes, delete account
             </Button>
-          </DialogActions>
+          </AlertDialogActions>
         </AlertDialog>
       </>
     );
@@ -71,27 +73,28 @@ export const ForcedInteraction: Story = {
   render: (args) => {
     const [open, setOpen] = useState(false);
 
+    const handleClose = () => {
+      setOpen(false);
+      args.onClose?.();
+    };
+
     return (
       <>
         <Button variant="elevated" onClick={() => setOpen(true)}>
           Forced Interaction
         </Button>
 
-        <AlertDialog {...args} open={open} onClose={() => setOpen(false)}>
-          <DialogTitle>Critical Update</DialogTitle>
-          <DialogDescription>
+        <AlertDialog {...args} open={open} onClose={handleClose}>
+          <AlertDialogTitle>Critical Update</AlertDialogTitle>
+          <AlertDialogDescription>
             Your session is about to expire. Please save your work before
             continuing. You cannot dismiss this by clicking outside.
-          </DialogDescription>
-          <DialogActions>
-            <Button
-              variant="filled"
-              color="indigo"
-              onClick={() => setOpen(false)}
-            >
+          </AlertDialogDescription>
+          <AlertDialogActions>
+            <Button variant="filled" color="indigo" onClick={handleClose}>
               Understand
             </Button>
-          </DialogActions>
+          </AlertDialogActions>
         </AlertDialog>
       </>
     );
