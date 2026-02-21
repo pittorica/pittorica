@@ -15,6 +15,7 @@ import {
 
 export default function Route() {
   const [open, setOpen] = useState(false);
+  const [darkOpen, setDarkOpen] = useState(false);
 
   const codeExample = `import 'pittorica';
 import { useState } from 'react';
@@ -68,11 +69,20 @@ export const Example = () => {
             style={{
               display: 'flex',
               justifyContent: 'center',
+              gap: '1rem',
               backgroundColor: 'var(--pittorica-slate-2)',
             }}
           >
             <Button size="lg" onClick={() => setOpen(true)}>
               Launch Side Sheet
+            </Button>
+            <Button
+              size="lg"
+              variant="tonal"
+              color="indigo"
+              onClick={() => setDarkOpen(true)}
+            >
+              Launch Dark Side Sheet
             </Button>
           </Card>
         </Section>
@@ -120,6 +130,21 @@ export const Example = () => {
             >
               <Text size="2">Additional information block.</Text>
             </Box>
+          </Flex>
+        </Sheet>
+
+        <Sheet
+          isOpen={darkOpen}
+          onClose={() => setDarkOpen(false)}
+          title="Dark Theme"
+          side="right"
+          appearance="dark"
+        >
+          <Flex direction="column" gap="4">
+            <Text weight="medium">Dark Mode Appearance</Text>
+            <Text size="2">
+              This sheet is forced to dark mode using the appearance prop.
+            </Text>
           </Flex>
         </Sheet>
       </Flex>

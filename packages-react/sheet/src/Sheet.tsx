@@ -3,6 +3,8 @@ import {
   type MouseEvent,
   type ReactNode,
   useEffect,
+  useLayoutEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -14,6 +16,7 @@ import { IconX } from '@tabler/icons-react';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
 import { IconButton } from '@pittorica/icon-button-react';
+import { PittoricaTheme } from '@pittorica/theme-react';
 
 /* --- Props Types --- */
 
@@ -32,6 +35,7 @@ export type SheetProps<E extends ElementType = 'div'> = BoxProps<E> & {
    */
   side?: SheetSide;
   title?: string;
+  appearance?: 'light' | 'dark' | 'inherit';
 };
 
 /**
@@ -44,21 +48,40 @@ export const Sheet = <E extends ElementType = 'div'>({
   children,
   side = 'right',
   title,
+  appearance,
   className,
   as,
   ...props
 }: SheetProps<E>) => {
   const [isMounted, setIsMounted] = useState(false);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const [inheritedAppearance, setInheritedAppearance] = useState<
+    'light' | 'dark'
+  >();
 
-  // Fix: @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  useLayoutEffect(() => {
+    if (isOpen && anchorRef.current) {
+      const themeElement = anchorRef.current.closest(
+        '.pittorica-theme'
+      ) as HTMLElement | null;
+      if (themeElement) {
+        const app = themeElement.dataset.appearance as 'light' | 'dark';
+        setInheritedAppearance(app || undefined);
+      }
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+
     return () => {
       document.body.style.overflow = '';
     };
@@ -66,63 +89,75 @@ export const Sheet = <E extends ElementType = 'div'>({
 
   if (!isOpen || !isMounted || typeof document === 'undefined') return null;
 
+  const finalAppearance =
+    appearance === 'inherit'
+      ? inheritedAppearance
+      : (appearance ?? inheritedAppearance);
   const Tag = as || 'div';
 
-  return createPortal(
+  return (
     <>
-      <div
-        className="pittorica-sheet-overlay"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-      <Box
-        as={Tag as ElementType}
-        className={clsx(
-          'pittorica-sheet-content',
-          `pittorica-sheet--${side}`,
-          className
-        )}
-        role="dialog"
-        aria-modal="true"
-        {...(props as BoxProps<E>)}
-      >
-        {(side === 'bottom' || side === 'top') && (
-          <div className="pittorica-sheet-handle" />
-        )}
+      <div ref={anchorRef} style={{ display: 'none' }} aria-hidden="true" />
+      {createPortal(
+        <div className="pittorica-sheet-overlay" onClick={onClose}>
+          <PittoricaTheme appearance={finalAppearance}>
+            <Box
+              as={Tag as ElementType}
+              className={clsx(
+                'pittorica-sheet-content',
+                `pittorica-sheet--${side}`,
+                className
+              )}
+              role="dialog"
+              aria-modal="true"
+              onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}
+              {...(props as BoxProps<E>)}
+            >
+              {(side === 'bottom' || side === 'top') && (
+                <div className="pittorica-sheet-handle" />
+              )}
 
-        <Box
-          p="4"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          {title && (
-            <h2 style={{ margin: 0, fontSize: 'var(--pittorica-font-size-4)' }}>
-              {title}
-            </h2>
-          )}
-          <IconButton
-            variant="text"
-            color="slate"
-            onClick={(e: MouseEvent<HTMLButtonElement>) => {
-              e.stopPropagation();
-              onClose();
-            }}
-            aria-label="Close"
-            as="button"
-          >
-            <IconX size={20} />
-          </IconButton>
-        </Box>
+              <Box
+                p="4"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {title && (
+                  <h2
+                    style={{
+                      margin: 0,
+                      fontSize: 'var(--pittorica-font-size-4)',
+                    }}
+                  >
+                    {title}
+                  </h2>
+                )}
+                <IconButton
+                  variant="text"
+                  color="inherit"
+                  onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                    e.stopPropagation();
+                    onClose();
+                  }}
+                  aria-label="Close"
+                  as="button"
+                >
+                  <IconX size={20} />
+                </IconButton>{' '}
+              </Box>
 
-        <Box p="4" style={{ flexGrow: 1, overflowY: 'auto' }}>
-          {children}
-        </Box>
-      </Box>
-    </>,
-    document.body
+              <Box p="4" style={{ flexGrow: 1, overflowY: 'auto' }}>
+                {children}
+              </Box>
+            </Box>
+          </PittoricaTheme>
+        </div>,
+        document.body
+      )}
+    </>
   );
 };
 

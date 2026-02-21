@@ -2,24 +2,35 @@
   .pittorica-sheet-overlay {
     position: fixed;
     inset: 0;
-    background-color: color-mix(
-      in srgb,
-      var(--pittorica-black) 40%,
-      transparent
-    );
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
     z-index: 1000;
     animation: pittorica-fade-in 0.2s ease-out;
-    backdrop-filter: blur(4px);
   }
 
   .pittorica-sheet-content {
     position: fixed;
     background-color: var(--pittorica-surface-1);
+    color: var(--pittorica-on-surface-1);
     z-index: 1001;
-    box-shadow: var(--pittorica-shadow-5);
+    box-shadow: var(--pittorica-shadow-6);
     display: flex;
     flex-direction: column;
     transition: transform 0.3s cubic-bezier(0.05, 0.7, 0.1, 1);
+    border: 1px solid var(--pittorica-slate-3);
+  }
+
+  /* Light Mode Specifics */
+  .pittorica-theme:not([data-appearance='dark']) .pittorica-sheet-content {
+    background-color: var(--pittorica-white);
+    color: var(--pittorica-black);
+  }
+
+  /* Dark Mode Specifics */
+  .pittorica-theme[data-appearance='dark'] .pittorica-sheet-content {
+    background-color: var(--pittorica-surface-2);
+    color: var(--pittorica-white);
+    border-color: rgba(255, 255, 255, 0.12);
   }
 
   .pittorica-sheet--right {
@@ -28,7 +39,6 @@
     bottom: 0;
     width: 100%;
     max-width: 400px;
-    border-left: 1px solid var(--pittorica-slate-3);
     border-radius: var(--pittorica-radius-4) 0 0 var(--pittorica-radius-4);
   }
 
@@ -38,7 +48,6 @@
     bottom: 0;
     width: 100%;
     max-width: 400px;
-    border-right: 1px solid var(--pittorica-slate-3);
     border-radius: 0 var(--pittorica-radius-4) var(--pittorica-radius-4) 0;
   }
 
@@ -47,7 +56,6 @@
     left: 0;
     right: 0;
     max-height: 50vh;
-    border-bottom: 1px solid var(--pittorica-slate-3);
     border-radius: 0 0 var(--pittorica-radius-4) var(--pittorica-radius-4);
   }
 
@@ -56,7 +64,6 @@
     right: 0;
     bottom: 0;
     max-height: 90vh;
-    border-top: 1px solid var(--pittorica-slate-3);
     border-radius: var(--pittorica-radius-4) var(--pittorica-radius-4) 0 0;
   }
 
