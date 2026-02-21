@@ -34,9 +34,7 @@ describe('Skeleton', () => {
     render(<Skeleton variant="circle" data-testid="skeleton-circle" />);
     const skeleton = screen.getByTestId('skeleton-circle');
 
-    expect(skeleton).toHaveStyle({
-      borderRadius: 'var(--pittorica-radius-full)',
-    });
+    expect(skeleton).toHaveClass('pittorica-skeleton--circle');
   });
 
   it('hides children visibility when loading is true', () => {

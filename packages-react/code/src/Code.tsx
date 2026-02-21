@@ -131,7 +131,7 @@ export const Code = <E extends ElementType = 'code'>({
     if (!assets)
       return (
         <Tag
-          className="pittorica-code-inline"
+          className={clsx('pittorica-code-inline', className)}
           {...(props as ComponentPropsWithoutRef<E>)}
         >
           {children}

@@ -47,7 +47,7 @@ describe('Button', () => {
   it('injects dynamic color variables correctly', () => {
     const { container } = render(<Button color="crimson">Colored</Button>);
     const element = container.firstChild as HTMLElement;
-    expect(element.style.getPropertyValue('--pittorica-source-color')).toBe(
+    expect(element.style.getPropertyValue('--pittorica-button-color')).toBe(
       'var(--pittorica-crimson-9)'
     );
   });

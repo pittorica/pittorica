@@ -5,7 +5,7 @@ import { Button } from '@pittorica/button-react';
 import { Flex } from '@pittorica/flex-react';
 import { IconButton } from '@pittorica/icon-button-react';
 import { Text } from '@pittorica/text-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Popover, PopoverContent, PopoverTrigger } from './Popover';
 

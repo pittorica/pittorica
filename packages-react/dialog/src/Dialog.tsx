@@ -81,8 +81,7 @@ export const Dialog = <E extends ElementType = 'div'>({
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => setIsMounted(true));
-    return () => cancelAnimationFrame(frame);
+    setIsMounted(true);
   }, []);
 
   useEffect(() => {
@@ -110,10 +109,7 @@ export const Dialog = <E extends ElementType = 'div'>({
       ) as HTMLElement | null;
       if (themeElement) {
         const app = themeElement.dataset.appearance as DialogAppearance;
-        const frame = requestAnimationFrame(() =>
-          setInheritedAppearance(app || undefined)
-        );
-        return () => cancelAnimationFrame(frame);
+        setInheritedAppearance(app || undefined);
       }
     }
     return;

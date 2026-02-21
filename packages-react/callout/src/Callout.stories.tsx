@@ -1,6 +1,6 @@
 import { IconAlertTriangle, IconInfoCircle } from '@tabler/icons-react';
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Callout } from './Callout';
 

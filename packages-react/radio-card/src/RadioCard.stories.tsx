@@ -3,7 +3,7 @@ import { IconBuildingStore, IconPackage, IconTruck } from '@tabler/icons-react';
 import { Box } from '@pittorica/box-react';
 import { Flex } from '@pittorica/flex-react';
 import { Text } from '@pittorica/text-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { RadioCard } from './RadioCard.js';
 

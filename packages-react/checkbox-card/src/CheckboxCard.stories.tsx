@@ -1,7 +1,7 @@
 import { Flex } from '@pittorica/flex-react';
 import { Heading } from '@pittorica/heading-react';
 import { Text } from '@pittorica/text-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { CheckboxCard } from './CheckboxCard';
 

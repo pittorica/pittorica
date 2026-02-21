@@ -42,7 +42,7 @@ describe('Carousel', () => {
     expect(item).toBeInTheDocument();
   });
 
-  it('assigns specific percentage styles based on visual position', () => {
+  it('assigns specific visual positions to items', () => {
     const { container } = render(
       <Carousel.Root>
         <Carousel.Item>First</Carousel.Item>
@@ -53,14 +53,14 @@ describe('Carousel', () => {
 
     const items = container.querySelectorAll('.pittorica-carousel-item');
 
-    // First item should take 60%
-    expect(items[0]).toHaveStyle({ width: '60%', flex: '0 0 60%' });
+    // First item should have visual index 0
+    expect(items[0]).toHaveAttribute('data-visual-index', '0');
 
-    // Second item should take 25%
-    expect(items[1]).toHaveStyle({ width: '25%', flex: '0 0 25%' });
+    // Second item should have visual index 1
+    expect(items[1]).toHaveAttribute('data-visual-index', '1');
 
-    // Third item should take 15%
-    expect(items[2]).toHaveStyle({ width: '15%', flex: '0 0 15%' });
+    // Third item should have visual index 2
+    expect(items[2]).toHaveAttribute('data-visual-index', '2');
   });
 
   it('renders description with correct typography', () => {

@@ -2,7 +2,7 @@ import { IconInfoCircle } from '@tabler/icons-react';
 
 import { Flex } from '@pittorica/flex-react';
 import { Text } from '@pittorica/text-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Tooltip } from './Tooltip';
 

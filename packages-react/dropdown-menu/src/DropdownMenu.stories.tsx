@@ -9,7 +9,7 @@ import {
 
 import { Button } from '@pittorica/button-react';
 import { Flex } from '@pittorica/flex-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { DropdownMenu, DropdownMenuItem } from './DropdownMenu.js';
 

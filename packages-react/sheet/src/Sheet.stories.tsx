@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Button } from '@pittorica/button-react';
 import { Text } from '@pittorica/text-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Sheet } from './Sheet';
 

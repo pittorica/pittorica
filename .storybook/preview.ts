@@ -4,7 +4,7 @@ import 'pittorica';
 import React from 'react';
 
 import { PittoricaTheme } from '@pittorica/theme-react';
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 
 const preview: Preview = {
   parameters: {

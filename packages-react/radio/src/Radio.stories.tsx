@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Flex } from '@pittorica/flex-react';
 import { Text } from '@pittorica/text-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Radio } from './Radio.js';
 

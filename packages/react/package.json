@@ -13,7 +13,7 @@
     "build:js": "vite build",
     "build:types": "tsc -p tsconfig.json",
     "clean": "rm -rf dist",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 import { Avatar } from '@pittorica/avatar-react';
 import { Box } from '@pittorica/box-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Badge } from './Badge.js';
 

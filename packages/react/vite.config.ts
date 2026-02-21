@@ -12,6 +12,7 @@ export default defineConfig({
     external({
       nodeBuiltins: true,
       externalizeDeps: Object.keys(pkg.dependencies || {}),
+      externals: {},
     }),
   ],
   build: {

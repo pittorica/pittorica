@@ -1,6 +1,6 @@
 import { IconDeviceDesktop, IconMoon, IconSun } from '@tabler/icons-react';
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { SegmentedControl } from './SegmentedControl';
 

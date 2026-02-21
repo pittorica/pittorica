@@ -2,7 +2,7 @@ import { IconLock, IconMail, IconSearch } from '@tabler/icons-react';
 
 import { Box } from '@pittorica/box-react';
 import { Flex } from '@pittorica/flex-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { TextField } from './TextField.js';
 

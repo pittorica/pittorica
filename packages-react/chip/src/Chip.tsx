@@ -75,6 +75,7 @@ export const Chip = <E extends ElementType = 'div'>({
       {onDelete && (
         <button
           type="button"
+          aria-label="Delete"
           className="pittorica-chip-delete"
           onClick={(e) => {
             e.stopPropagation();

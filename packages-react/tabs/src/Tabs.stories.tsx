@@ -1,6 +1,6 @@
 import { Box } from '@pittorica/box-react';
 import { Text } from '@pittorica/text-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Tabs } from './Tabs';
 

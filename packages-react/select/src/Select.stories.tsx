@@ -1,7 +1,7 @@
 import { IconWorld } from '@tabler/icons-react';
 
 import { Flex } from '@pittorica/flex-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Select } from './Select.js';
 

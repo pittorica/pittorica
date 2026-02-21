@@ -52,8 +52,7 @@ export const Sheet = <E extends ElementType = 'div'>({
 
   // Fix: @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
   useEffect(() => {
-    const frame = requestAnimationFrame(() => setIsMounted(true));
-    return () => cancelAnimationFrame(frame);
+    setIsMounted(true);
   }, []);
 
   useEffect(() => {
