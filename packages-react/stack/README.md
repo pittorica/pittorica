@@ -11,8 +11,17 @@ npm install @pittorica/stack-react
 ## Usage
 
 ```jsx
-import { Stack } from '@pittorica/stack-react';
-// TODO: Add usage example
+import { Stack, Box } from '@pittorica/stack-react';
+
+function MyList() {
+  return (
+    <Stack gap="3">
+      <Box>Item 1</Box>
+      <Box>Item 2</Box>
+      <Box>Item 3</Box>
+    </Stack>
+  );
+}
 ```
 
 ## License

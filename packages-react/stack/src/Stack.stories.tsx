@@ -103,3 +103,30 @@ export const JustifyEnd: Story = {
     },
   },
 };
+
+export const Horizontal: Story = {
+  args: {
+    direction: 'row',
+    gap: '4',
+    children: (
+      <>
+        <StackItem>Item 1</StackItem>
+        <StackItem>Item 2</StackItem>
+        <StackItem>Item 3</StackItem>
+      </>
+    ),
+  },
+};
+
+export const Polymorphic: Story = {
+  args: {
+    as: 'ul',
+    children: (
+      <>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </>
+    ),
+    style: { listStyle: 'none', padding: 0 },
+  },
+};

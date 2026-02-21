@@ -11,8 +11,16 @@ npm install @pittorica/flex-react
 ## Usage
 
 ```jsx
-import { Flex } from '@pittorica/flex-react';
-// TODO: Add usage example
+import { Flex, Box } from '@pittorica/flex-react';
+
+function MyLayout() {
+  return (
+    <Flex gap="4" align="center" justify="between">
+      <Box>Item 1</Box>
+      <Box>Item 2</Box>
+    </Flex>
+  );
+}
 ```
 
 ## License
