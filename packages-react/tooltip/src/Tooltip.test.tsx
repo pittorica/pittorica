@@ -79,6 +79,6 @@ describe('Tooltip', () => {
     fireEvent.mouseEnter(screen.getByText('Trigger'));
 
     const tooltip = screen.getByRole('tooltip');
-    expect(tooltip.parentElement).toBe(document.body);
+    expect(document.body).toContainElement(tooltip);
   });
 });

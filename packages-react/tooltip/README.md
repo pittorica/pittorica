@@ -12,7 +12,15 @@ npm install @pittorica/tooltip-react
 
 ```jsx
 import { Tooltip } from '@pittorica/tooltip-react';
-// TODO: Add usage example
+import { IconInfoCircle } from '@tabler/icons-react';
+
+function MyComponent() {
+  return (
+    <Tooltip content="Informative message" side="top">
+      <IconInfoCircle size={18} />
+    </Tooltip>
+  );
+}
 ```
 
 ## License

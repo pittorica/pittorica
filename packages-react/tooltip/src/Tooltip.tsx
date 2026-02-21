@@ -3,6 +3,7 @@ import {
   type ElementType,
   type ReactNode,
   useCallback,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -12,6 +13,7 @@ import { createPortal } from 'react-dom';
 import { clsx } from 'clsx';
 
 import { Box, type BoxProps } from '@pittorica/box-react';
+import { PittoricaTheme } from '@pittorica/theme-react';
 
 /**
  * Fix TS2314 & TS2312: Use 'type' alias for intersection with polymorphic BoxProps<E>.
@@ -29,6 +31,7 @@ export type TooltipProps<E extends ElementType = 'span'> = Omit<
    * @default 'top'
    */
   side?: 'top' | 'bottom';
+  appearance?: 'light' | 'dark' | 'inherit';
 };
 
 /**
@@ -39,6 +42,7 @@ export const Tooltip = <E extends ElementType = 'span'>({
   children,
   content,
   side: preferredSide = 'top',
+  appearance,
   className,
   as,
   ...props
@@ -46,9 +50,24 @@ export const Tooltip = <E extends ElementType = 'span'>({
   const [isOpen, setIsOpen] = useState(false);
   const [coords, setCoords] = useState({ top: 0, left: 0 });
   const [actualSide, setActualSide] = useState(preferredSide);
+  const [inheritedAppearance, setInheritedAppearance] = useState<
+    'light' | 'dark'
+  >();
 
   const triggerRef = useRef<HTMLElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (isOpen && triggerRef.current) {
+      const themeElement = triggerRef.current.closest(
+        '.pittorica-theme'
+      ) as HTMLElement | null;
+      if (themeElement) {
+        const app = themeElement.dataset.appearance as 'light' | 'dark';
+        setInheritedAppearance(app || undefined);
+      }
+    }
+  }, [isOpen]);
 
   const updatePosition = useCallback(() => {
     if (!triggerRef.current) return;
@@ -85,6 +104,10 @@ export const Tooltip = <E extends ElementType = 'span'>({
   const handleClose = () => setIsOpen(false);
 
   const Tag = as || 'span';
+  const finalAppearance =
+    appearance === 'inherit'
+      ? inheritedAppearance
+      : (appearance ?? inheritedAppearance);
 
   return (
     <Box
@@ -101,25 +124,27 @@ export const Tooltip = <E extends ElementType = 'span'>({
       {isOpen &&
         typeof document !== 'undefined' &&
         createPortal(
-          <div
-            ref={tooltipRef}
-            className="pittorica-tooltip-content"
-            role="tooltip"
-            style={
-              {
-                top: coords.top,
-                left: coords.left,
-                transform:
-                  actualSide === 'top'
-                    ? 'translate(-50%, -100%)'
-                    : 'translate(-50%, 0)',
-                position: 'fixed',
-                pointerEvents: 'none',
-              } as CSSProperties
-            }
-          >
-            {content}
-          </div>,
+          <PittoricaTheme appearance={finalAppearance}>
+            <div
+              ref={tooltipRef}
+              className="pittorica-tooltip-content"
+              role="tooltip"
+              style={
+                {
+                  top: coords.top,
+                  left: coords.left,
+                  transform:
+                    actualSide === 'top'
+                      ? 'translate(-50%, -100%)'
+                      : 'translate(-50%, 0)',
+                  position: 'fixed',
+                  pointerEvents: 'none',
+                } as CSSProperties
+              }
+            >
+              {content}
+            </div>
+          </PittoricaTheme>,
           document.body
         )}
     </Box>

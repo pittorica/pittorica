@@ -7,6 +7,7 @@ import {
   Container,
   Flex,
   Heading,
+  PittoricaTheme,
   Section,
   Table,
   Text,
@@ -75,6 +76,38 @@ export const Example = () => {
           </Card>
         </Section>
 
+        {/* Dark Mode Preview */}
+        <Section>
+          <Heading size="4" mb="4">
+            Dark Mode Preview
+          </Heading>
+          <PittoricaTheme appearance="dark">
+            <Card
+              variant="outlined"
+              p="9"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                backgroundColor: 'var(--pittorica-black)',
+                color: 'var(--pittorica-white)',
+              }}
+            >
+              <Flex align="center" gap="3">
+                <Text size="4">In Dark Mode:</Text>
+                <Tooltip content="Dark theme tooltip" side="top">
+                  <IconInfoCircle
+                    size={24}
+                    style={{
+                      cursor: 'help',
+                      color: 'var(--pittorica-indigo-9)',
+                    }}
+                  />
+                </Tooltip>
+              </Flex>
+            </Card>
+          </PittoricaTheme>
+        </Section>
+
         {/* Implementation Code */}
         <Box mb="9">
           <Heading size="4" mb="4">
@@ -133,6 +166,22 @@ export const Example = () => {
                   </Table.Cell>
                   <Table.Cell>
                     <Text size="2">The preferred side of the trigger.</Text>
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    <Code>appearance</Code>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text size="2">'light' | 'dark' | 'inherit'</Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text size="2">-</Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text size="2">
+                      The theme appearance of the tooltip content.
+                    </Text>
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>

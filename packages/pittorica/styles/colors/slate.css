@@ -57,8 +57,15 @@
 
     /* Contrast Logic Light */
     --pittorica-on-slate-1: var(--pittorica-black);
+    --pittorica-on-slate-2: var(--pittorica-black);
     --pittorica-on-slate-3: var(--pittorica-black);
+    --pittorica-on-slate-4: var(--pittorica-black);
+    --pittorica-on-slate-5: var(--pittorica-black);
+    --pittorica-on-slate-6: var(--pittorica-white);
+    --pittorica-on-slate-7: var(--pittorica-white);
+    --pittorica-on-slate-8: var(--pittorica-white);
     --pittorica-on-slate-9: var(--pittorica-white);
+    --pittorica-on-slate-11: var(--pittorica-white);
   }
 
   .pittorica-theme[data-appearance='dark'] {
@@ -112,6 +119,14 @@
 
     /* Contrast Logic Dark */
     --pittorica-on-slate-1: var(--pittorica-white);
+    --pittorica-on-slate-2: var(--pittorica-white);
+    --pittorica-on-slate-3: var(--pittorica-white);
+    --pittorica-on-slate-4: var(--pittorica-white);
+    --pittorica-on-slate-5: var(--pittorica-white);
+    --pittorica-on-slate-6: var(--pittorica-black);
+    --pittorica-on-slate-7: var(--pittorica-black);
+    --pittorica-on-slate-8: var(--pittorica-black);
     --pittorica-on-slate-9: var(--pittorica-black);
+    --pittorica-on-slate-11: var(--pittorica-black);
   }
 }
