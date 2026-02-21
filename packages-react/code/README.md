@@ -12,7 +12,19 @@ npm install @pittorica/code-react
 
 ```jsx
 import { Code } from '@pittorica/code-react';
-// TODO: Add usage example
+
+function MyComponent() {
+  return (
+    <>
+      <Code>npm install pittorica</Code>
+
+      <Code language="typescript" filename="Example.ts" showLineNumbers>
+        {\`const hello = "world";
+console.log(hello);\`}
+      </Code>
+    </>
+  );
+}
 ```
 
 ## License
