@@ -16,7 +16,11 @@
     height: 100%;
     overflow: hidden;
     cursor: pointer;
-    background-color: var(--pittorica-slate-12);
+    background-color: var(--pittorica-slate-3);
+  }
+
+  .pittorica-theme[data-appearance='dark'] .pittorica-carousel-item {
+    background-color: var(--pittorica-black);
   }
 
   /* --- Glass Blur Layer --- */
@@ -110,6 +114,14 @@
   .pittorica-carousel-item[data-visual-index='0']
     .pittorica-carousel-description {
     opacity: 1;
+  }
+
+  .pittorica-theme[data-appearance='dark'] .pittorica-carousel-description {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.95) 0%,
+      transparent 100%
+    );
   }
 
   /* --- Lightbox / Fullscreen Overlay --- */

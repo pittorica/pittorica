@@ -1,5 +1,6 @@
 import { Box } from '@pittorica/box-react';
 import { Button } from '@pittorica/button-react';
+import { PittoricaTheme } from '@pittorica/theme-react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Carousel } from './Carousel.js';
@@ -66,6 +67,39 @@ export const Default: StoryObj<typeof Carousel.Root> = {
   ),
 };
 
+export const DarkMode: StoryObj<typeof Carousel.Root> = {
+  render: (args) => (
+    <PittoricaTheme
+      appearance="dark"
+      style={{ padding: '2rem', background: 'var(--pittorica-surface-0)' }}
+    >
+      <Carousel.Root {...args} appearance="dark">
+        {mockImages.slice(0, 3).map((img) => (
+          <Carousel.Item
+            key={img.id}
+            src={`https://picsum.photos/id/${img.id}/800/1200`}
+            alt={img.title}
+          >
+            <Carousel.Description>
+              {img.title}
+              <br />
+              <span
+                style={{
+                  fontSize: '0.8em',
+                  opacity: 0.8,
+                  fontWeight: 'normal',
+                }}
+              >
+                {img.desc}
+              </span>
+            </Carousel.Description>
+          </Carousel.Item>
+        ))}
+      </Carousel.Root>
+    </PittoricaTheme>
+  ),
+};
+
 /**
  * Demonstrates the contained layout where landscape or portrait images
  * are fully visible without cropping.
@@ -89,19 +123,4 @@ export const MixedAspectRatios: StoryObj<typeof Carousel.Root> = {
       </Carousel.Root>
     </Box>
   ),
-};
-
-/**
- * Displays the dynamic viewport logic where the active item takes 60% width
- * while the background fills remaining gaps with blur.
- */
-export const EntranceAnimation: StoryObj<typeof Carousel.Root> = {
-  ...Default,
-  parameters: {
-    docs: {
-      description: {
-        story: 'The viewport features a heavy ease-out entrance from x: 1000.',
-      },
-    },
-  },
 };

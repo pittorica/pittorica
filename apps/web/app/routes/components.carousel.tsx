@@ -6,7 +6,9 @@ import {
   Container,
   Flex,
   Heading,
+  PittoricaTheme,
   Section,
+  Table,
   Text,
 } from '@pittorica/react';
 
@@ -98,6 +100,41 @@ export const Example = () => {
           </Card>
         </Section>
 
+        {/* Dark Mode Preview */}
+        <Section>
+          <Heading size="4" mb="4">
+            Dark Mode Preview
+          </Heading>
+          <PittoricaTheme appearance="dark">
+            <Card
+              variant="outlined"
+              p="9"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                backgroundColor: 'var(--pittorica-black)',
+              }}
+            >
+              <Box style={{ width: '100%', maxWidth: '600px' }}>
+                <Carousel.Root appearance="dark">
+                  <Carousel.Item
+                    src="https://picsum.photos/id/20/800/1200"
+                    alt="Dark 1"
+                  >
+                    <Carousel.Description>Starlit Night</Carousel.Description>
+                  </Carousel.Item>
+                  <Carousel.Item
+                    src="https://picsum.photos/id/21/800/1200"
+                    alt="Dark 2"
+                  >
+                    <Carousel.Description>Midnight Echo</Carousel.Description>
+                  </Carousel.Item>
+                </Carousel.Root>
+              </Box>
+            </Card>
+          </PittoricaTheme>
+        </Section>
+
         {/* Implementation Code */}
         <Box mb="9">
           <Heading size="4" mb="4">
@@ -144,6 +181,20 @@ export const Example = () => {
                     </Table.Cell>
                     <Table.Cell>
                       <Text size="2">Initial active slide index.</Text>
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Code>appearance</Code>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">'light' | 'dark' | 'inherit'</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">-</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">Theme appearance of the carousel.</Text>
                     </Table.Cell>
                   </Table.Row>
                 </Table.Body>

@@ -4,7 +4,9 @@ import {
   isValidElement,
   type ReactNode,
   useId,
+  useLayoutEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -17,6 +19,7 @@ import { Box, type BoxProps } from '@pittorica/box-react';
 import { Flex } from '@pittorica/flex-react';
 import { IconButton } from '@pittorica/icon-button-react';
 import { Text } from '@pittorica/text-react';
+import { PittoricaTheme } from '@pittorica/theme-react';
 
 /* --- Props Types --- */
 
@@ -26,6 +29,7 @@ import { Text } from '@pittorica/text-react';
 export type CarouselRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   children?: ReactNode;
   defaultIndex?: number;
+  appearance?: 'light' | 'dark' | 'inherit';
 };
 
 /**
@@ -93,12 +97,29 @@ export const CarouselRoot = <E extends ElementType = 'div'>({
   children,
   className,
   defaultIndex = 0,
+  appearance,
   as,
   ...props
 }: CarouselRootProps<E>) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [inheritedAppearance, setInheritedAppearance] = useState<
+    'light' | 'dark'
+  >();
+  const rootRef = useRef<HTMLDivElement>(null);
   const baseId = useId();
+
+  useLayoutEffect(() => {
+    if (rootRef.current) {
+      const themeElement = rootRef.current.closest(
+        '.pittorica-theme'
+      ) as HTMLElement | null;
+      if (themeElement) {
+        const app = themeElement.dataset.appearance as 'light' | 'dark';
+        setInheritedAppearance(app || undefined);
+      }
+    }
+  }, []);
 
   // Normalize children to a flat array of valid React elements
   const childrenArray = useMemo(() => {
@@ -137,75 +158,84 @@ export const CarouselRoot = <E extends ElementType = 'div'>({
   };
 
   const Tag = as || 'div';
+  const finalAppearance =
+    appearance === 'inherit'
+      ? inheritedAppearance
+      : (appearance ?? inheritedAppearance);
 
   return (
     <Box
       as={Tag as ElementType}
+      ref={rootRef}
       className={clsx('pittorica-carousel-root', className)}
       {...(props as BoxProps<E>)}
     >
-      <div className="pittorica-carousel-viewport">
-        <AnimatePresence mode="popLayout">
-          {items.map((child, visualIndex) => {
-            const originalIndex =
-              (activeIndex + visualIndex) % childrenArray.length;
-            const styles = getItemStyles(visualIndex);
-            if (visualIndex > 2) return null;
+      <PittoricaTheme appearance={finalAppearance}>
+        <div className="pittorica-carousel-viewport">
+          <AnimatePresence mode="popLayout">
+            {items.map((child, visualIndex) => {
+              const originalIndex =
+                (activeIndex + visualIndex) % childrenArray.length;
+              const styles = getItemStyles(visualIndex);
+              if (visualIndex > 2) return null;
 
-            return (
-              <motion.div
-                key={originalIndex}
-                layout
-                data-visual-index={visualIndex}
-                initial={{ opacity: 0, x: 500 }}
-                animate={{ opacity: 1, x: 0, ...styles }}
-                exit={{ opacity: 0, width: '0%' }}
-                className="pittorica-carousel-item"
-                onClick={(e) => handleItemClick(e, originalIndex, visualIndex)}
-              >
-                {child}
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
+              return (
+                <motion.div
+                  key={originalIndex}
+                  layout
+                  data-visual-index={visualIndex}
+                  initial={{ opacity: 0, x: 500 }}
+                  animate={{ opacity: 1, x: 0, ...styles }}
+                  exit={{ opacity: 0, width: '0%' }}
+                  className="pittorica-carousel-item"
+                  onClick={(e) =>
+                    handleItemClick(e, originalIndex, visualIndex)
+                  }
+                >
+                  {child}
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
 
-      <AnimatePresence>
-        {isFullscreen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="pittorica-carousel-lightbox"
-          >
-            <IconButton
-              variant="text"
-              onClick={() => setIsFullscreen(false)}
-              className="pittorica-carousel-lightbox-close"
-              as="button"
+        <AnimatePresence>
+          {isFullscreen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="pittorica-carousel-lightbox"
             >
-              <IconX size={32} color="white" />
-            </IconButton>
-
-            <div className="pittorica-carousel-lightbox-content">
-              <div
-                data-visual-index="0"
-                style={{ width: '100%', height: '100%' }}
+              <IconButton
+                variant="text"
+                onClick={() => setIsFullscreen(false)}
+                className="pittorica-carousel-lightbox-close"
+                as="button"
               >
-                {childrenArray[activeIndex]}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <IconX size={32} color="white" />
+              </IconButton>
 
-      <Box mt="4">
-        <CarouselPagination
-          total={childrenArray.length}
-          active={activeIndex}
-          carouselId={baseId}
-        />
-      </Box>
+              <div className="pittorica-carousel-lightbox-content">
+                <div
+                  data-visual-index="0"
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  {childrenArray[activeIndex]}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <Box mt="4">
+          <CarouselPagination
+            total={childrenArray.length}
+            active={activeIndex}
+            carouselId={baseId}
+          />
+        </Box>
+      </PittoricaTheme>
     </Box>
   );
 };
