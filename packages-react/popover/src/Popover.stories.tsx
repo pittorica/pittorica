@@ -5,6 +5,7 @@ import { Button } from '@pittorica/button-react';
 import { Flex } from '@pittorica/flex-react';
 import { IconButton } from '@pittorica/icon-button-react';
 import { Text } from '@pittorica/text-react';
+import { PittoricaTheme } from '@pittorica/theme-react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 
@@ -21,7 +22,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: StoryObj = {
+export const Basic: Story = {
   render: () => (
     <Popover placement="bottom">
       <PopoverTrigger>
@@ -39,7 +40,34 @@ export const Basic: StoryObj = {
   ),
 };
 
-export const DestructiveAction: StoryObj = {
+export const DarkMode: Story = {
+  render: () => (
+    <PittoricaTheme
+      appearance="dark"
+      style={{
+        padding: '4rem',
+        background: 'var(--pittorica-surface-0)',
+        borderRadius: '8px',
+      }}
+    >
+      <Popover placement="bottom" appearance="dark">
+        <PopoverTrigger>
+          <Button variant="tonal">Open Dark Popover</Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <Box p="1">
+            <Text weight="bold">Dark Theme</Text>
+            <Text>
+              Everything inside this popover adapts to the dark theme.
+            </Text>
+          </Box>
+        </PopoverContent>
+      </Popover>
+    </PittoricaTheme>
+  ),
+};
+
+export const DestructiveAction: Story = {
   render: () => (
     <Popover placement="top">
       <PopoverTrigger>
@@ -66,7 +94,7 @@ export const DestructiveAction: StoryObj = {
   ),
 };
 
-export const SettingsMenu: StoryObj = {
+export const SettingsMenu: Story = {
   render: () => (
     <Popover placement="right">
       <PopoverTrigger>
@@ -97,17 +125,13 @@ export const SettingsMenu: StoryObj = {
 };
 
 export const Interactive: Story = {
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement, args: _args }) => {
     const canvas = within(canvasElement);
-    const element =
-      canvas.queryByRole('button') ||
-      canvas.queryByRole('checkbox') ||
-      canvas.queryByRole('radio');
-    if (element) {
-      await userEvent.click(element);
-      if (args.onClick) {
-        await expect(args.onClick).toHaveBeenCalled();
-      }
-    }
+    const trigger = canvas.getByRole('button');
+    await userEvent.click(trigger);
+
+    // Check if popover content is visible
+    const popover = await within(document.body).findByRole('dialog');
+    await expect(popover).toBeInTheDocument();
   },
 };

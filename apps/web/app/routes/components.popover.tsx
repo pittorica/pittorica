@@ -65,6 +65,7 @@ export const Example = () => {
             style={{
               display: 'flex',
               justifyContent: 'center',
+              gap: '1rem',
               backgroundColor: 'var(--pittorica-slate-2)',
             }}
           >
@@ -80,6 +81,25 @@ export const Example = () => {
                   <Text size="2" color="slate">
                     This content is dynamically positioned using Floating UI. It
                     will flip automatically if there is not enough space.
+                  </Text>
+                </Box>
+              </PopoverContent>
+            </Popover>
+
+            <Popover placement="bottom" appearance="dark">
+              <PopoverTrigger>
+                <Button size="lg" variant="tonal" color="indigo">
+                  Open Dark Popover
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent style={{ width: 240 }}>
+                <Box p="1">
+                  <Heading size="3" mb="2">
+                    Dark Theme
+                  </Heading>
+                  <Text size="2">
+                    This popover is explicitly set to dark mode. Nested
+                    components inherit this theme.
                   </Text>
                 </Box>
               </PopoverContent>
@@ -131,6 +151,22 @@ export const Example = () => {
                     <Table.Cell>
                       <Text size="2">
                         The preferred placement of the popover.
+                      </Text>
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Code>appearance</Code>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">'light' | 'dark' | 'inherit'</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">-</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">
+                        The theme appearance of the popover content.
                       </Text>
                     </Table.Cell>
                   </Table.Row>

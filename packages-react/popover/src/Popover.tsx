@@ -4,6 +4,7 @@ import {
   type ElementType,
   type ReactNode,
   use,
+  useLayoutEffect,
   useMemo,
   useState,
 } from 'react';
@@ -25,6 +26,7 @@ import {
   useRole,
 } from '@floating-ui/react';
 import { Box, type BoxProps } from '@pittorica/box-react';
+import { PittoricaTheme } from '@pittorica/theme-react';
 
 /* --- Context --- */
 
@@ -39,6 +41,7 @@ interface PopoverContextType {
   getFloatingProps: (
     userProps?: React.HTMLProps<HTMLElement>
   ) => Record<string, unknown>;
+  appearance?: 'light' | 'dark' | 'inherit';
 }
 
 const PopoverContext = createContext<PopoverContextType | null>(null);
@@ -56,9 +59,14 @@ export type PopoverProps = {
   children: ReactNode;
   /** @default 'bottom' */
   placement?: Placement;
+  appearance?: 'light' | 'dark' | 'inherit';
 };
 
-export const Popover = ({ children, placement = 'bottom' }: PopoverProps) => {
+export const Popover = ({
+  children,
+  placement = 'bottom',
+  appearance,
+}: PopoverProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating<HTMLElement>({
@@ -87,8 +95,16 @@ export const Popover = ({ children, placement = 'bottom' }: PopoverProps) => {
       floatingStyles,
       getReferenceProps,
       getFloatingProps,
+      appearance,
     }),
-    [isOpen, refs, floatingStyles, getReferenceProps, getFloatingProps]
+    [
+      isOpen,
+      refs,
+      floatingStyles,
+      getReferenceProps,
+      getFloatingProps,
+      appearance,
+    ]
   );
 
   return <PopoverContext value={value}>{children}</PopoverContext>;
@@ -148,8 +164,24 @@ export const PopoverContent = <E extends ElementType = 'div'>({
   ref: externalRef,
   ...props
 }: PopoverContentProps<E>) => {
-  const { isOpen, refs, floatingStyles, getFloatingProps } =
+  const { isOpen, refs, floatingStyles, getFloatingProps, appearance } =
     usePopoverContext();
+
+  const [inheritedAppearance, setInheritedAppearance] = useState<
+    'light' | 'dark'
+  >();
+
+  useLayoutEffect(() => {
+    if (isOpen && refs.domReference.current) {
+      const themeElement = refs.domReference.current.closest(
+        '.pittorica-theme'
+      ) as HTMLElement | null;
+      if (themeElement) {
+        const app = themeElement.dataset.appearance as 'light' | 'dark';
+        setInheritedAppearance(app || undefined);
+      }
+    }
+  }, [isOpen, refs.domReference]);
 
   const setFloatingRefs = (node: HTMLElement | null) => {
     refs.setFloating(node);
@@ -164,19 +196,25 @@ export const PopoverContent = <E extends ElementType = 'div'>({
   if (!isOpen) return null;
 
   const Tag = as || 'div';
+  const finalAppearance =
+    appearance === 'inherit'
+      ? inheritedAppearance
+      : (appearance ?? inheritedAppearance);
 
   return (
     <FloatingPortal>
-      <Box
-        as={Tag as ElementType}
-        {...getFloatingProps()}
-        ref={setFloatingRefs}
-        className={clsx('pittorica-popover-content', className)}
-        style={{ ...floatingStyles, ...props.style }}
-        {...(props as BoxProps<E>)}
-      >
-        {children}
-      </Box>
+      <PittoricaTheme appearance={finalAppearance}>
+        <Box
+          as={Tag as ElementType}
+          {...getFloatingProps()}
+          ref={setFloatingRefs}
+          className={clsx('pittorica-popover-content', className)}
+          style={{ ...floatingStyles, ...props.style }}
+          {...(props as BoxProps<E>)}
+        >
+          {children}
+        </Box>
+      </PittoricaTheme>
     </FloatingPortal>
   );
 };
