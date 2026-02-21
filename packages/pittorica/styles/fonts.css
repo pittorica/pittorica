@@ -1,11 +1,16 @@
 @layer pittorica-tokens {
   :root {
-    --pittorica-font-family:
-      system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial,
-      sans-serif;
-    --pittorica-font-heading: var(--pittorica-font-family);
-    --pittorica-font-code:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-inter-variable:
+      'Inter Variable', Inter, system-ui, -apple-system, sans-serif;
+    --font-inknut-antiqua: 'Inknut Antiqua', cursive;
+    --font-kode-mono-variable: 'Kode Mono Variable', monospace;
+
+    --pittorica-font-family: var(--font-inter-variable);
+    --pittorica-font-heading: var(--font-inknut-antiqua);
+    --pittorica-font-code: var(--font-kode-mono-variable);
+    --pittorica-font-strong: inherit;
+    --pittorica-font-em: inherit;
+    --pittorica-font-quote: var(--font-inknut-antiqua);
 
     --pittorica-font-size-1: 12px;
     --pittorica-line-height-1: 16px;

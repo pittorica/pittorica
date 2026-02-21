@@ -1,4 +1,8 @@
 import 'pittorica';
+// Fonts
+import '@fontsource-variable/inter';
+import '@fontsource-variable/kode-mono';
+import '@fontsource/inknut-antiqua';
 
 import React from 'react';
 

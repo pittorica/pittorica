@@ -26,6 +26,11 @@
       "plugin:storybook/recommended"
     ]
   },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/kode-mono": "^5.2.8",
+    "@fontsource/inknut-antiqua": "^5.2.8"
+  },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.1",
     "@commitlint/cli": "^20.3.1",

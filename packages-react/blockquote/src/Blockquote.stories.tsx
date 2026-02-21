@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['classic', 'soft', 'solid', 'outline'],
+      options: ['classic', 'soft', 'solid', 'outline', 'fancy'],
     },
     color: {
       control: 'select',
@@ -47,8 +47,20 @@ export const Variants: Story = {
       <Blockquote {...args} variant="solid">
         Solid: Full background with high contrast text.
       </Blockquote>
+      <Blockquote {...args} variant="fancy">
+        Fancy: Decorative background quote mark.
+      </Blockquote>
     </Flex>
   ),
+};
+
+export const Fancy: Story = {
+  args: {
+    children:
+      'This variant features a large decorative quote in the background for a more stylised and modern appearance.',
+    variant: 'fancy',
+    color: 'indigo',
+  },
 };
 
 export const Colors: Story = {
@@ -92,6 +104,9 @@ export const DarkMode: Story = {
         </Blockquote>
         <Blockquote variant="solid" color="crimson">
           Dark Solid Blockquote
+        </Blockquote>
+        <Blockquote variant="fancy" color="indigo">
+          Dark Fancy Blockquote
         </Blockquote>
       </Flex>
     </PittoricaTheme>

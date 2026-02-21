@@ -6,6 +6,16 @@ settings:
 
 importers:
   .:
+    dependencies:
+      '@fontsource-variable/inter':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource-variable/kode-mono':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/inknut-antiqua':
+        specifier: ^5.2.8
+        version: 5.2.8
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^5.0.1
@@ -4962,10 +4972,22 @@ packages:
         integrity: sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ==,
       }
 
+  '@fontsource-variable/kode-mono@5.2.8':
+    resolution:
+      {
+        integrity: sha512-X1O4RAIPyP4Vm8rVoKHirg3amVdE2XvIAQUvDRU17aCzSUz648/9w2KJafH1vK6g0uy7U8PrOCc1I11riXhHwQ==,
+      }
+
   '@fontsource/alice@5.2.8':
     resolution:
       {
         integrity: sha512-EDpK9aFXsaRKdyZpgFu8d5+zmE07yIaFxqVeKrYQJjdQpEhWDZA+naLflHwQQmMbLMJK3a4X/RAm5MCScT93NA==,
+      }
+
+  '@fontsource/inknut-antiqua@5.2.8':
+    resolution:
+      {
+        integrity: sha512-Ldkr6Zx5wb4wMtI1QDy7NeawFI3rHSawR/Z07ohkJbPF0gd1Df3ircCsEyg8U2zwCCrRXOpbBD/Mdm+bEC+P+A==,
       }
 
   '@fontsource/space-mono@5.2.9':
@@ -15254,7 +15276,11 @@ snapshots:
 
   '@fontsource-variable/inter@5.2.8': {}
 
+  '@fontsource-variable/kode-mono@5.2.8': {}
+
   '@fontsource/alice@5.2.8': {}
+
+  '@fontsource/inknut-antiqua@5.2.8': {}
 
   '@fontsource/space-mono@5.2.9': {}
 
@@ -16326,7 +16352,7 @@ snapshots:
       magic-string: 0.30.21
       sirv: 3.0.2
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@25.0.10)(@vitest/browser@3.2.4)(jiti@2.6.1)(jsdom@22.1.0)(lightningcss@1.31.1)(msw@2.12.7(@types/node@25.0.10)(typescript@5.9.3))(yaml@2.8.2)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@25.0.10)(@vitest/browser@3.2.4)(jiti@2.6.1)(jsdom@27.4.0)(lightningcss@1.31.1)(msw@2.12.7(@types/node@25.0.10)(typescript@5.9.3))(yaml@2.8.2)
       ws: 8.19.0
     optionalDependencies:
       playwright: 1.58.1

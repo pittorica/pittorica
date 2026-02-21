@@ -42,10 +42,43 @@
     border-left-color: var(--pittorica-source-9);
   }
 
+  /* Fancy: Large background quote */
+  .pittorica-blockquote[data-variant='fancy'] {
+    position: relative;
+    border-left: none;
+    padding: var(--pittorica-space-8) var(--pittorica-space-4);
+    z-index: 1;
+  }
+
+  .pittorica-blockquote[data-variant='fancy']::before {
+    content: '“';
+    position: absolute;
+    top: -2rem;
+    left: -1rem;
+    font-size: 12rem;
+    font-family: var(--pittorica-font-heading);
+    color: var(--_bq-accent);
+    opacity: 0.15;
+    z-index: -1;
+    line-height: 1;
+    pointer-events: none;
+  }
+
   /* Dark Mode specific overrides for Soft */
   .pittorica-theme[data-appearance='dark']
     .pittorica-blockquote[data-variant='soft'] {
     --_bq-bg: color-mix(in srgb, var(--pittorica-source-9) 15%, transparent);
     --_bq-text: var(--pittorica-white);
+  }
+
+  /* Dark Mode specific overrides for Fancy */
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-blockquote[data-variant='fancy'] {
+    color: var(--pittorica-white);
+  }
+
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-blockquote[data-variant='fancy']::before {
+    opacity: 0.2;
   }
 }

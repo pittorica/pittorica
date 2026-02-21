@@ -1,6 +1,7 @@
 @layer pittorica-components {
   .pittorica-quote {
     font-style: italic;
+    font-family: var(--pittorica-font-quote);
     color: var(--pittorica-slate-11);
   }
 

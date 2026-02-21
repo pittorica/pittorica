@@ -8,7 +8,12 @@ import {
   type TextProps,
 } from '@pittorica/text-react';
 
-export type BlockquoteVariant = 'classic' | 'soft' | 'solid' | 'outline';
+export type BlockquoteVariant =
+  | 'classic'
+  | 'soft'
+  | 'solid'
+  | 'outline'
+  | 'fancy';
 
 export interface BlockquoteProps extends TextProps {
   /**

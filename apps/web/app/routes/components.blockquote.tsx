@@ -81,6 +81,9 @@ export const Example = () => {
               "Design is not just what it looks like and feels like. Design is
               how it works."
             </Blockquote>
+            <Blockquote variant="fancy" color="indigo">
+              "This is a fancy blockquote with a decorative background mark."
+            </Blockquote>
           </Card>
         </Section>
 
