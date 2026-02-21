@@ -62,6 +62,7 @@
 @import './components/tooltip.css' layer(pittorica-components);
 @import './components/popover.css' layer(pittorica-components);
 @import './components/dialog.css' layer(pittorica-components);
+@import './components/alert-dialog.css' layer(pittorica-components);
 @import './components/sheet.css' layer(pittorica-components);
 
 /* Data Structures */

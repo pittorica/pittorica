@@ -52,7 +52,7 @@ export const Destructive: Story = {
             account and remove your data from our servers.
           </AlertDialogDescription>
           <AlertDialogActions>
-            <Button variant="text" color="slate" onClick={handleClose}>
+            <Button variant="text" onClick={handleClose}>
               Cancel
             </Button>
             <Button variant="filled" color="red" onClick={handleClose}>

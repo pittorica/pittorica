@@ -7,10 +7,6 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-/**
- * Fix: Use the new AlertDialog compound component names.
- * These are now prefixed with 'Alert' to avoid naming collisions.
- */
 import {
   AlertDialog,
   AlertDialogActions,
@@ -38,7 +34,7 @@ describe('AlertDialog', () => {
       </AlertDialog>
     );
 
-    const overlay = document.querySelector('.pittorica-dialog-overlay');
+    const overlay = document.querySelector('.pittorica-alert-dialog-overlay');
     expect(overlay).not.toBeNull();
 
     if (overlay) {
@@ -98,14 +94,14 @@ describe('AlertDialog', () => {
       </AlertDialog>
     );
 
-    const overlay = document.querySelector('.pittorica-dialog-overlay');
+    const overlay = document.querySelector('.pittorica-alert-dialog-overlay');
     if (overlay) {
       fireEvent.click(overlay);
     }
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 
-  it('mantains scroll lock on the body when open', () => {
+  it('maintains scroll lock on the body when open', () => {
     render(
       <AlertDialog open={true} onClose={() => {}}>
         <AlertDialogTitle>Title</AlertDialogTitle>

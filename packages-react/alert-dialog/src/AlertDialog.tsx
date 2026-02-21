@@ -1,9 +1,17 @@
 /**
  * @file AlertDialog.tsx
- * Standalone AlertDialog component with corrected text visibility for dark mode.
+ * Standalone AlertDialog component with proper theming and corrected visibility.
  */
 
-import { type ReactNode, useEffect, useId, useState } from 'react';
+import {
+  type CSSProperties,
+  type ReactNode,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -22,6 +30,11 @@ export interface AlertDialogProps {
   closeOnOverlayClick?: boolean;
   /** @default false */
   closeOnEsc?: boolean;
+  /**
+   * The appearance of the dialog.
+   * @default 'inherit'
+   */
+  appearance?: 'light' | 'dark' | 'inherit';
 }
 
 /* --- Standalone Compound Components --- */
@@ -35,11 +48,14 @@ export const AlertDialogTitle = ({
 }) => (
   <Box mb="3">
     <h2
-      style={{
-        margin: 0,
-        fontSize: 'var(--pittorica-font-size-5)',
-        color: color ? `var(--pittorica-${color}-9)` : 'var(--pittorica-white)',
-      }}
+      className="pittorica-alert-dialog-title"
+      style={
+        {
+          '--_alert-dialog-title-color': color
+            ? `var(--pittorica-${color}-9)`
+            : undefined,
+        } as CSSProperties
+      }
     >
       {children}
     </h2>
@@ -52,31 +68,13 @@ export const AlertDialogDescription = ({
   children: ReactNode;
 }) => (
   <Box mb="6">
-    <p
-      style={{
-        margin: 0,
-        color: 'var(--pittorica-white)',
-        opacity: 0.7,
-        fontSize: 'var(--pittorica-font-size-3)',
-        lineHeight: '1.6',
-      }}
-    >
-      {children}
-    </p>
+    <p className="pittorica-alert-dialog-description">{children}</p>
   </Box>
 );
 
 export const AlertDialogActions = ({ children }: { children: ReactNode }) => (
-  <Box mt="6">
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        gap: 'var(--pittorica-space-3)',
-      }}
-    >
-      {children}
-    </div>
+  <Box mt="6" className="pittorica-alert-dialog-actions">
+    {children}
   </Box>
 );
 
@@ -87,20 +85,37 @@ export const AlertDialog = ({
   onClose,
   children,
   className,
+  appearance,
   closeOnOverlayClick = false,
   closeOnEsc = false,
 }: AlertDialogProps) => {
   const [mounted, setMounted] = useState(false);
   const titleId = useId();
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const [inheritedAppearance, setInheritedAppearance] = useState<
+    'light' | 'dark' | undefined
+  >();
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(frame);
+    setMounted(true);
   }, []);
+
+  useLayoutEffect(() => {
+    if (open && anchorRef.current) {
+      const themeElement = anchorRef.current.closest(
+        '.pittorica-theme'
+      ) as HTMLElement | null;
+      if (themeElement) {
+        const app = themeElement.dataset.appearance as 'light' | 'dark';
+        setInheritedAppearance(app || undefined);
+      }
+    }
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
 
+    const originalStyle = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -110,53 +125,45 @@ export const AlertDialog = ({
     globalThis.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = originalStyle;
       globalThis.removeEventListener('keydown', handleKeyDown);
     };
   }, [open, closeOnEsc, onClose]);
 
   if (!open || !mounted || typeof document === 'undefined') return null;
 
-  return createPortal(
-    <div className="pittorica-dialog-portal">
-      <div
-        className="pittorica-dialog-overlay"
-        onClick={closeOnOverlayClick ? onClose : undefined}
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          backdropFilter: 'blur(4px)',
-          zIndex: 1000,
-        }}
-      />
+  const finalAppearance =
+    appearance === 'inherit'
+      ? inheritedAppearance
+      : (appearance ?? inheritedAppearance);
 
-      <Box
-        className={clsx('pittorica-dialog-content', className)}
-        role="alertdialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '90%',
-          maxWidth: '500px',
-          backgroundColor: 'var(--pittorica-slate-1)',
-          borderRadius: 'var(--pittorica-radius-4)',
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
-          padding: 'var(--pittorica-space-6)',
-          zIndex: 1001,
-          outline: 'none',
-          color: 'var(--pittorica-white)',
-        }}
-      >
-        {children}
-      </Box>
-    </div>,
-    document.body
+  return (
+    <>
+      <div ref={anchorRef} style={{ display: 'none' }} aria-hidden="true" />
+      {createPortal(
+        <div
+          className={clsx('pittorica-alert-dialog-portal pittorica-theme')}
+          data-appearance={finalAppearance}
+        >
+          <div
+            className="pittorica-alert-dialog-overlay"
+            onClick={closeOnOverlayClick ? onClose : undefined}
+            aria-hidden="true"
+          />
+
+          <Box
+            className={clsx('pittorica-alert-dialog-content', className)}
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {children}
+          </Box>
+        </div>,
+        document.body
+      )}
+    </>
   );
 };
 

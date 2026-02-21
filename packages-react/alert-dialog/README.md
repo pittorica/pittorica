@@ -1,6 +1,6 @@
 # @pittorica/alert-dialog-react
 
-The `AlertDialog` component is used to interrupt the user with a mandatory confirmation or action. It is built on top of the `Dialog` component.
+The `AlertDialog` component is used to interrupt the user with a mandatory confirmation or action. It is designed to be accessible and fully themed for both light and dark modes.
 
 ## Installation
 
@@ -8,25 +8,24 @@ The `AlertDialog` component is used to interrupt the user with a mandatory confi
 npm install @pittorica/alert-dialog-react
 ```
 
-You will also need to install the core `pittorica` package which contains the CSS, and its dependencies.
+You will also need to install the core `pittorica` package which contains the CSS.
 
 ```bash
-npm install pittorica @pittorica/dialog-react @pittorica/button-react
+npm install pittorica @pittorica/box-react @pittorica/button-react
 ```
 
 ## Usage
 
 ```jsx
 import { useState } from 'react';
-import { AlertDialog } from '@pittorica/alert-dialog-react';
 import {
-  DialogActions,
-  DialogDescription,
-  DialogTitle,
-} from '@pittorica/dialog-react';
+  AlertDialog,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogActions,
+} from '@pittorica/alert-dialog-react';
 import { Button } from '@pittorica/button-react';
-import 'pittorica/reset';
-import 'pittorica/tokens';
+import 'pittorica';
 
 function DeleteAccount() {
   const [open, setOpen] = useState(false);
@@ -38,19 +37,21 @@ function DeleteAccount() {
       </Button>
 
       <AlertDialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle color="red">Are you absolutely sure?</DialogTitle>
-        <DialogDescription>
+        <AlertDialogTitle color="red">
+          Are you absolutely sure?
+        </AlertDialogTitle>
+        <AlertDialogDescription>
           This action cannot be undone. This will permanently delete your
           account and remove your data from our servers.
-        </DialogDescription>
-        <DialogActions>
-          <Button variant="text" color="slate" onClick={() => setOpen(false)}>
+        </AlertDialogDescription>
+        <AlertDialogActions>
+          <Button variant="text" onClick={() => setOpen(false)}>
             Cancel
           </Button>
           <Button variant="filled" color="red" onClick={() => setOpen(false)}>
             Yes, delete account
           </Button>
-        </DialogActions>
+        </AlertDialogActions>
       </AlertDialog>
     </>
   );
@@ -59,9 +60,32 @@ function DeleteAccount() {
 
 ## API Reference
 
-The `AlertDialog` component is a wrapper around the `Dialog` component. By default, it sets `closeOnOverlayClick` and `closeOnEsc` to `false` to enforce user interaction.
+### AlertDialog
 
-It accepts all the same props as the `Dialog` component. For a full list of available props, see the [`@pittorica/dialog-react` documentation](../dialog/README.md).
+The main container for the alert dialog.
+
+| Prop                  | Type         | Default | Description                                      |
+| :-------------------- | :----------- | :------ | :----------------------------------------------- |
+| `open`                | `boolean`    | `false` | If `true`, the dialog is open.                   |
+| `onClose`             | `() => void` | -       | Callback fired when the dialog is closed.        |
+| `closeOnOverlayClick` | `boolean`    | `false` | If `true`, closing is allowed via overlay click. |
+| `closeOnEsc`          | `boolean`    | `false` | If `true`, closing is allowed via Esc key.       |
+
+### AlertDialogTitle
+
+The title of the alert dialog.
+
+| Prop    | Type     | Default   | Description                                             |
+| :------ | :------- | :-------- | :------------------------------------------------------ |
+| `color` | `string` | `inherit` | The semantic color of the title (e.g., "red", "amber"). |
+
+### AlertDialogDescription
+
+The description or body text of the alert dialog.
+
+### AlertDialogActions
+
+A container for the action buttons at the bottom of the dialog.
 
 ## License
 
