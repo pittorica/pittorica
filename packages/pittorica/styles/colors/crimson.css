@@ -61,6 +61,7 @@
     --pittorica-on-crimson-7: var(--pittorica-white);
     --pittorica-on-crimson-8: var(--pittorica-white);
     --pittorica-on-crimson-9: var(--pittorica-white);
+    --pittorica-on-crimson-11: var(--pittorica-white);
   }
 
   .pittorica-theme[data-appearance='dark'] {
@@ -121,6 +122,7 @@
     --pittorica-on-crimson-6: var(--pittorica-black);
     --pittorica-on-crimson-7: var(--pittorica-black);
     --pittorica-on-crimson-8: var(--pittorica-black);
-    --pittorica-on-crimson-9: var(--pittorica-black);
+    --pittorica-on-crimson-9: var(--pittorica-white);
+    --pittorica-on-crimson-11: var(--pittorica-black);
   }
 }

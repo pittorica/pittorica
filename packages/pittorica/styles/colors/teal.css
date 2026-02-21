@@ -61,6 +61,7 @@
     --pittorica-on-teal-7: var(--pittorica-white);
     --pittorica-on-teal-8: var(--pittorica-white);
     --pittorica-on-teal-9: var(--pittorica-white);
+    --pittorica-on-teal-11: var(--pittorica-white);
   }
 
   .pittorica-theme[data-appearance='dark'] {
@@ -121,6 +122,7 @@
     --pittorica-on-teal-6: var(--pittorica-black);
     --pittorica-on-teal-7: var(--pittorica-black);
     --pittorica-on-teal-8: var(--pittorica-black);
-    --pittorica-on-teal-9: var(--pittorica-black);
+    --pittorica-on-teal-9: var(--pittorica-white);
+    --pittorica-on-teal-11: var(--pittorica-black);
   }
 }

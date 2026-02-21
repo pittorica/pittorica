@@ -6,6 +6,7 @@ import {
   Container,
   Flex,
   Heading,
+  PittoricaTheme,
   Section,
   Table,
   Text,
@@ -18,9 +19,9 @@ import { Chip, Flex } from '@pittorica/react';
 export const Example = () => {
   return (
     <Flex gap="2">
-      <Chip variant="soft">React</Chip>
-      <Chip variant="solid" color="indigo">TypeScript</Chip>
-      <Chip variant="outline" onDelete={() => {}}>Removable</Chip>
+      <Chip variant="solid" color="indigo">Active</Chip>
+      <Chip variant="soft" color="teal">Success</Chip>
+      <Chip variant="outline" color="crimson" onDelete={() => {}}>Removable</Chip>
     </Flex>
   );
 };`;
@@ -33,7 +34,7 @@ export const Example = () => {
           <Heading size="8">Chip</Heading>
           <Text size="4" color="gray" mb="6">
             Compact elements that represent an input, attribute, or action.
-            Often used for tags, filters, or choices.
+            Commonly used for tags, filters, and status indicators.
           </Text>
 
           <Flex direction="row" gap="2" basis="auto-300px">
@@ -62,34 +63,54 @@ export const Example = () => {
               backgroundColor: 'var(--pittorica-slate-2)',
             }}
           >
-            <Flex gap="4" align="center" wrap="wrap" justify="center">
-              <Chip variant="soft" color="indigo">
-                Indigo Soft
+            <Flex gap="3" align="center" wrap="wrap" justify="center">
+              <Chip variant="solid" color="indigo">
+                Indigo Solid
               </Chip>
-              <Chip variant="solid" color="crimson">
-                Crimson Solid
+              <Chip variant="soft" color="teal">
+                Teal Soft
               </Chip>
-              <Chip variant="outline" color="teal">
-                Teal Outline
+              <Chip variant="outline" color="orange">
+                Orange Outline
               </Chip>
-              <Chip
-                variant="soft"
-                color="amber"
-                onDelete={() => alert('Deleted')}
-              >
+              <Chip variant="soft" color="crimson" onDelete={() => {}}>
                 Deletable
-              </Chip>
-              <Chip variant="solid" size="1">
-                Size 1
-              </Chip>
-              <Chip variant="solid" size="2">
-                Size 2
-              </Chip>
-              <Chip variant="solid" size="3">
-                Size 3
               </Chip>
             </Flex>
           </Card>
+        </Section>
+
+        {/* Dark Mode Preview */}
+        <Section>
+          <Heading size="4" mb="4">
+            Dark Mode Preview
+          </Heading>
+          <PittoricaTheme appearance="dark">
+            <Card
+              variant="outlined"
+              p="9"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                backgroundColor: 'var(--pittorica-black)',
+              }}
+            >
+              <Flex gap="3" align="center" wrap="wrap" justify="center">
+                <Chip variant="solid" color="indigo">
+                  Indigo Solid
+                </Chip>
+                <Chip variant="soft" color="teal">
+                  Teal Soft
+                </Chip>
+                <Chip variant="outline" color="orange">
+                  Orange Outline
+                </Chip>
+                <Chip variant="soft" color="crimson" onDelete={() => {}}>
+                  Deletable
+                </Chip>
+              </Flex>
+            </Card>
+          </PittoricaTheme>
         </Section>
 
         {/* Implementation Code */}
@@ -133,21 +154,7 @@ export const Example = () => {
                     <Text size="2">'soft'</Text>
                   </Table.Cell>
                   <Table.Cell>
-                    <Text size="2">The visual variant of the chip.</Text>
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>
-                    <Code>size</Code>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text size="2">'1' | '2' | '3'</Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text size="2">'2'</Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text size="2">The size of the chip.</Text>
+                    <Text size="2">The visual style of the chip.</Text>
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -161,35 +168,21 @@ export const Example = () => {
                     <Text size="2">'indigo'</Text>
                   </Table.Cell>
                   <Table.Cell>
-                    <Text size="2">The semantic color of the chip.</Text>
+                    <Text size="2">The semantic color palette.</Text>
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>
-                    <Code>startDecorator</Code>
+                    <Code>size</Code>
                   </Table.Cell>
                   <Table.Cell>
-                    <Text size="2">ReactNode</Text>
+                    <Text size="2">'1' | '2' | '3'</Text>
                   </Table.Cell>
                   <Table.Cell>
-                    <Text size="2">-</Text>
+                    <Text size="2">'2'</Text>
                   </Table.Cell>
                   <Table.Cell>
-                    <Text size="2">Icon or element to show at the start.</Text>
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>
-                    <Code>endDecorator</Code>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text size="2">ReactNode</Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text size="2">-</Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text size="2">Icon or element to show at the end.</Text>
+                    <Text size="2">The vertical size of the chip.</Text>
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -204,7 +197,7 @@ export const Example = () => {
                   </Table.Cell>
                   <Table.Cell>
                     <Text size="2">
-                      Callback fired when delete icon is clicked.
+                      Callback triggered when the delete icon is clicked.
                     </Text>
                   </Table.Cell>
                 </Table.Row>

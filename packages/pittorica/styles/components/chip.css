@@ -21,6 +21,7 @@
   }
 
   /* Interaction cursor for clickable chips */
+  .pittorica-chip--clickable,
   .pittorica-chip[as='button'] {
     cursor: pointer;
     outline: none;
@@ -63,7 +64,7 @@
   }
   .pittorica-chip[data-variant='soft']:hover:not([disabled]) {
     background-color: var(--chip-base);
-    color: var(--chip-on-base);
+    color: var(--chip-on-base) !important;
   }
 
   /* Outline Variant: Low emphasis with colored borders */
@@ -74,7 +75,7 @@
   }
   .pittorica-chip[data-variant='outline']:hover:not([disabled]) {
     background-color: var(--chip-base);
-    color: var(--chip-on-base);
+    color: var(--chip-on-base) !important;
   }
 
   /* --- Internal Elements --- */
@@ -110,11 +111,17 @@
 
   .pittorica-chip-delete:hover {
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: color-mix(in srgb, currentColor 15%, transparent);
   }
 
   /* Accessibility focus ring */
   .pittorica-chip:focus-visible {
-    box-shadow: 0 0 0 2px var(--pittorica-source-color);
+    box-shadow: 0 0 0 2px var(--pittorica-source-9);
+  }
+
+  /* Dark mode specific adjustments for variants if needed */
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-chip[data-variant='soft'] {
+    background-color: color-mix(in srgb, var(--chip-base) 15%, transparent);
   }
 }

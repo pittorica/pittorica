@@ -2,6 +2,8 @@ import React, { type ElementType } from 'react';
 
 import { clsx } from 'clsx';
 
+import { IconX } from '@tabler/icons-react';
+
 import { Box, type BoxProps } from '@pittorica/box-react';
 import type { PittoricaColor } from '@pittorica/text-react';
 
@@ -16,6 +18,7 @@ export type ChipProps<E extends ElementType = 'div'> = BoxProps<E> & {
   endDecorator?: React.ReactNode;
   onDelete?: () => void;
   deleteIcon?: React.ReactNode;
+  appearance?: 'light' | 'dark' | 'inherit';
 };
 
 /**
@@ -31,6 +34,7 @@ export const Chip = <E extends ElementType = 'div'>({
   endDecorator,
   onDelete,
   deleteIcon,
+  appearance,
   className,
   style,
   as,
@@ -45,12 +49,15 @@ export const Chip = <E extends ElementType = 'div'>({
       ? `var(--pittorica-${color}-3)`
       : 'transparent',
     '--chip-soft-text': isSemantic ? `var(--pittorica-${color}-11)` : 'inherit',
-    '--chip-on-base': isSemantic ? `var(--pittorica-on-${color}-9)` : 'white',
+    '--chip-on-base': isSemantic
+      ? `var(--pittorica-on-${color}-9)`
+      : 'var(--pittorica-white)',
     ...style,
   } as React.CSSProperties;
 
   // Logic: automatic tag switching if not explicitly provided via 'as'
-  const Tag = as || (props.onClick ? 'button' : 'div');
+  // Avoid nesting buttons if onDelete is present
+  const Tag = as || (props.onClick && !onDelete ? 'button' : 'div');
 
   return (
     <Box
@@ -58,9 +65,13 @@ export const Chip = <E extends ElementType = 'div'>({
       className={clsx(
         'pittorica-chip',
         `pittorica-chip--size-${size}`,
+        {
+          'pittorica-chip--clickable': !!props.onClick,
+        },
         className
       )}
       data-variant={variant}
+      data-appearance={appearance}
       style={chipVariables}
       {...(props as BoxProps<E>)}
     >
@@ -82,9 +93,7 @@ export const Chip = <E extends ElementType = 'div'>({
             onDelete();
           }}
         >
-          {deleteIcon || (
-            <span style={{ fontSize: '1.2em', lineHeight: 0 }}>×</span>
-          )}
+          {deleteIcon || <IconX size={14} />}
         </button>
       )}
     </Box>

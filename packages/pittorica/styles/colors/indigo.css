@@ -61,6 +61,7 @@
     --pittorica-on-indigo-7: var(--pittorica-white);
     --pittorica-on-indigo-8: var(--pittorica-white);
     --pittorica-on-indigo-9: var(--pittorica-white);
+    --pittorica-on-indigo-11: var(--pittorica-white);
   }
 
   .pittorica-theme[data-appearance='dark'] {
@@ -121,6 +122,7 @@
     --pittorica-on-indigo-6: var(--pittorica-black);
     --pittorica-on-indigo-7: var(--pittorica-black);
     --pittorica-on-indigo-8: var(--pittorica-black);
-    --pittorica-on-indigo-9: var(--pittorica-black);
+    --pittorica-on-indigo-9: var(--pittorica-white);
+    --pittorica-on-indigo-11: var(--pittorica-black);
   }
 }

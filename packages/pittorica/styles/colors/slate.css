@@ -126,7 +126,7 @@
     --pittorica-on-slate-6: var(--pittorica-black);
     --pittorica-on-slate-7: var(--pittorica-black);
     --pittorica-on-slate-8: var(--pittorica-black);
-    --pittorica-on-slate-9: var(--pittorica-black);
+    --pittorica-on-slate-9: var(--pittorica-white);
     --pittorica-on-slate-11: var(--pittorica-black);
   }
 }
