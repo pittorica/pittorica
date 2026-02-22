@@ -23,6 +23,10 @@ export type CheckboxProps<E extends ElementType = 'label'> = Omit<
   label?: string;
   name?: string;
   value?: string;
+  /**
+   * If true, the checkbox is required.
+   * @default false
+   */
   required?: boolean;
 };
 

@@ -27,12 +27,36 @@
       transform 0.1s ease;
   }
 
+  [data-appearance='dark'] .pittorica-checkbox-control {
+    color: var(--pittorica-slate-5);
+  }
+
   .pittorica-checkbox-root:hover .pittorica-checkbox-control {
     color: var(--pittorica-slate-8);
   }
 
+  [data-appearance='dark']
+    .pittorica-checkbox-root:hover
+    .pittorica-checkbox-control {
+    color: var(--pittorica-slate-3);
+  }
+
   .pittorica-checkbox-input:checked + .pittorica-checkbox-control {
     color: var(--_checkbox-color, var(--pittorica-source-color));
+  }
+
+  [data-appearance='dark']
+    .pittorica-checkbox-input:checked
+    + .pittorica-checkbox-control {
+    color: var(--pittorica-white);
+  }
+
+  /* If a custom color is provided via variable, we use it even in dark mode if it's explicit */
+  [data-appearance='dark']
+    .pittorica-checkbox-root[style*='--_checkbox-color']
+    .pittorica-checkbox-input:checked
+    + .pittorica-checkbox-control {
+    color: var(--_checkbox-color);
   }
 
   .pittorica-checkbox-root[data-disabled='true'] {
