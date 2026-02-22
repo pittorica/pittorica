@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.1](https://github.com/pittorica/ui/compare/v0.26.0...v0.26.1) (2026-02-22)
+
+
+### Bug Fixes
+
+* **workspace:** add vercel deploy ([0e3600c](https://github.com/pittorica/ui/commit/0e3600ccfc60565b44d88d29f6fff23e2f5195c7))
+
 # [0.26.0](https://github.com/pittorica/ui/compare/v0.25.0...v0.26.0) (2026-02-22)
 
 
