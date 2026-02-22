@@ -174,6 +174,7 @@ const RadioCardItem = <E extends ElementType = 'button'>({
 };
 
 export const RadioCard = Object.assign(RadioCardRoot, {
+  Root: RadioCardRoot,
   Item: RadioCardItem,
 });
 

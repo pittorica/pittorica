@@ -52,7 +52,7 @@ export type RadioGroupRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
  * RadioGroup orchestrates multiple Radio items.
  * Fully polymorphic and agnostic foundation.
  */
-export const RadioGroup = <E extends ElementType = 'div'>({
+const RadioGroupRoot = <E extends ElementType = 'div'>({
   children,
   value: controlledValue,
   defaultValue,
@@ -152,6 +152,11 @@ export const RadioGroupItem = <E extends ElementType = 'button'>({
     />
   );
 };
+
+export const RadioGroup = Object.assign(RadioGroupRoot, {
+  Root: RadioGroupRoot,
+  Item: RadioGroupItem,
+});
 
 RadioGroup.displayName = 'RadioGroup';
 RadioGroupItem.displayName = 'RadioGroup.Item';
