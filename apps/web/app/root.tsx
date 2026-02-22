@@ -43,6 +43,7 @@ import type { Route } from './+types/root';
 import { AppBar } from './components/AppBar';
 import { ComponentsSideNav } from './components/ComponentsSideNav';
 import { CookieConsentInit } from './components/CookieConsentInit';
+import { Footer } from './components/Footer';
 import { SideNav } from './components/SideNav';
 import { cookieConsentConfig } from './configs/cookie-consent';
 
@@ -146,6 +147,7 @@ export function Layout({ children: _children }: { children: React.ReactNode }) {
               }}
             />
           </Box>
+          <Footer />
           <ToastProvider />
           <ScrollRestoration />
         </PittoricaTheme>
