@@ -54,7 +54,7 @@ export const meta: Route.MetaFunction = () => [
   { name: 'apple-mobile-web-app-title', content: 'Pittorica' },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children: _children }: { children: React.ReactNode }) {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   const [isComponentsSideNavOpen, setIsComponentsSideNavOpen] = useState(false);
   const [appearance, setAppearance] = useState<'light' | 'dark'>('light');
@@ -95,7 +95,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
           />
 
           <Box className="app-content" id="top">
-            {children}
+            <Outlet
+              context={{
+                openSideNav: () => setIsSideNavOpen(true),
+                openComponentsSideNav: () => setIsComponentsSideNavOpen(true),
+              }}
+            />
           </Box>
           <ScrollRestoration />
         </PittoricaTheme>
