@@ -54,6 +54,11 @@ export const meta: Route.MetaFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   const [isComponentsSideNavOpen, setIsComponentsSideNavOpen] = useState(false);
+  const [appearance, setAppearance] = useState<'light' | 'dark'>('light');
+
+  const toggleAppearance = () => {
+    setAppearance((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   return (
     <html lang="en">
@@ -65,13 +70,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body
         className="pittorica-theme"
-        data-appearance="light"
+        data-appearance={appearance}
         data-source-color="#29294b"
       >
-        <PittoricaTheme appearance="light" sourceColor="#29294b">
+        <PittoricaTheme appearance={appearance} sourceColor="#29294b">
           <AppBar
             onOpenSideNav={() => setIsSideNavOpen(true)}
             onOpenComponentsSideNav={() => setIsComponentsSideNavOpen(true)}
+            appearance={appearance}
+            onToggleAppearance={toggleAppearance}
           />
 
           <SideNav

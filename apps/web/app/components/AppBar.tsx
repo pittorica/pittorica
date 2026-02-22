@@ -4,6 +4,8 @@ import {
   IconBrandGithub,
   IconComponents,
   IconLayoutSidebarLeftExpand,
+  IconMoon,
+  IconSun,
 } from '@tabler/icons-react';
 
 import { Avatar, Button, Card, Chip, Flex, IconButton } from '@pittorica/react';
@@ -11,11 +13,15 @@ import { Avatar, Button, Card, Chip, Flex, IconButton } from '@pittorica/react';
 interface AppBarProps {
   onOpenSideNav: () => void;
   onOpenComponentsSideNav: () => void;
+  appearance: 'light' | 'dark';
+  onToggleAppearance: () => void;
 }
 
 export const AppBar = ({
   onOpenSideNav,
   onOpenComponentsSideNav,
+  appearance,
+  onToggleAppearance,
 }: AppBarProps) => {
   const version = import.meta.env.VITE_PITTORICA_VERSION;
 
@@ -47,16 +53,30 @@ export const AppBar = ({
               style={{ boxShadow: 'none', backgroundColor: '#29294b' }}
             />
           </IconButton>
+
+          <Chip size="1" variant="soft" color="indigo">
+            v{version}
+          </Chip>
         </Flex>
 
         <nav>
           <Flex gap="3" align="center">
-            <Chip size="1" variant="soft" color="indigo">
-              v{version}
-            </Chip>
+            <IconButton
+              variant="text"
+              color="white"
+              onClick={onToggleAppearance}
+              aria-label="Toggle theme"
+            >
+              {appearance === 'light' ? (
+                <IconMoon size={20} />
+              ) : (
+                <IconSun size={20} />
+              )}
+            </IconButton>
+
             <IconButton
               as="a"
-              href="https://github.com/dcdavidev/pittorica"
+              href="https://github.com/pittorica/pittorica"
               target="_blank"
               rel="noopener noreferrer"
               variant="text"
