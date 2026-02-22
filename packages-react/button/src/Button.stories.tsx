@@ -36,8 +36,7 @@ const meta: Meta<typeof Button> = {
       description: 'Disabled state layer with 38% opacity',
     },
   },
-} satisfies Meta<typeof Button>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

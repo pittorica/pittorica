@@ -6,13 +6,12 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { ContextMenu, ContextMenuItem, ContextMenuSub } from './ContextMenu';
 
-const meta = {
+const meta: Meta<typeof ContextMenu> = {
   title: 'Navigation/ContextMenu',
   args: { onClick: fn() },
   component: ContextMenu,
   tags: ['autodocs'],
-} satisfies Meta<typeof ContextMenu>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

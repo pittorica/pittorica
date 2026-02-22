@@ -2,12 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { DataList } from './DataList';
 
-const meta = {
+const meta: Meta<typeof DataList> = {
   title: 'Data/DataList',
   component: DataList,
   tags: ['autodocs'],
-} satisfies Meta<typeof DataList>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

@@ -11,13 +11,12 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { Popover, PopoverContent, PopoverTrigger } from './Popover';
 
-const meta = {
+const meta: Meta<typeof Popover> = {
   title: 'Feedback/Popover',
   args: { onClick: fn() },
   component: Popover,
   tags: ['autodocs'],
-} satisfies Meta<typeof Popover>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

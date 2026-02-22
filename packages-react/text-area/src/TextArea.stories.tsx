@@ -32,8 +32,7 @@ const meta: Meta<typeof TextArea.Root> = {
       description: 'Marks the textarea as required',
     },
   },
-} satisfies Meta<typeof TextArea>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -47,7 +46,9 @@ export const Basic: StoryObj<typeof TextArea.Root> = {
     size: 'sm',
   },
   render: (args) => (
-    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" style={{ width: '400px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextArea.Root {...args}>
         <TextArea.Content placeholder="Enter your text here..." />
       </TextArea.Root>
@@ -60,7 +61,9 @@ export const Basic: StoryObj<typeof TextArea.Root> = {
  */
 export const AllSizes: StoryObj<typeof TextArea.Root> = {
   render: () => (
-    <Flex direction="column" gap="6" style={{ width: '450px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" gap="6" style={{ width: '450px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextArea.Root size="xs" label="Extra Small (48px)">
         <TextArea.Content placeholder="XS content..." />
       </TextArea.Root>
@@ -87,7 +90,9 @@ export const AutoResizing: StoryObj<typeof TextArea.Root> = {
     color: 'indigo',
   },
   render: (args) => (
-    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" style={{ width: '400px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextArea.Root {...args}>
         <TextArea.Content
           autoResize
@@ -100,7 +105,9 @@ export const AutoResizing: StoryObj<typeof TextArea.Root> = {
 
 export const States: StoryObj<typeof TextArea.Root> = {
   render: (args) => (
-    <Flex direction="column" gap="6" style={{ width: '400px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" gap="6" style={{ width: '400px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextArea.Root
         {...args}
         label="Error State"
@@ -109,7 +116,6 @@ export const States: StoryObj<typeof TextArea.Root> = {
       >
         <TextArea.Content placeholder="Something is wrong..." />
       </TextArea.Root>
-
       <TextArea.Root
         {...args}
         label="Disabled State"
@@ -130,7 +136,9 @@ export const Required: StoryObj<typeof TextArea.Root> = {
     color: 'source',
   },
   render: (args) => (
-    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" style={{ width: '400px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextArea.Root {...args}>
         <TextArea.Content placeholder="Enter your feedback..." />
       </TextArea.Root>

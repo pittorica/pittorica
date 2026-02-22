@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Stack } from './Stack';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Stack> = {
   title: 'Layout/Stack',
   component: Stack,
   tags: ['autodocs'],
@@ -31,8 +31,7 @@ const meta = {
     },
     // Direction is always 'column' for Stack, so no control for it.
   },
-} satisfies Meta<typeof Stack>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

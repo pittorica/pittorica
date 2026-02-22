@@ -12,8 +12,7 @@ const meta: Meta<typeof SegmentedControl.Root> = {
   },
   component: SegmentedControl.Root,
   tags: ['autodocs'],
-} satisfies Meta<typeof SegmentedControl>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

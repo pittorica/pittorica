@@ -1,1 +1,1 @@
-export { HoverCard } from './HoverCard.js';
+export * from './HoverCard.js';

@@ -1,1 +1,1 @@
-export { Blockquote } from './Blockquote.js';
+export * from './Blockquote.js';

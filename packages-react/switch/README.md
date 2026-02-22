@@ -14,17 +14,18 @@ npm install @pittorica/switch-react
 import { Switch } from '@pittorica/switch-react';
 
 function MyForm() {
-  return (
-    <form>
-      <Switch
-        label="Enable notifications"
-        name="notifications"
-        required // Mark as required
-        color="source" // Default color is now 'source'
-      />
-      <button type="submit">Submit</button>
-    </form>
-  );
+return (
+
+<form>
+<Switch
+label="Enable notifications"
+name="notifications"
+required // Mark as required
+color="source" // Default color is now 'source'
+/>
+<button type="submit">Submit</button>
+</form>
+);
 }
 \`\`\`
 

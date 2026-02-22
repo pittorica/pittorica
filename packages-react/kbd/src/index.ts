@@ -1,1 +1,1 @@
-export { Kbd } from './Kbd.js';
+export * from './Kbd.js';

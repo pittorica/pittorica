@@ -26,8 +26,7 @@ const meta: Meta<typeof AlertDialog> = {
     closeOnOverlayClick: { control: 'boolean' },
     closeOnEsc: { control: 'boolean' },
   },
-} satisfies Meta<typeof AlertDialog>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

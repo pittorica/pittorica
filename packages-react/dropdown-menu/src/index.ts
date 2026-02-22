@@ -1,1 +1,1 @@
-export { DropdownMenu, DropdownMenuItem } from './DropdownMenu.js';
+export * from './DropdownMenu.js';

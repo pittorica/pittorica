@@ -39,6 +39,7 @@
     "@commitlint/cli": "^20.3.1",
     "@commitlint/config-conventional": "^20.3.1",
     "@cspell/cspell-types": "^9.6.0",
+    "@dcdavidev/tsconfig": "^0.1.0",
     "@pittorica/theme-react": "workspace:*",
     "@prettier/plugin-xml": "^3.4.2",
     "@release-it/conventional-changelog": "^10.0.4",

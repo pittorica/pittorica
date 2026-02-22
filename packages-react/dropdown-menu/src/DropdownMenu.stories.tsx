@@ -14,13 +14,12 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { DropdownMenu, DropdownMenuItem } from './DropdownMenu.js';
 
-const meta = {
+const meta: Meta<typeof DropdownMenu> = {
   title: 'Navigation/DropdownMenu',
   args: { onClick: fn() },
   component: DropdownMenu,
   tags: ['autodocs'],
-} satisfies Meta<typeof DropdownMenu>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

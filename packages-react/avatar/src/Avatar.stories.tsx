@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Avatar } from './Avatar';
 
-const meta = {
+const meta: Meta<typeof Avatar> = {
   title: 'Media/Avatar',
   component: Avatar,
   tags: ['autodocs'],
@@ -42,8 +42,7 @@ const meta = {
       description: 'Content to render when image is missing or fails',
     },
   },
-} satisfies Meta<typeof Avatar>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

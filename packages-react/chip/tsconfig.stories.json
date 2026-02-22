@@ -1,0 +1,9 @@
+{
+  "extends": "@dcdavidev/tsconfig/storybook.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "emitDeclarationOnly": false
+  },
+  "include": ["src/**/*.stories.tsx", "src/**/*.tsx", "src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "src/**/*.test.tsx", "src/**/*.spec.tsx"]
+}

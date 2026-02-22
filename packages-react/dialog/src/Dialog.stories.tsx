@@ -12,7 +12,7 @@ import {
   DialogTitle,
 } from './Dialog';
 
-const meta = {
+const meta: Meta<typeof Dialog> = {
   title: 'Feedback/Dialog',
   args: { onClick: fn() },
   component: Dialog,
@@ -27,8 +27,7 @@ const meta = {
     },
     onClose: { action: 'closed' },
   },
-} satisfies Meta<typeof Dialog>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

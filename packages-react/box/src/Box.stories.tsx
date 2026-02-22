@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Box } from './Box';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Box> = {
   title: 'Layout/Box',
   component: Box,
   tags: ['autodocs'],
@@ -96,8 +96,7 @@ const meta = {
       description: 'Sets the native HTML required attribute.',
     },
   },
-} satisfies Meta<typeof Box>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

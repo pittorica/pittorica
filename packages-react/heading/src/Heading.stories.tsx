@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Heading } from './Heading';
 
-const meta = {
+const meta: Meta<typeof Heading> = {
   title: 'Typography/Heading',
   component: Heading,
   tags: ['autodocs'],
@@ -45,8 +45,7 @@ const meta = {
       description: 'Sets the color of the heading using semantic tokens.',
     },
   },
-} satisfies Meta<typeof Heading>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

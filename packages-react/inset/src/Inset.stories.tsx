@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Inset } from './Inset';
 
-const meta = {
+const meta: Meta<typeof Inset> = {
   title: 'Layout/Inset',
   component: Inset,
   tags: ['autodocs'],
@@ -24,8 +24,7 @@ const meta = {
       </Box>
     ),
   ],
-} satisfies Meta<typeof Inset>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

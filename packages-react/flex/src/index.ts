@@ -1,2 +1,1 @@
-export type { FlexProps } from './Flex.js';
-export { Flex } from './Flex.js';
+export * from './Flex.js';

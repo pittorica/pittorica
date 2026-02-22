@@ -5,7 +5,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { Switch } from './Switch.js';
 
-const meta = {
+const meta: Meta<typeof Switch> = {
   title: 'Interactive/Switch',
   args: { onClick: fn() },
   component: Switch,
@@ -21,15 +21,16 @@ const meta = {
       description: 'Marks the switch as required',
     },
   },
-} satisfies Meta<typeof Switch>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <Flex align="center" gap="3" p="4"> {/* Added padding */}
+    <Flex align="center" gap="3" p="4">
+      {' '}
+      {/* Added padding */}
       <Switch id="s1" />
       <Text as="label" htmlFor="s1" style={{ cursor: 'pointer' }}>
         Enable notifications
@@ -56,7 +57,9 @@ export const RequiredExample: Story = {
     color: 'source',
   },
   render: (args) => (
-    <Flex align="center" gap="3" p="4"> {/* Added padding */}
+    <Flex align="center" gap="3" p="4">
+      {' '}
+      {/* Added padding */}
       <Switch {...args} id="req-switch" />
       <Text as="label" htmlFor="req-switch" style={{ cursor: 'pointer' }}>
         {args.label}

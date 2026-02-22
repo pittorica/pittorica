@@ -8,8 +8,7 @@ const meta: Meta<typeof Table.Root> = {
   title: 'Data/Table',
   tags: ['autodocs'],
   component: Table.Root,
-} satisfies Meta<typeof Table>;
-
+};
 export default meta;
 
 export const Basic: StoryObj = {

@@ -11,8 +11,7 @@ const meta: Meta<typeof RadioCard.Root> = {
   title: 'Composite/RadioCard',
   component: RadioCard.Root,
   tags: ['autodocs'],
-} satisfies Meta<typeof RadioCard>;
-
+};
 export default meta;
 
 export const DeliveryOptions: StoryObj = {

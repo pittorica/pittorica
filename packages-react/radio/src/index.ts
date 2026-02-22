@@ -1,2 +1,1 @@
-export type { RadioProps } from './Radio.js';
-export { Radio } from './Radio.js';
+export * from './Radio.js';

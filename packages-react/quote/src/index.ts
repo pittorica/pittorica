@@ -1,1 +1,1 @@
-export { Quote } from './Quote.js';
+export * from './Quote.js';

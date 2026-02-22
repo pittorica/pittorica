@@ -3,7 +3,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { Slider } from './Slider';
 
-const meta = {
+const meta: Meta<typeof Slider> = {
   title: 'Interactive/Slider',
   component: Slider,
   tags: ['autodocs'],
@@ -18,8 +18,7 @@ const meta = {
       description: 'Marks the slider as required',
     },
   },
-} satisfies Meta<typeof Slider>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -31,7 +30,9 @@ export const Basic: Story = {
     color: 'indigo',
   },
   render: (args) => (
-    <div style={{ padding: '2rem', width: '300px' }}> {/* Added padding */}
+    <div style={{ padding: '2rem', width: '300px' }}>
+      {' '}
+      {/* Added padding */}
       <Slider {...args} />
     </div>
   ),
@@ -45,7 +46,9 @@ export const Stepped: Story = {
     color: 'orange',
   },
   render: (args) => (
-    <div style={{ padding: '2rem', width: '300px' }}> {/* Added padding */}
+    <div style={{ padding: '2rem', width: '300px' }}>
+      {' '}
+      {/* Added padding */}
       <Slider {...args} />
     </div>
   ),
@@ -58,7 +61,9 @@ export const RequiredExample: Story = {
     label: 'Volume',
   },
   render: (args) => (
-    <div style={{ padding: '2rem', width: '300px' }}> {/* Added padding */}
+    <div style={{ padding: '2rem', width: '300px' }}>
+      {' '}
+      {/* Added padding */}
       <Slider {...args} defaultValue={20} />
     </div>
   ),

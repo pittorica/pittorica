@@ -8,7 +8,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Card } from './Card.js';
 
-const meta = {
+const meta: Meta<typeof Card> = {
   title: 'Data/Card',
   component: Card,
   tags: ['autodocs'],
@@ -16,8 +16,7 @@ const meta = {
     variant: { control: 'radio', options: ['surface', 'outlined', 'ghost'] },
     translucent: { control: 'boolean' },
   },
-} satisfies Meta<typeof Card>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

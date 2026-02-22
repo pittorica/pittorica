@@ -3,13 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Strong } from './Strong';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Strong> = {
   title: 'Typography/Strong',
   component: Strong,
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof Strong>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

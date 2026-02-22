@@ -3,13 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Kbd } from './Kbd';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Kbd> = {
   title: 'Typography/Kbd',
   component: Kbd,
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof Kbd>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

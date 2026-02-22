@@ -24,15 +24,16 @@ const meta: Meta<typeof Select.Root> = {
       description: 'Marks the select input as required',
     },
   },
-} satisfies Meta<typeof Select>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const AllSizes: StoryObj = {
   render: () => (
-    <Flex direction="column" gap="4" width="300px" p="4"> {/* Added padding */}
+    <Flex direction="column" gap="4" width="300px" p="4">
+      {' '}
+      {/* Added padding */}
       {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((s) => (
         <Select.Root key={s} size={s} label={`Size ${s.toUpperCase()}`}>
           <Select.Content>

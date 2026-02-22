@@ -4,12 +4,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RadioGroup, RadioGroupItem } from './RadioGroup.js';
 
-const meta = {
+const meta: Meta<typeof RadioGroup> = {
   title: 'Composite/RadioGroup',
   component: RadioGroup,
   tags: ['autodocs'],
-} satisfies Meta<typeof RadioGroup>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

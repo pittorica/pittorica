@@ -14,19 +14,20 @@ npm install @pittorica/slider-react
 import { Slider } from '@pittorica/slider-react';
 
 function MyForm() {
-  return (
-    <form>
-      <Slider
-        min={0}
-        max={100}
-        defaultValue={50}
-        color="source" // Default color is now 'source'
-        required // Mark as required
-        label="Volume"
-      />
-      <button type="submit">Submit</button>
-    </form>
-  );
+return (
+
+<form>
+<Slider
+min={0}
+max={100}
+defaultValue={50}
+color="source" // Default color is now 'source'
+required // Mark as required
+label="Volume"
+/>
+<button type="submit">Submit</button>
+</form>
+);
 }
 \`\`\`
 

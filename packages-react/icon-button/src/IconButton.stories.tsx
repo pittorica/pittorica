@@ -29,8 +29,7 @@ const meta: Meta<typeof IconButton> = {
       description: 'Semantic color name or CSS color string',
     },
   },
-} satisfies Meta<typeof IconButton>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

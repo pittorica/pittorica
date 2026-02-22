@@ -7,7 +7,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Text } from './Text';
 
-const meta = {
+const meta: Meta<typeof Text> = {
   title: 'Typography/Text',
   component: Text,
   tags: ['autodocs'],
@@ -51,8 +51,7 @@ const meta = {
         'Sets the color of the text. Can be a semantic token or a custom value.',
     },
   },
-} satisfies Meta<typeof Text>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

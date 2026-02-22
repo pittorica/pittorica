@@ -36,8 +36,7 @@ const meta: Meta<typeof TextField.Root> = {
       description: 'Marks the input as required',
     },
   },
-} satisfies Meta<typeof TextField>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -50,7 +49,9 @@ export const Basic: StoryObj<typeof TextField.Root> = {
     size: 'sm',
   },
   render: (args) => (
-    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" style={{ width: '400px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextField.Root {...args}>
         <TextField.Input placeholder="e.g. Danilo C." />
       </TextField.Root>
@@ -63,7 +64,9 @@ export const Basic: StoryObj<typeof TextField.Root> = {
  */
 export const AllSizes: StoryObj<typeof TextField.Root> = {
   render: () => (
-    <Flex direction="column" gap="4" style={{ width: '400px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" gap="4" style={{ width: '400px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextField.Root size="xs" label="Extra Small (24px)">
         <TextField.Input placeholder="Search..." />
       </TextField.Root>
@@ -85,14 +88,15 @@ export const AllSizes: StoryObj<typeof TextField.Root> = {
 
 export const WithDecorators: StoryObj = {
   render: (args) => (
-    <Flex direction="column" gap="4" width="350px" p="4"> {/* Added padding */}
+    <Flex direction="column" gap="4" width="350px" p="4">
+      {' '}
+      {/* Added padding */}
       <TextField.Root {...args} label="Email">
         <TextField.Slot>
           <IconMail size={16} />
         </TextField.Slot>
         <TextField.Input placeholder="mail@example.com" type="email" />
       </TextField.Root>
-
       <TextField.Root
         {...args}
         label="Password"
@@ -139,7 +143,9 @@ export const RequiredExample: StoryObj<typeof TextField.Root> = {
     color: 'source',
   },
   render: (args) => (
-    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
+    <Flex direction="column" style={{ width: '400px' }} p="4">
+      {' '}
+      {/* Added padding */}
       <TextField.Root {...args}>
         <TextField.Input placeholder="Enter your username" />
       </TextField.Root>

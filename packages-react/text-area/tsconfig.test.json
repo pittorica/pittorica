@@ -1,0 +1,15 @@
+{
+  "extends": "@dcdavidev/tsconfig/vitest.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "emitDeclarationOnly": false,
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
+  },
+  "include": [
+    "src/**/*.test.tsx",
+    "src/**/*.spec.tsx",
+    "src/**/*.tsx",
+    "src/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "src/**/*.stories.tsx"]
+}

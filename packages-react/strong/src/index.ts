@@ -1,1 +1,1 @@
-export { Strong } from './Strong.js';
+export * from './Strong.js';

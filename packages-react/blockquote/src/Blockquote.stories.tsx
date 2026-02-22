@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Blockquote } from './Blockquote';
 
-const meta = {
+const meta: Meta<typeof Blockquote> = {
   title: 'Typography/Blockquote',
   component: Blockquote,
   tags: ['autodocs'],
@@ -18,8 +18,7 @@ const meta = {
       options: ['indigo', 'teal', 'crimson', 'orange', 'purple', 'slate'],
     },
   },
-} satisfies Meta<typeof Blockquote>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

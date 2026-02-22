@@ -51,7 +51,7 @@ describe('IconButton', () => {
     const { container } = render(
       <IconButton size="1" variant="tonal">
         Icon
-      </<b></b>Button>
+      </IconButton>
     );
     const element = container.firstChild as HTMLElement;
 

@@ -1,2 +1,1 @@
-export type { SectionProps } from './Section.js';
-export { Section } from './Section.js';
+export * from './Section.js';

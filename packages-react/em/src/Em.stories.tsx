@@ -3,13 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Em } from './Em';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Em> = {
   title: 'Typography/Em',
   component: Em,
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof Em>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

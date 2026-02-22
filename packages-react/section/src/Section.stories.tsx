@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Section } from './Section';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Section> = {
   title: 'Layout/Section',
   component: Section,
   tags: ['autodocs'],
@@ -21,8 +21,7 @@ const meta = {
         'The HTML tag to render the section as. Defaults to "section".',
     },
   },
-} satisfies Meta<typeof Section>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

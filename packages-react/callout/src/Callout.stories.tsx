@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Callout } from './Callout';
 
-const meta = {
+const meta: Meta<typeof Callout> = {
   title: 'Feedback/Callout',
   component: Callout,
   tags: ['autodocs'],
@@ -37,8 +37,7 @@ const meta = {
       options: ['start', 'center', 'end'],
     },
   },
-} satisfies Meta<typeof Callout>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

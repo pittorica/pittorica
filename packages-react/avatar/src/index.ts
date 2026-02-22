@@ -1,2 +1,1 @@
-export type { AvatarProps } from './Avatar.js';
-export { Avatar } from './Avatar.js';
+export * from './Avatar.js';

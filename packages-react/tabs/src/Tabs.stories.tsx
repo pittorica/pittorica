@@ -8,8 +8,7 @@ const meta: Meta<typeof Tabs.Root> = {
   title: 'Navigation/Tabs',
   component: Tabs.Root,
   tags: ['autodocs'],
-} satisfies Meta<typeof Tabs>;
-
+};
 export default meta;
 
 export const Basic: StoryObj = {

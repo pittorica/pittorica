@@ -4,7 +4,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { Checkbox } from './Checkbox';
 
-const meta = {
+const meta: Meta<typeof Checkbox> = {
   title: 'Interactive/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
@@ -15,8 +15,7 @@ const meta = {
     },
     disabled: { control: 'boolean' },
   },
-} satisfies Meta<typeof Checkbox>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -28,7 +27,9 @@ export const Basic: Story = {
     color: 'indigo',
   },
   render: (args) => (
-    <Flex p="4"> {/* Added padding to wrapper */}
+    <Flex p="4">
+      {' '}
+      {/* Added padding to wrapper */}
       <Checkbox {...args} />
     </Flex>
   ),
@@ -61,7 +62,12 @@ export const DarkMode: Story = {
     >
       <Checkbox label="Dark Mode Option 1" color="indigo" defaultChecked />
       <Checkbox label="Dark Mode Option 2" color="teal" />
-      <Checkbox label="Disabled Dark Mode" color="red" disabled defaultChecked />
+      <Checkbox
+        label="Disabled Dark Mode"
+        color="red"
+        disabled
+        defaultChecked
+      />
     </PittoricaTheme>
   ),
 };
@@ -73,7 +79,9 @@ export const RequiredExample: Story = {
     required: true,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" p="4"> {/* Added padding */}
+    <Flex direction="column" gap="3" p="4">
+      {' '}
+      {/* Added padding */}
       <Checkbox {...args} label="I agree to the terms" />
       <Checkbox {...args} label="I agree to the privacy policy" />
     </Flex>

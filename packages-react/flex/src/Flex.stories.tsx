@@ -7,7 +7,7 @@ import { Flex } from './Flex.js';
  * Flex component for building responsive and fluid layouts using CSS Cascade Layers.
  * Supports responsive object syntax and auto-wrapping fluid basis.
  */
-const meta = {
+const meta: Meta<typeof Flex> = {
   title: 'Layout/Flex',
   component: Flex,
   tags: ['autodocs'],
@@ -30,8 +30,7 @@ const meta = {
       description: 'Fluid basis for children (e.g., "auto-200px")',
     },
   },
-} satisfies Meta<typeof Flex>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

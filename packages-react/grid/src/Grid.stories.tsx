@@ -9,7 +9,7 @@ import { Grid } from './Grid.js';
  * Grid component for complex two-dimensional layouts.
  * Supports responsive configurations and fluid auto-wrapping (auto-fit).
  */
-const meta = {
+const meta: Meta<typeof Grid> = {
   title: 'Layout/Grid',
   component: Grid,
   tags: ['autodocs'],
@@ -43,8 +43,7 @@ const meta = {
       ],
     },
   },
-} satisfies Meta<typeof Grid>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

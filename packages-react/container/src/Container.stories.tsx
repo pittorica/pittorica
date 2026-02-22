@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Container } from './Container';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Container> = {
   title: 'Layout/Container',
   component: Container,
   tags: ['autodocs'],
@@ -25,8 +25,7 @@ const meta = {
       description: 'Removes the default left and right padding.',
     },
   },
-} satisfies Meta<typeof Container>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

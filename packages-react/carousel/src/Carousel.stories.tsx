@@ -16,8 +16,7 @@ const meta: Meta<typeof Carousel.Root> = {
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Carousel>;
-
+};
 export default meta;
 
 const mockImages = [

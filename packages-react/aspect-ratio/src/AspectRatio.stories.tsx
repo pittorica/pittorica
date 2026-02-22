@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { AspectRatio } from './AspectRatio.js';
 
-const meta = {
+const meta: Meta<typeof AspectRatio> = {
   title: 'Media/AspectRatio',
   component: AspectRatio,
   tags: ['autodocs'],
@@ -15,8 +15,7 @@ const meta = {
       description: 'The desired aspect ratio (e.g., 16/9, 4/3, 1)',
     },
   },
-} satisfies Meta<typeof AspectRatio>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;

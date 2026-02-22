@@ -52,7 +52,10 @@ describe('Select', () => {
         </Select.Content>
       </Select.Root>
     );
-    expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-required',
+      'true'
+    );
   });
 
   it('sets the default color prop to source', () => {

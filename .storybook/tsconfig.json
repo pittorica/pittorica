@@ -1,0 +1,23 @@
+{
+  "extends": "@dcdavidev/tsconfig/storybook.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": "..",
+    "paths": {
+      "pittorica": ["packages/pittorica"],
+      "@pittorica/theme-react": ["packages-react/theme"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "../packages-react/*/src/**/*.stories.tsx",
+    "../packages-react/*/src/**/*.tsx",
+    "../packages-react/*/src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "../packages-react/*/src/**/*.test.tsx",
+    "../packages-react/*/src/**/*.spec.tsx"
+  ]
+}

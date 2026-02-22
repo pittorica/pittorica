@@ -14,21 +14,21 @@ npm install @pittorica/text-area-react
 import { TextArea } from '@pittorica/text-area-react';
 
 function MyForm() {
-  return (
-    <form>
-      <TextArea.Root
-        label="Comments"
-        name="comments"
-        required // Mark as required
-        color="source" // Default color is now 'source'
-        size="sm"
-        helperText="Enter your feedback below."
-      >
-        <TextArea.Content placeholder="Type your message here..." />
-      </TextArea.Root>
-      <button type="submit">Submit</button>
-    </form>
-  );
+return (
+
+<form>
+<TextArea.Root
+label="Comments"
+name="comments"
+required // Mark as required
+color="source" // Default color is now 'source'
+size="sm"
+helperText="Enter your feedback below." >
+<TextArea.Content placeholder="Type your message here..." />
+</TextArea.Root>
+<button type="submit">Submit</button>
+</form>
+);
 }
 \`\`\`
 

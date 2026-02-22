@@ -7,7 +7,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 
 import { Radio } from './Radio.js';
 
-const meta = {
+const meta: Meta<typeof Radio> = {
   title: 'Interactive/Radio',
   args: { onClick: fn() },
   component: Radio,
@@ -23,8 +23,7 @@ const meta = {
       description: 'Marks the radio input as required',
     },
   },
-} satisfies Meta<typeof Radio>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -58,7 +57,9 @@ export const Colors: Story = {
 export const RequiredExample: Story = {
   render: () => (
     <form>
-      <Flex direction="column" gap="2" p="4"> {/* Added padding */}
+      <Flex direction="column" gap="2" p="4">
+        {' '}
+        {/* Added padding */}
         <Radio
           label="Option 1"
           value="option1"

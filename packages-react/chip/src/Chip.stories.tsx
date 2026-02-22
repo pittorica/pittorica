@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Chip } from './Chip';
 
-const meta = {
+const meta: Meta<typeof Chip> = {
   title: 'Media/Chip',
   component: Chip,
   tags: ['autodocs'],
@@ -27,8 +27,7 @@ const meta = {
     variant: { control: 'radio', options: ['solid', 'soft', 'outline'] },
     size: { control: 'radio', options: ['1', '2', '3'] },
   },
-} satisfies Meta<typeof Chip>;
-
+};
 export default meta;
 
 type Story = StoryObj<typeof meta>;
