@@ -52,6 +52,31 @@ export const meta: Route.MetaFunction = () => [
       'Pittorica is a painterly, CSS-first UI framework that brings elegant, lightweight structure to modern interfaces.',
   },
   { name: 'apple-mobile-web-app-title', content: 'Pittorica' },
+  { property: 'og:title', content: 'Pittorica' },
+  {
+    property: 'og:description',
+    content:
+      'A painterly, CSS-first UI framework designed for aesthetic precision.',
+  },
+  { property: 'og:type', content: 'website' },
+  { property: 'og:url', content: 'https://pittorica.dcdavidev.me' },
+  {
+    property: 'og:image',
+    content: 'https://pittorica.dcdavidev.me/og-image-20260222.png',
+  },
+  { property: 'og:image:width', content: '1200' },
+  { property: 'og:image:height', content: '630' },
+  { name: 'twitter:card', content: 'summary_large_image' },
+  { name: 'twitter:title', content: 'Pittorica' },
+  {
+    name: 'twitter:description',
+    content:
+      'A painterly, CSS-first UI framework designed for aesthetic precision.',
+  },
+  {
+    name: 'twitter:image',
+    content: 'https://pittorica.dcdavidev.me/og-image-20260222.png',
+  },
 ];
 
 export function Layout({ children: _children }: { children: React.ReactNode }) {
