@@ -117,13 +117,20 @@ const ToastItem = ({
  */
 export const ToastProvider = () => {
   const [toasts, setToasts] = useState<ToastData[]>([]);
+  const [mounted, setMounted] = useState(false);
   const timersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const removeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const handleAddToast = (e: Event) => {
       const customEvent = e as CustomEvent<ToastData>;
       const newToast = customEvent.detail;
@@ -145,9 +152,9 @@ export const ToastProvider = () => {
       for (const timer of timersRef.current) clearTimeout(timer);
       timersRef.current.clear();
     };
-  }, [removeToast]);
+  }, [removeToast, mounted]);
 
-  if (typeof document === 'undefined') return null;
+  if (!mounted || typeof document === 'undefined') return null;
 
   // Attempt to inherit appearance from the body/html theme if present
   const appearance = (document.documentElement.dataset.appearance ||
