@@ -9,7 +9,7 @@ interface CookieConsentInitProps {
 
 export function CookieConsentInit({ config }: CookieConsentInitProps) {
   useEffect(() => {
-    if (!config) return;
+    if (typeof window === 'undefined' || !config) return;
 
     console.log('CookieConsent: Init...');
     CookieConsent.run(config);

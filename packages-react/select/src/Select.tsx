@@ -26,6 +26,7 @@ interface SelectContextType {
   disabled?: boolean;
   size: SelectSize;
   name?: string;
+  required?: boolean;
 }
 
 const SelectContext = createContext<SelectContextType | null>(null);
@@ -49,6 +50,7 @@ export type SelectRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
   /** @default 'sm' */
   size?: SelectSize;
 };
@@ -62,9 +64,10 @@ export const SelectRoot = <E extends ElementType = 'div'>({
   label,
   helperText,
   error,
-  color = 'indigo',
+  color = 'source',
   disabled,
   name,
+  required,
   size = 'sm',
   className,
   style,
@@ -81,7 +84,9 @@ export const SelectRoot = <E extends ElementType = 'div'>({
   const Tag = as || 'div';
 
   return (
-    <SelectContext value={{ inputId, helperId, disabled, size, name }}>
+    <SelectContext
+      value={{ inputId, helperId, disabled, size, name, required }}
+    >
       <Box
         as={Tag as ElementType}
         className={clsx(
@@ -104,7 +109,7 @@ export const SelectRoot = <E extends ElementType = 'div'>({
               display: 'inline-block',
             }}
           >
-            {label}
+            {label} {required && <span aria-hidden="true">*</span>}
           </Text>
         )}
 
@@ -151,7 +156,7 @@ export const SelectContent = <E extends ElementType = 'select'>({
   as,
   ...props
 }: SelectContentProps<E>) => {
-  const { inputId, helperId, disabled, name } = useSelectContext();
+  const { inputId, helperId, disabled, name, required } = useSelectContext();
 
   const Tag = as || 'select';
 
@@ -162,6 +167,7 @@ export const SelectContent = <E extends ElementType = 'select'>({
       id={inputId}
       disabled={disabled}
       aria-describedby={helperId}
+      aria-required={required} // Apply aria-required attribute
       className={clsx('pittorica-select-input', className)}
       {...(props as BoxProps<E>)}
     >

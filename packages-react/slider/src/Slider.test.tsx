@@ -3,8 +3,8 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { fireEvent, render, screen, vi } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { Slider } from './Slider.js';
 
@@ -12,6 +12,7 @@ describe('Slider', () => {
   const OriginalPointerEvent = globalThis.PointerEvent;
 
   beforeEach(() => {
+    // Mocking getBoundingClientRect for consistent testing
     vi.spyOn(Element.prototype, 'getBoundingClientRect').mockReturnValue({
       width: 100,
       height: 20,
@@ -22,8 +23,9 @@ describe('Slider', () => {
       x: 0,
       y: 0,
       toJSON: () => {},
-    } as DOMRect);
+    });
 
+    // Mock PointerEvent to ensure clientX is available
     const BasePointerEvent = OriginalPointerEvent || globalThis.Event;
     globalThis.PointerEvent = class extends BasePointerEvent {
       constructor(type: string, props: PointerEventInit = {}) {
@@ -36,6 +38,7 @@ describe('Slider', () => {
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     globalThis.PointerEvent = OriginalPointerEvent;
   });
 
@@ -76,5 +79,22 @@ describe('Slider', () => {
 
     fireEvent.pointerDown(sliderRoot, { clientX: -50 });
     expect(handleChange).toHaveBeenCalledWith(10);
+  });
+
+  it('applies aria-required attribute when required prop is true', () => {
+    render(<Slider required />);
+    const slider = screen.getByRole('slider');
+    expect(slider).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('sets the default color prop to source', () => {
+    render(<Slider />); // Default color is 'source'
+    const slider = screen.getByRole('slider');
+    // The color is applied to the root element, not the slider thumb directly
+    // Need to check the root element's style
+    const rootElement = slider.parentElement as HTMLElement;
+    expect(rootElement).toHaveStyle({
+      '--pittorica-source-color': 'var(--pittorica-source-9)',
+    });
   });
 });

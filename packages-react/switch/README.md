@@ -4,16 +4,29 @@ The `Switch` component.
 
 ## Installation
 
-```bash
+\`\`\`bash
 npm install @pittorica/switch-react
-```
+\`\`\`
 
 ## Usage
 
-```jsx
+\`\`\`jsx
 import { Switch } from '@pittorica/switch-react';
-// TODO: Add usage example
-```
+
+function MyForm() {
+  return (
+    <form>
+      <Switch
+        label="Enable notifications"
+        name="notifications"
+        required // Mark as required
+        color="source" // Default color is now 'source'
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+\`\`\`
 
 ## License
 

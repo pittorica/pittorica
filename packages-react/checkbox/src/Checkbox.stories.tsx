@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     color: {
       control: 'select',
-      options: ['indigo', 'red', 'teal', 'amber', 'slate'],
+      options: ['indigo', 'red', 'teal', 'amber', 'slate', 'source'], // Added 'source' to options
     },
     disabled: { control: 'boolean' },
   },
@@ -27,6 +27,11 @@ export const Basic: Story = {
     label: 'Accept Terms and Conditions',
     color: 'indigo',
   },
+  render: (args) => (
+    <Flex p="4"> {/* Added padding to wrapper */}
+      <Checkbox {...args} />
+    </Flex>
+  ),
 };
 
 export const Colors: Story = {
@@ -36,6 +41,41 @@ export const Colors: Story = {
       <Checkbox label="Success Teal" color="teal" defaultChecked />
       <Checkbox label="Danger Red" color="red" defaultChecked />
       <Checkbox label="Warning Amber" color="amber" defaultChecked />
+      <Checkbox label="Source Color" color="source" defaultChecked />
+    </Flex>
+  ),
+};
+
+export const DarkMode: Story = {
+  render: () => (
+    <PittoricaTheme
+      appearance="dark"
+      style={{
+        padding: '2rem',
+        background: 'var(--pittorica-surface-0)',
+        borderRadius: '8px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+      }}
+    >
+      <Checkbox label="Dark Mode Option 1" color="indigo" defaultChecked />
+      <Checkbox label="Dark Mode Option 2" color="teal" />
+      <Checkbox label="Disabled Dark Mode" color="red" disabled defaultChecked />
+    </PittoricaTheme>
+  ),
+};
+
+export const RequiredExample: Story = {
+  args: {
+    label: 'I agree',
+    helperText: 'Your feedback is important.',
+    required: true,
+  },
+  render: (args) => (
+    <Flex direction="column" gap="3" p="4"> {/* Added padding */}
+      <Checkbox {...args} label="I agree to the terms" />
+      <Checkbox {...args} label="I agree to the privacy policy" />
     </Flex>
   ),
 };

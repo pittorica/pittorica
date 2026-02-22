@@ -23,9 +23,10 @@ export type SwitchProps<E extends ElementType = 'button'> = Omit<
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;
-  /** @default 'indigo' */
+  /** @default 'source' */
   color?: PittoricaColor;
   name?: string;
+  required?: boolean;
 };
 
 /**
@@ -37,10 +38,11 @@ export const Switch = <E extends ElementType = 'button'>({
   defaultChecked,
   onCheckedChange,
   disabled,
-  color = 'indigo',
+  color = 'source',
   name,
   className,
   style,
+  required = false,
   as,
   ...props
 }: SwitchProps<E>) => {
@@ -75,6 +77,7 @@ export const Switch = <E extends ElementType = 'button'>({
       role="switch"
       name={name}
       aria-checked={isChecked}
+      aria-required={required} // Apply aria-required attribute
       data-state={isChecked ? 'checked' : 'unchecked'}
       disabled={disabled}
       onClick={handleToggle}

@@ -81,7 +81,7 @@ export const Tooltip = <E extends ElementType = 'span'>({
       side = 'bottom';
     } else if (
       preferredSide === 'bottom' &&
-      triggerRect.bottom + tooltipHeight + gap > window.innerHeight
+      typeof window !== 'undefined' && triggerRect.bottom + tooltipHeight + gap > window.innerHeight
     ) {
       side = 'top';
     }

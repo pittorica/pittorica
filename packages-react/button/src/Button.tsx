@@ -28,7 +28,7 @@ export const Button = <E extends ElementType = 'button'>({
   children,
   variant = 'filled',
   size = 'sm',
-  color = 'indigo',
+  color = 'source',
   disabled = false,
   appearance,
   className,

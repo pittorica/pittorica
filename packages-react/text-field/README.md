@@ -4,16 +4,33 @@ The `TextField` component.
 
 ## Installation
 
-```bash
+\`\`\`bash
 npm install @pittorica/text-field-react
-```
+\`\`\`
 
 ## Usage
 
-```jsx
+\`\`\`jsx
 import { TextField } from '@pittorica/text-field-react';
-// TODO: Add usage example
-```
+
+function MyForm() {
+  return (
+    <form>
+      <TextField.Root
+        label="Username"
+        name="username"
+        required // Mark as required
+        color="source" // Default color is now 'source'
+        size="sm"
+        helperText="Enter your username."
+      >
+        <TextField.Input placeholder="e.g. john_doe" />
+      </TextField.Root>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+\`\`\`
 
 ## License
 

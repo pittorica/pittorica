@@ -114,6 +114,7 @@ export const AlertDialog = ({
   }, [open]);
 
   useEffect(() => {
+    if (typeof document === 'undefined' || !document.body) return;
     if (!open) return;
 
     const originalStyle = document.body.style.overflow;

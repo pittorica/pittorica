@@ -75,7 +75,7 @@ describe('TextArea', () => {
     expect(textarea.parentElement).toHaveAttribute('data-disabled', 'true');
   });
 
-  it('applies the required attribute when the required prop is true', () => {
+  it('applies the required attribute to the textarea when the required prop is true', () => {
     render(
       <TextArea.Root required>
         <TextArea.Content />

@@ -23,6 +23,7 @@ export type SliderProps<E extends ElementType = 'div'> = Omit<
   disabled?: boolean;
   color?: PittoricaColor;
   onValueChange?: (value: number) => void;
+  required?: boolean;
 };
 
 /**
@@ -36,8 +37,9 @@ export const Slider = <E extends ElementType = 'div'>({
   max = 100,
   step = 1,
   disabled = false,
-  color = 'indigo',
+  color = 'source',
   onValueChange,
+  required = false,
   className,
   style,
   as,
@@ -101,6 +103,7 @@ export const Slider = <E extends ElementType = 'div'>({
       className={clsx('pittorica-slider-root', className)}
       data-disabled={disabled}
       onPointerDown={handlePointerDown}
+      aria-required={required} // Apply aria-required attribute
       style={
         { '--pittorica-source-color': resolvedColor, ...style } as CSSProperties
       }
@@ -118,6 +121,7 @@ export const Slider = <E extends ElementType = 'div'>({
         aria-valuemax={max}
         aria-valuenow={currentValue}
         aria-disabled={disabled}
+        aria-required={required} // Apply aria-required attribute here as well
         tabIndex={disabled ? -1 : 0}
         className="pittorica-slider-thumb"
         style={{ position: 'absolute', left: `calc(${percentage}% - 8px)` }}

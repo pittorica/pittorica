@@ -23,15 +23,13 @@ const meta: Meta<typeof TextArea.Root> = {
     },
     color: {
       control: 'select',
-      options: ['indigo', 'crimson', 'teal', 'amber', 'red', 'slate'],
+      options: ['indigo', 'crimson', 'teal', 'amber', 'red', 'slate', 'source'],
     },
-    disabled: {
+    disabled: { control: 'boolean' },
+    error: { control: 'boolean' },
+    required: {
       control: 'boolean',
-      description: 'Disabled state with 60% opacity',
-    },
-    error: {
-      control: 'boolean',
-      description: 'Visual error state with red border',
+      description: 'Marks the textarea as required',
     },
   },
 } satisfies Meta<typeof TextArea>;
@@ -49,7 +47,7 @@ export const Basic: StoryObj<typeof TextArea.Root> = {
     size: 'sm',
   },
   render: (args) => (
-    <Flex direction="column" style={{ width: '400px' }}>
+    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
       <TextArea.Root {...args}>
         <TextArea.Content placeholder="Enter your text here..." />
       </TextArea.Root>
@@ -62,7 +60,7 @@ export const Basic: StoryObj<typeof TextArea.Root> = {
  */
 export const AllSizes: StoryObj<typeof TextArea.Root> = {
   render: () => (
-    <Flex direction="column" gap="6" style={{ width: '450px' }}>
+    <Flex direction="column" gap="6" style={{ width: '450px' }} p="4"> {/* Added padding */}
       <TextArea.Root size="xs" label="Extra Small (48px)">
         <TextArea.Content placeholder="XS content..." />
       </TextArea.Root>
@@ -89,7 +87,7 @@ export const AutoResizing: StoryObj<typeof TextArea.Root> = {
     color: 'indigo',
   },
   render: (args) => (
-    <Flex direction="column" style={{ width: '400px' }}>
+    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
       <TextArea.Root {...args}>
         <TextArea.Content
           autoResize
@@ -102,7 +100,7 @@ export const AutoResizing: StoryObj<typeof TextArea.Root> = {
 
 export const States: StoryObj<typeof TextArea.Root> = {
   render: (args) => (
-    <Flex direction="column" gap="6" style={{ width: '400px' }}>
+    <Flex direction="column" gap="6" style={{ width: '400px' }} p="4"> {/* Added padding */}
       <TextArea.Root
         {...args}
         label="Error State"
@@ -121,6 +119,53 @@ export const States: StoryObj<typeof TextArea.Root> = {
         <TextArea.Content placeholder="You cannot type here" />
       </TextArea.Root>
     </Flex>
+  ),
+};
+
+export const Required: StoryObj<typeof TextArea.Root> = {
+  args: {
+    label: 'Feedback',
+    helperText: 'Your feedback is important.',
+    required: true,
+    color: 'source',
+  },
+  render: (args) => (
+    <Flex direction="column" style={{ width: '400px' }} p="4"> {/* Added padding */}
+      <TextArea.Root {...args}>
+        <TextArea.Content placeholder="Enter your feedback..." />
+      </TextArea.Root>
+    </Flex>
+  ),
+};
+
+export const DarkMode: StoryObj<typeof TextArea.Root> = {
+  render: (args) => (
+    <PittoricaTheme
+      appearance="dark"
+      style={{
+        padding: '2rem',
+        background: 'var(--pittorica-surface-0)',
+        borderRadius: '8px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        width: '400px',
+      }}
+    >
+      <TextArea.Root {...args} label="Dark Mode Input" color="source">
+        <TextArea.Content placeholder="Type here in dark mode..." />
+      </TextArea.Root>
+      <TextArea.Root
+        {...args}
+        label="Another Dark Input"
+        size="lg"
+        color="indigo"
+        error
+        helperText="Error message in dark mode"
+      >
+        <TextArea.Content placeholder="Error state in dark mode..." />
+      </TextArea.Root>
+    </PittoricaTheme>
   ),
 };
 

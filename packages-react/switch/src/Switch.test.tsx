@@ -27,4 +27,18 @@ describe('Switch', () => {
     fireEvent.click(screen.getByRole('switch'));
     expect(onCheckedChange).not.toHaveBeenCalled();
   });
+
+  it('applies aria-required attribute when required prop is true', () => {
+    render(<Switch required />);
+    const sw = screen.getByRole('switch');
+    expect(sw).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('sets the default color prop to source', () => {
+    render(<Switch />); // Default color is 'source'
+    const sw = screen.getByRole('switch');
+    expect(sw).toHaveStyle({
+      '--pittorica-source-color': 'var(--pittorica-source-9)',
+    });
+  });
 });

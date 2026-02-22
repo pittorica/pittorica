@@ -82,4 +82,26 @@ describe('TextField', () => {
     );
     expect(container.firstChild).toHaveAttribute('data-error', 'true');
   });
+
+  it('applies the required attribute to the input when the required prop is true', () => {
+    render(
+      <TextField.Root required>
+        <TextField.Input />
+      </TextField.Root>
+    );
+    const input = screen.getByRole('textbox');
+    expect(input).toBeRequired();
+  });
+
+  it('sets the default color prop to source', () => {
+    render(
+      <TextField.Root>
+        <TextField.Input />
+      </TextField.Root>
+    );
+    const wrapper = screen.getByRole('textbox').parentElement;
+    expect(wrapper).toHaveStyle({
+      '--pittorica-source-color': 'var(--pittorica-source-9)',
+    });
+  });
 });

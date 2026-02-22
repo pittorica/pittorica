@@ -20,6 +20,7 @@ interface TextFieldContextType {
   disabled?: boolean;
   size: TextFieldSize;
   name?: string;
+  required?: boolean;
 }
 
 const TextFieldContext = createContext<TextFieldContextType | null>(null);
@@ -45,6 +46,7 @@ export type TextFieldRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
   /** @default 'sm' */
   size?: TextFieldSize;
 };
@@ -57,9 +59,10 @@ export const TextFieldRoot = <E extends ElementType = 'div'>({
   label,
   helperText,
   error,
-  color = 'indigo',
+  color = 'source',
   disabled,
   name,
+  required,
   size = 'sm',
   className,
   style,
@@ -76,7 +79,9 @@ export const TextFieldRoot = <E extends ElementType = 'div'>({
   const Tag = as || 'div';
 
   return (
-    <TextFieldContext value={{ inputId, helperId, disabled, size, name }}>
+    <TextFieldContext
+      value={{ inputId, helperId, disabled, size, name, required }}
+    >
       <Box
         as={Tag as ElementType}
         className={clsx(
@@ -99,7 +104,7 @@ export const TextFieldRoot = <E extends ElementType = 'div'>({
               display: 'inline-block',
             }}
           >
-            {label}
+            {label} {required && <span aria-hidden="true">*</span>}
           </Text>
         )}
 
@@ -141,7 +146,13 @@ export const TextFieldInput = ({
   className,
   ...props
 }: TextFieldInputProps) => {
-  const { inputId, helperId, disabled, name } = useTextFieldContext();
+  const {
+    inputId,
+    helperId,
+    disabled,
+    name,
+    required: contextRequired,
+  } = useTextFieldContext();
 
   return (
     <input
@@ -150,6 +161,7 @@ export const TextFieldInput = ({
       id={inputId}
       aria-describedby={helperId}
       disabled={disabled}
+      required={contextRequired} // Apply required attribute from context
       className={clsx('pittorica-text-field-input', className)}
     />
   );

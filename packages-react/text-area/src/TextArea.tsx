@@ -22,6 +22,7 @@ interface TextAreaContextType {
   disabled?: boolean;
   size: TextAreaSize;
   name?: string;
+  required?: boolean;
 }
 
 const TextAreaContext = createContext<TextAreaContextType | null>(null);
@@ -45,6 +46,7 @@ export type TextAreaRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
   /** @default 'sm' */
   size?: TextAreaSize;
 };
@@ -58,9 +60,10 @@ export const TextAreaRoot = <E extends ElementType = 'div'>({
   label,
   helperText,
   error,
-  color = 'indigo',
+  color = 'source',
   disabled,
   name,
+  required,
   size = 'sm',
   className,
   style,
@@ -77,7 +80,9 @@ export const TextAreaRoot = <E extends ElementType = 'div'>({
   const Tag = as || 'div';
 
   return (
-    <TextAreaContext value={{ inputId, helperId, disabled, size, name }}>
+    <TextAreaContext
+      value={{ inputId, helperId, disabled, size, name, required }}
+    >
       <Box
         as={Tag as ElementType}
         className={clsx(
@@ -100,7 +105,7 @@ export const TextAreaRoot = <E extends ElementType = 'div'>({
               display: 'inline-block',
             }}
           >
-            {label}
+            {label} {required && <span aria-hidden="true">*</span>}
           </Text>
         )}
 
@@ -144,6 +149,7 @@ export const TextAreaContent = ({
   value,
   defaultValue,
   name: propsName,
+  required, // Add required prop here
   ...props
 }: TextAreaContentProps) => {
   const {
@@ -186,6 +192,7 @@ export const TextAreaContent = ({
       value={value}
       defaultValue={defaultValue}
       disabled={disabled}
+      required={required} // Apply required to the native textarea
       aria-describedby={helperId}
       onChange={handleChange}
       className={clsx('pittorica-textarea-input', className)}

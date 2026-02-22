@@ -14,7 +14,7 @@
 
     /* Radix-like Outlined Shape */
     background-color: var(--pittorica-slate-2);
-    border: 1px solid var(--pittorica-slate-6);
+    border: 3px solid var(--pittorica-source-6);
     border-radius: var(--pittorica-radius-2);
     transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }

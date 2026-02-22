@@ -4,16 +4,31 @@ The `Slider` component.
 
 ## Installation
 
-```bash
+\`\`\`bash
 npm install @pittorica/slider-react
-```
+\`\`\`
 
 ## Usage
 
-```jsx
+\`\`\`jsx
 import { Slider } from '@pittorica/slider-react';
-// TODO: Add usage example
-```
+
+function MyForm() {
+  return (
+    <form>
+      <Slider
+        min={0}
+        max={100}
+        defaultValue={50}
+        color="source" // Default color is now 'source'
+        required // Mark as required
+        label="Volume"
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+\`\`\`
 
 ## License
 

@@ -23,6 +23,7 @@ export type CheckboxProps<E extends ElementType = 'label'> = Omit<
   label?: string;
   name?: string;
   value?: string;
+  required?: boolean;
 };
 
 /**
@@ -33,13 +34,14 @@ export const Checkbox = <E extends ElementType = 'label'>({
   checked: controlledChecked,
   defaultChecked,
   onChange,
-  color = 'indigo',
+  color = 'source',
   disabled = false,
   label,
   name,
   value,
   className,
   style,
+  required = false,
   as,
   ...props
 }: CheckboxProps<E>) => {
@@ -79,6 +81,7 @@ export const Checkbox = <E extends ElementType = 'label'>({
         value={value}
         checked={isChecked}
         disabled={disabled}
+        required={required} // Apply required to the native input
         onChange={handleChange}
       />
 
@@ -92,7 +95,7 @@ export const Checkbox = <E extends ElementType = 'label'>({
 
       {label && (
         <Text weight="medium" style={{ color: 'inherit' }}>
-          {label}
+          {label} {required && <span aria-hidden="true">*</span>}
         </Text>
       )}
     </Box>

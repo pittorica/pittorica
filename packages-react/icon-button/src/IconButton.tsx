@@ -11,7 +11,7 @@ import type { PittoricaColor } from '@pittorica/text-react';
 export type IconButtonProps<E extends ElementType = 'button'> = BoxProps<E> & {
   /** @default 'filled' */
   variant?: 'filled' | 'tonal' | 'outlined' | 'text';
-  /** @default 'indigo' */
+  /** @default 'source' */
   color?: PittoricaColor;
   /** @default '3' */
   size?: '1' | '2' | '3' | '4';
@@ -25,7 +25,7 @@ export type IconButtonProps<E extends ElementType = 'button'> = BoxProps<E> & {
 export const IconButton = <E extends ElementType = 'button'>({
   children,
   variant = 'filled',
-  color = 'indigo',
+  color = 'source',
   size = '3',
   className,
   style,

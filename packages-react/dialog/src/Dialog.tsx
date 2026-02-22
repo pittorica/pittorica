@@ -95,6 +95,7 @@ export const Dialog = <E extends ElementType = 'div'>({
   }, [open, onClose, closeOnEsc]);
 
   useEffect(() => {
+    if (typeof document === 'undefined' || !document.body) return;
     if (!open) return;
     const originalStyle = globalThis.getComputedStyle(document.body).overflow;
     document.body.style.overflow = 'hidden';

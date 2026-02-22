@@ -15,7 +15,7 @@ export default defineConfig({
       /* * Treat React as external to prevent bundling it.
        * This ensures the consumer's React version is used.
        */
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
       output: {
         globals: {
           react: 'React',

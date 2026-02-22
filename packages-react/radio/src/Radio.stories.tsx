@@ -12,6 +12,17 @@ const meta = {
   args: { onClick: fn() },
   component: Radio,
   tags: ['autodocs'],
+  argTypes: {
+    color: {
+      control: 'select',
+      options: ['indigo', 'crimson', 'teal', 'amber', 'red', 'slate', 'source'],
+    },
+    disabled: { control: 'boolean' },
+    required: {
+      control: 'boolean',
+      description: 'Marks the radio input as required',
+    },
+  },
 } satisfies Meta<typeof Radio>;
 
 export default meta;
@@ -39,7 +50,47 @@ export const Colors: Story = {
       <Radio checked color="teal" />
       <Radio checked color="orange" />
       <Radio checked color="red" />
+      <Radio checked color="source" />
     </Flex>
+  ),
+};
+
+export const RequiredExample: Story = {
+  render: () => (
+    <form>
+      <Flex direction="column" gap="2" p="4"> {/* Added padding */}
+        <Radio
+          label="Option 1"
+          value="option1"
+          name="myRadioGroup"
+          required
+          color="source"
+        />
+        <Radio label="Option 2" value="option2" name="myRadioGroup" />
+      </Flex>
+      <button type="submit">Submit</button>
+    </form>
+  ),
+};
+
+export const DarkMode: Story = {
+  render: () => (
+    <PittoricaTheme
+      appearance="dark"
+      style={{
+        padding: '2rem',
+        background: 'var(--pittorica-surface-0)',
+        borderRadius: '8px',
+        display: 'flex',
+        gap: '1rem',
+        alignItems: 'center',
+      }}
+    >
+      <Radio color="teal" checked />
+      <Radio color="indigo" />
+      <Radio color="red" disabled />
+      <Radio color="source" checked />
+    </PittoricaTheme>
   ),
 };
 

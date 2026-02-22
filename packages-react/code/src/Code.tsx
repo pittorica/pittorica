@@ -2,10 +2,26 @@ import {
   type ComponentPropsWithoutRef,
   type ElementType,
   type ReactNode,
+  useEffect,
   useState,
 } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+/* Register only necessary languages for the light version */
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
+import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
+import markup from 'react-syntax-highlighter/dist/esm/languages/prism/markup';
+import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
+
+SyntaxHighlighter.registerLanguage('typescript', ts);
+SyntaxHighlighter.registerLanguage('javascript', js);
+SyntaxHighlighter.registerLanguage('bash', bash);
+SyntaxHighlighter.registerLanguage('json', json);
+SyntaxHighlighter.registerLanguage('css', css);
+SyntaxHighlighter.registerLanguage('html', markup);
 
 import { clsx } from 'clsx';
 
@@ -40,6 +56,11 @@ export const Code = <E extends ElementType = 'code'>({
   ...props
 }: CodeProps<E>) => {
   const [isCopied, setIsCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const content = String(children);
   const isInline = !content.includes('\n');
@@ -106,29 +127,44 @@ export const Code = <E extends ElementType = 'code'>({
 
       {/* Code Area */}
       <Box style={{ position: 'relative' }}>
-        <SyntaxHighlighter
-          language={language}
-          style={vscDarkPlus}
-          showLineNumbers={showLineNumbers}
-          PreTag="div"
-          lineNumberStyle={{
-            minWidth: '2.5em',
-            paddingRight: '1.5em',
-            opacity: 0.3,
-            textAlign: 'right',
-            userSelect: 'none',
-          }}
-          customStyle={{
-            margin: 0,
-            padding: '1.5rem',
-            fontSize: 'var(--pittorica-font-size-2)',
-            backgroundColor: 'transparent',
-            lineHeight: '1.7',
-            fontFamily: 'var(--pittorica-font-mono)',
-          }}
-        >
-          {content.replace(/\n$/, '')}
-        </SyntaxHighlighter>
+        {mounted ? (
+          <SyntaxHighlighter
+            language={language}
+            style={vscDarkPlus}
+            showLineNumbers={showLineNumbers}
+            PreTag="div"
+            lineNumberStyle={{
+              minWidth: '2.5em',
+              paddingRight: '1.5em',
+              opacity: 0.3,
+              textAlign: 'right',
+              userSelect: 'none',
+            }}
+            customStyle={{
+              margin: 0,
+              padding: '1.5rem',
+              fontSize: 'var(--pittorica-font-size-2)',
+              backgroundColor: 'transparent',
+              lineHeight: '1.7',
+              fontFamily: 'var(--pittorica-font-mono)',
+            }}
+          >
+            {content.replace(/\n$/, '')}
+          </SyntaxHighlighter>
+        ) : (
+          <div
+            style={{
+              padding: '1.5rem',
+              fontSize: 'var(--pittorica-font-size-2)',
+              lineHeight: '1.7',
+              fontFamily: 'var(--pittorica-font-mono)',
+              whiteSpace: 'pre-wrap',
+              opacity: 0.5,
+            }}
+          >
+            {content.replace(/\n$/, '')}
+          </div>
+        )}
       </Box>
     </Box>
   );

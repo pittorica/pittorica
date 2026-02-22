@@ -1,4 +1,9 @@
-import { type CSSProperties, type ElementType, type MouseEvent } from 'react';
+import {
+  type CSSProperties,
+  type ElementType,
+  type MouseEvent,
+  useState,
+} from 'react';
 
 import { clsx } from 'clsx';
 
@@ -17,11 +22,12 @@ export type RadioProps<E extends ElementType = 'button'> = Omit<
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
-  /** @default 'indigo' */
+  /** @default 'source' */
   color?: PittoricaColor;
   value?: string;
   name?: string;
   onCheckedChange?: (checked: boolean) => void;
+  required?: boolean;
 };
 
 /**
@@ -30,24 +36,35 @@ export type RadioProps<E extends ElementType = 'button'> = Omit<
  */
 export const Radio = <E extends ElementType = 'button'>({
   checked,
+  defaultChecked,
   disabled,
-  color = 'indigo',
+  color = 'source',
   className,
   style,
   onCheckedChange,
   name,
+  required = false,
   as,
   ...props
 }: RadioProps<E>) => {
-  const isSemantic =
-    color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
-  const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
+  const [internalChecked, setInternalChecked] = useState(
+    defaultChecked ?? false
+  );
+
+  const isControlled = checked !== undefined;
+  const isChecked = isControlled ? checked : internalChecked;
+
+  const resolvedColor =
+    color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb')
+      ? `var(--pittorica-${color}-9)`
+      : color;
 
   const Tag = as || 'button';
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (disabled) return;
-    onCheckedChange?.(!checked);
+    if (!isControlled) setInternalChecked(!isChecked);
+    onCheckedChange?.(!isChecked);
     // Propagate click if as is not a button to maintain standard behavior
     if (typeof props.onClick === 'function') {
       (props.onClick as (event: MouseEvent<HTMLElement>) => void)(e);
@@ -60,11 +77,12 @@ export const Radio = <E extends ElementType = 'button'>({
       type={Tag === 'button' ? 'button' : undefined}
       role="radio"
       name={name}
-      aria-checked={checked}
-      data-state={checked ? 'checked' : 'unchecked'}
+      aria-checked={isChecked}
+      aria-required={required} // Apply aria-required attribute
+      data-state={isChecked ? 'checked' : 'unchecked'}
       disabled={disabled}
-      className={clsx('pittorica-radio-root', className)}
       onClick={handleClick}
+      className={clsx('pittorica-radio-root', className)}
       style={
         {
           '--pittorica-source-color': resolvedColor,
@@ -73,7 +91,7 @@ export const Radio = <E extends ElementType = 'button'>({
       }
       {...(props as BoxProps<E>)}
     >
-      {checked ? (
+      {isChecked ? (
         <IconCircleCheckFilled size={14} />
       ) : (
         <IconCircle size={14} opacity={0.5} />

@@ -4,16 +4,45 @@ The `Radio` component.
 
 ## Installation
 
-```bash
+\`\`\`bash
 npm install @pittorica/radio-react
-```
+\`\`\`
 
 ## Usage
 
-```jsx
+\`\`\`jsx
 import { Radio } from '@pittorica/radio-react';
-// TODO: Add usage example
-```
+
+function MyForm() {
+  const [selectedValue, setSelectedValue] = useState('option1');
+
+  return (
+    <form>
+      <Radio
+        label="Option 1"
+        value="option1"
+        name="myRadioGroup"
+        checked={selectedValue === 'option1'}
+        onCheckedChange={(checked) => {
+          if (checked) setSelectedValue('option1');
+        }}
+        required // Mark as required
+        color="source" // Default color is now 'source'
+      />
+      <Radio
+        label="Option 2"
+        value="option2"
+        name="myRadioGroup"
+        checked={selectedValue === 'option2'}
+        onCheckedChange={(checked) => {
+          if (checked) setSelectedValue('option2');
+        }}
+      />
+      <button type="submit" disabled={!selectedValue}>Submit</button>
+    </form>
+  );
+}
+\`\`\`
 
 ## License
 

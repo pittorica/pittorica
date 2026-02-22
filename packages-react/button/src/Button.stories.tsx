@@ -1,4 +1,4 @@
-import { Box, Flex, PittoricaTheme } from '@pittorica/react';
+import { Flex, PittoricaTheme } from '@pittorica/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 
@@ -8,7 +8,7 @@ import { Button } from './Button.js';
  * Material Design 3 Button component.
  * Supports 5 variants, 5 sizes, and interactive states.
  */
-const meta = {
+const meta: Meta<typeof Button> = {
   title: 'Interactive/Button',
   component: Button,
   tags: ['autodocs'],
@@ -50,14 +50,7 @@ export const VariantsGallery: Story = {
     children: 'Button',
   },
   render: (args) => (
-    <Box
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '16px',
-        alignItems: 'center',
-      }}
-    >
+    <Flex gap="4" align="center" justify={'center'} wrap="wrap" py="4">
       <Button {...args} variant="elevated">
         Elevated
       </Button>
@@ -73,7 +66,7 @@ export const VariantsGallery: Story = {
       <Button {...args} variant="text">
         Text
       </Button>
-    </Box>
+    </Flex>
   ),
 };
 

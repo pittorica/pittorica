@@ -109,14 +109,14 @@
   /* --- Button Variants --- */
 
   .pittorica-button--elevated {
-    background-color: var(--pittorica-surface-1);
-    color: var(--_btn-color);
-    box-shadow: var(--pittorica-shadow-2);
+    background-color: var(--_btn-color);
+    color: var(--_btn-on-color);
+    box-shadow: var(--pittorica-shadow-6);
   }
 
   .pittorica-button--elevated:not(:disabled):hover {
-    background-color: var(--pittorica-surface-2);
-    box-shadow: var(--pittorica-shadow-4);
+    background-color: var(--_btn-color);
+    box-shadow: var(--pittorica-shadow-8);
   }
 
   .pittorica-button--filled {

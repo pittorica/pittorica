@@ -32,4 +32,19 @@ describe('Checkbox', () => {
     fireEvent.click(input);
     expect(input).not.toBeChecked();
   });
+
+  it('applies the required attribute when the required prop is true', () => {
+    render(<Checkbox label="Required Input" required />);
+    const input = screen.getByLabelText('Required Input');
+    expect(input).toBeRequired();
+  });
+
+  it('sets the default color prop to source', () => {
+    render(<Checkbox label="Default Color" />);
+    const input = screen.getByLabelText('Default Color');
+    // The color is applied via CSS variable --_checkbox-color on the root Box
+    expect(input.closest('.pittorica-checkbox-root')).toHaveStyle({
+      '--_checkbox-color': 'var(--pittorica-source-9)',
+    });
+  });
 });

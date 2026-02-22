@@ -40,6 +40,20 @@ describe('Radio', () => {
     expect(screen.getByRole('radio')).toBeDisabled();
   });
 
+  it('applies aria-required attribute when required prop is true', () => {
+    render(<Radio required />);
+    const radio = screen.getByRole('radio');
+    expect(radio).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('sets the default color prop to source', () => {
+    render(<Radio />); // Default color is 'source'
+    const radio = screen.getByRole('radio');
+    expect(radio).toHaveStyle({
+      '--pittorica-source-color': 'var(--pittorica-source-9)',
+    });
+  });
+
   it('forwards ref to the button element', () => {
     let capturedRef: HTMLButtonElement | null = null;
     render(

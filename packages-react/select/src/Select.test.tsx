@@ -9,9 +9,9 @@ import { describe, expect, it } from 'vitest';
 import { Select } from './Select.js';
 
 describe('Select', () => {
-  it('links label and select correctly via IDs', () => {
+  it('links label and select correctly via generated IDs', () => {
     render(
-      <Select.Root label="Language">
+      <Select.Root label="Language" name="lang">
         <Select.Content>
           <option value="en">English</option>
         </Select.Content>
@@ -42,5 +42,31 @@ describe('Select', () => {
       </Select.Root>
     );
     expect(screen.getByRole('combobox')).toBeDisabled();
+  });
+
+  it('applies aria-required attribute when the Root required prop is true', () => {
+    render(
+      <Select.Root required>
+        <Select.Content>
+          <option>1</option>
+        </Select.Content>
+      </Select.Root>
+    );
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('sets the default color prop to source', () => {
+    const { container } = render(
+      <Select.Root>
+        <Select.Content>
+          <option>1</option>
+        </Select.Content>
+      </Select.Root>
+    );
+    // The color is applied to the wrapper div, not the select element itself
+    const wrapper = container.querySelector('.pittorica-select-wrapper');
+    expect(wrapper).toHaveStyle({
+      '--pittorica-source-color': 'var(--pittorica-source-9)',
+    });
   });
 });
