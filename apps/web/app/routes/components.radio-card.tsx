@@ -28,6 +28,12 @@ export default function RadioCardRoute() {
           default: 'indigo',
           description: 'Highlight color.',
         },
+        {
+          name: 'required',
+          type: 'boolean',
+          default: 'false',
+          description: 'Marks all radio items in the group as required.',
+        },
       ]}
       examples={[
         {
@@ -61,6 +67,20 @@ export default function RadioCardRoute() {
                   <Text weight="bold">Express</Text>
                 </Flex>
               </RadioCard.Item>
+            </RadioCard.Root>
+          ),
+        },
+        {
+          title: 'Required Choice',
+          description: 'Ensure the user selects one of the available options.',
+          code: `<RadioCard.Root required name="preference">
+  <RadioCard.Item value="a">Option A</RadioCard.Item>
+  <RadioCard.Item value="b">Option B</RadioCard.Item>
+</RadioCard.Root>`,
+          render: (
+            <RadioCard.Root required name="preference" columns="2">
+              <RadioCard.Item value="a">Option A</RadioCard.Item>
+              <RadioCard.Item value="b">Option B</RadioCard.Item>
             </RadioCard.Root>
           ),
         },

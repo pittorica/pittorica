@@ -19,6 +19,7 @@ interface RadioGroupContextType {
   color: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
 }
 
 const RadioGroupContext = createContext<RadioGroupContextType | null>(null);
@@ -44,6 +45,7 @@ export type RadioGroupRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
 };
 
 /**
@@ -58,6 +60,7 @@ export const RadioGroup = <E extends ElementType = 'div'>({
   color = 'indigo',
   disabled,
   name,
+  required,
   className,
   as,
   ...props
@@ -79,8 +82,9 @@ export const RadioGroup = <E extends ElementType = 'div'>({
       color,
       disabled,
       name,
+      required,
     }),
-    [currentValue, color, disabled, name]
+    [currentValue, color, disabled, name, required]
   );
 
   const Tag = as || 'div';
@@ -126,6 +130,7 @@ export const RadioGroupItem = <E extends ElementType = 'button'>({
     color,
     disabled: groupDisabled,
     name,
+    required,
   } = useRadioGroupContext();
 
   const isChecked = value === itemValue;
@@ -141,6 +146,7 @@ export const RadioGroupItem = <E extends ElementType = 'button'>({
       color={color}
       checked={isChecked}
       disabled={isDisabled}
+      required={props.required || required}
       onCheckedChange={() => onValueChange(itemValue)}
       {...(props as RadioProps<E>)}
     />

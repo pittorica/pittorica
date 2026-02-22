@@ -18,6 +18,7 @@ interface RadioCardContextType {
   color: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
 }
 
 const RadioCardContext = createContext<RadioCardContextType | null>(null);
@@ -45,6 +46,7 @@ export type RadioCardRootProps<E extends ElementType = 'div'> = BoxProps<E> & {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
   /** Number of columns. @default '1' */
   columns?: string;
 };
@@ -57,6 +59,7 @@ const RadioCardRoot = <E extends ElementType = 'div'>({
   color = 'indigo',
   disabled,
   name,
+  required,
   columns = '1',
   className,
   style,
@@ -79,8 +82,9 @@ const RadioCardRoot = <E extends ElementType = 'div'>({
       color,
       disabled,
       name,
+      required,
     }),
-    [currentValue, color, disabled, name]
+    [currentValue, color, disabled, name, required]
   );
 
   const Tag = as || 'div';
@@ -131,6 +135,7 @@ const RadioCardItem = <E extends ElementType = 'button'>({
     color,
     disabled: groupDisabled,
     name,
+    required,
   } = useRadioCardContext();
 
   const isChecked = value === itemValue;
@@ -150,6 +155,7 @@ const RadioCardItem = <E extends ElementType = 'button'>({
       role="radio"
       name={name}
       aria-checked={isChecked}
+      aria-required={required}
       data-state={isChecked ? 'checked' : 'unchecked'}
       disabled={isDisabled}
       className={clsx('pittorica-radio-card-item', className)}
