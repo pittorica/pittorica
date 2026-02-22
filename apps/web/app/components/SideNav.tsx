@@ -27,6 +27,9 @@ export const SideNav = ({ isOpen, onClose }: SideNavProps) => {
         <Link as={NavLink} to="/typography" color="inherit" onClick={onClose}>
           Typography
         </Link>
+        <Link as={NavLink} to="/colors" color="inherit" onClick={onClose}>
+          Colors
+        </Link>
         <Link as={NavLink} to="/components" color="inherit" onClick={onClose}>
           Components
         </Link>
