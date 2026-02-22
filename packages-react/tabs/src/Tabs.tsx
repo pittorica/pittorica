@@ -221,12 +221,12 @@ const TabsContent = <E extends ElementType = 'div'>({
   );
 };
 
-export const Tabs = {
+export const Tabs = Object.assign(TabsRoot, {
   Root: TabsRoot,
   List: TabsList,
   Trigger: TabsTrigger,
   Content: TabsContent,
-};
+});
 
 TabsRoot.displayName = 'Tabs.Root';
 TabsList.displayName = 'Tabs.List';

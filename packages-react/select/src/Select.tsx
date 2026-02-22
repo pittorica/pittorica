@@ -199,11 +199,11 @@ export const SelectSlot = <E extends ElementType = 'div'>({
   );
 };
 
-export const Select = {
+export const Select = Object.assign(SelectRoot, {
   Root: SelectRoot,
   Content: SelectContent,
   Slot: SelectSlot,
-};
+});
 
 SelectRoot.displayName = 'Select.Root';
 SelectContent.displayName = 'Select.Content';

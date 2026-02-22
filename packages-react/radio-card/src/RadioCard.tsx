@@ -173,10 +173,9 @@ const RadioCardItem = <E extends ElementType = 'button'>({
   );
 };
 
-export const RadioCard = {
-  Root: RadioCardRoot,
+export const RadioCard = Object.assign(RadioCardRoot, {
   Item: RadioCardItem,
-};
+});
 
 RadioCardRoot.displayName = 'RadioCard.Root';
 RadioCardItem.displayName = 'RadioCard.Item';
