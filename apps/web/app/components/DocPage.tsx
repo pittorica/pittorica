@@ -30,6 +30,7 @@ export interface DocPageProps {
   packageName: string;
   installationCommands?: string[];
   props: PropRow[];
+  setup?: React.ReactNode;
   examples: {
     title: string;
     description: string;
@@ -43,6 +44,7 @@ export function DocPage({
   description,
   packageName,
   props,
+  setup,
   examples,
 }: DocPageProps) {
   return (
@@ -88,6 +90,13 @@ export function DocPage({
             </Tabs.Root>
           </Flex>
         </Section>
+
+        {setup && (
+          <>
+            <Divider variant="wave" color="gray" />
+            {setup}
+          </>
+        )}
 
         <Divider variant="wave" color="gray" />
 
