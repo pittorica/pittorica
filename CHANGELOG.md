@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.26.2](https://github.com/pittorica/ui/compare/v0.26.1...v0.26.2) (2026-02-22)
+
+
+### Bug Fixes
+
+* **react:** correct displayName assignment for compound components ([8141ac6](https://github.com/pittorica/ui/commit/8141ac6e767c447b045aaa671ff453fbe0ed5881))
+* **react:** standardize compound component exports ([2249632](https://github.com/pittorica/ui/commit/22496322e655610b224f9dbb67248b449ba491c8)), closes [#130](https://github.com/pittorica/ui/issues/130)
+* **web:** add [@dcdavidev](https://github.com/dcdavidev) ([b06f39a](https://github.com/pittorica/ui/commit/b06f39aa1d4479ee3e43f6d053f63207fb8d46a7))
+
 ## [0.26.1](https://github.com/pittorica/ui/compare/v0.26.0...v0.26.1) (2026-02-22)
 
 
