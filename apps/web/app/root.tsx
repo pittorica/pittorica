@@ -1,33 +1,28 @@
 import 'pittorica';
 import '@fontsource/inknut-antiqua';
 import '@fontsource-variable/inter';
+import '@fontsource/momo-trust-display';
 import '@fontsource-variable/kode-mono';
+
+import { useState } from 'react';
 
 import {
   isRouteErrorResponse,
   Links,
   Meta,
-  NavLink,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from 'react-router';
 
-import { IconBrandGithub } from '@tabler/icons-react';
-
-import {
-  Avatar,
-  Box,
-  Card,
-  Flex,
-  IconButton,
-  Link,
-  PittoricaTheme,
-} from '@pittorica/react';
+import { Box, PittoricaTheme } from '@pittorica/react';
 
 import './app.css';
 
 import type { Route } from './+types/root';
+import { AppBar } from './components/AppBar';
+import { ComponentsSideNav } from './components/ComponentsSideNav';
+import { SideNav } from './components/SideNav';
 
 export const links: Route.LinksFunction = () => [
   {
@@ -57,6 +52,9 @@ export const meta: Route.MetaFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+  const [isComponentsSideNavOpen, setIsComponentsSideNavOpen] = useState(false);
+
   return (
     <html lang="en">
       <head>
@@ -71,48 +69,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
         data-source-color="#29294b"
       >
         <PittoricaTheme appearance="light" sourceColor="#29294b">
-          <Card as="header" className="appbar" translucent>
-            <Flex align="center" justify="between" height="100%">
-              <Flex align="center" gap="3">
-                <IconButton
-                  as={NavLink}
-                  to="/"
-                  variant="text"
-                  color="inherit"
-                  aria-label="Home"
-                  style={{ padding: 0, width: 'auto', height: 'auto' }}
-                >
-                  <Avatar
-                    src="/static/logo/square.png"
-                    fallback="P"
-                    size="2"
-                    style={{ boxShadow: 'none', backgroundColor: '#29294b' }}
-                  />
-                </IconButton>
-              </Flex>
-              <nav>
-                <Flex gap="5" align="center">
-                  <Link as={NavLink} to="/docs" color="inherit">
-                    Docs
-                  </Link>
-                  <Link as={NavLink} to="/components" color="inherit">
-                    Components
-                  </Link>
-                  <IconButton
-                    as="a"
-                    href="https://github.com/pittorica/pittorica"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="text"
-                    color="white"
-                    aria-label="GitHub"
-                  >
-                    <IconBrandGithub size={20} />
-                  </IconButton>
-                </Flex>
-              </nav>
-            </Flex>
-          </Card>
+          <AppBar
+            onOpenSideNav={() => setIsSideNavOpen(true)}
+            onOpenComponentsSideNav={() => setIsComponentsSideNavOpen(true)}
+          />
+
+          <SideNav
+            isOpen={isSideNavOpen}
+            onClose={() => setIsSideNavOpen(false)}
+          />
+
+          <ComponentsSideNav
+            isOpen={isComponentsSideNavOpen}
+            onClose={() => setIsComponentsSideNavOpen(false)}
+          />
+
           <Box className="app-content" id="top">
             {children}
           </Box>

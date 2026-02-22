@@ -6,7 +6,7 @@
   --font-kode-mono-variable: 'Kode Mono Variable', monospace;
 
   --pittorica-font-family: var(--font-inter-variable);
-  --pittorica-font-heading: var(--font-momo-trust-display);
+  --pittorica-font-heading: var(--font-inknut-antiqua);
   --pittorica-font-code: var(--font-kode-mono-variable);
   --pittorica-font-strong: inherit;
   --pittorica-font-em: inherit;
