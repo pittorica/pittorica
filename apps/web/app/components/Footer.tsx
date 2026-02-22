@@ -52,7 +52,7 @@ export const Footer = () => {
                   as="a"
                   href="https://github.com/pittorica/pittorica"
                   variant="text"
-                  color="gray"
+                  color="source"
                   size="1"
                 >
                   <IconBrandGithub size={18} />

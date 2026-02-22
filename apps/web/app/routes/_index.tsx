@@ -219,7 +219,9 @@ export default function Route() {
               {/* Forms */}
               <Card p="6">
                 <Flex direction="column" gap="4">
-                  <TextField placeholder="Enter your email..." />
+                  <TextField>
+                    <TextField.Input placeholder="Enter your email..." />
+                  </TextField>
                   <Flex justify="between" align="center">
                     <Text size="2">Stay logged in</Text>
                     <Switch defaultChecked />
