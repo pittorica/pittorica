@@ -51,7 +51,7 @@ export const Footer = () => {
                 <IconButton
                   as="a"
                   href="https://github.com/pittorica/pittorica"
-                  variant="soft"
+                  variant="text"
                   color="gray"
                   size="1"
                 >

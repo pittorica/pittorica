@@ -106,7 +106,7 @@ export default function Route() {
                 <Flex direction="column" gap="4">
                   <Flex justify="between" align="center">
                     <Badge color="indigo">Interactive</Badge>
-                    <IconButton variant="soft" size="1" color="red">
+                    <IconButton variant="text" size="1" color="red">
                       <IconHeart size={16} />
                     </IconButton>
                   </Flex>
@@ -116,7 +116,7 @@ export default function Route() {
                     communication.
                   </Text>
                   <Flex gap="2">
-                    <Button variant="soft" size="sm">
+                    <Button variant="text" size="sm">
                       Soft
                     </Button>
                     <Button variant="tonal" size="sm" color="teal">

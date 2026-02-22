@@ -191,11 +191,11 @@ export const TextFieldSlot = <E extends ElementType = 'div'>({
   );
 };
 
-export const TextField = {
+export const TextField = Object.assign(TextFieldRoot, {
   Root: TextFieldRoot,
   Input: TextFieldInput,
   Slot: TextFieldSlot,
-};
+});
 
 TextFieldRoot.displayName = 'TextField.Root';
 TextFieldInput.displayName = 'TextField.Input';
