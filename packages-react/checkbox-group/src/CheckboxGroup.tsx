@@ -12,6 +12,7 @@ interface CheckboxGroupContextValue {
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
 }
 
 const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(
@@ -34,6 +35,7 @@ export type CheckboxGroupRootProps<E extends ElementType = 'div'> = Omit<
   color?: PittoricaColor;
   disabled?: boolean;
   name?: string;
+  required?: boolean;
 };
 
 const CheckboxGroupRoot = <E extends ElementType = 'div'>({
@@ -44,6 +46,7 @@ const CheckboxGroupRoot = <E extends ElementType = 'div'>({
   color,
   disabled,
   name,
+  required,
   children,
   className,
   as,
@@ -71,8 +74,9 @@ const CheckboxGroupRoot = <E extends ElementType = 'div'>({
       color,
       disabled,
       name,
+      required,
     }),
-    [currentValue, color, disabled, name]
+    [currentValue, color, disabled, name, required]
   );
 
   const Tag = as || 'div';
@@ -129,6 +133,7 @@ const CheckboxGroupItem = <E extends ElementType = 'label'>({
       onChange={() => context.onItemChange(value)}
       color={props.color || context.color}
       disabled={props.disabled || context.disabled}
+      required={props.required || context.required}
     />
   );
 };

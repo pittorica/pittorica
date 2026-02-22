@@ -25,6 +25,12 @@ export default function CheckboxGroupRoute() {
           default: '"vertical"',
           description: 'Layout direction.',
         },
+        {
+          name: 'required',
+          type: 'boolean',
+          default: 'false',
+          description: 'Marks all checkboxes in the group as required.',
+        },
       ]}
       examples={[
         {
@@ -39,6 +45,20 @@ export default function CheckboxGroupRoute() {
               <CheckboxGroup.Item value="apple" label="Apple" />
               <CheckboxGroup.Item value="orange" label="Orange" />
               <CheckboxGroup.Item value="banana" label="Banana" />
+            </CheckboxGroup>
+          ),
+        },
+        {
+          title: 'Required Group',
+          description: 'All items in this group are marked as required.',
+          code: `<CheckboxGroup required name="choices">
+  <CheckboxGroup.Item value="1" label="Choice 1" />
+  <CheckboxGroup.Item value="2" label="Choice 2" />
+</CheckboxGroup>`,
+          render: (
+            <CheckboxGroup required name="choices">
+              <CheckboxGroup.Item value="1" label="Choice 1" />
+              <CheckboxGroup.Item value="2" label="Choice 2" />
             </CheckboxGroup>
           ),
         },
