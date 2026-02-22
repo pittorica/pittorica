@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Text,
-} from '@pittorica/react';
+import { Box, Button, Popover, Text } from '@pittorica/react';
 
 import { DocPage } from '../components/DocPage';
 
@@ -32,23 +25,27 @@ export default function PopoverRoute() {
         {
           title: 'Basic Usage',
           description: 'Click the button to open the popover.',
-          code: `<Popover placement="bottom">
-  <PopoverTrigger>
+          code: `<Popover.Root placement="bottom">
+  <Popover.Trigger>
     <Button variant="outlined">Open Popover</Button>
-  </PopoverTrigger>
-  <PopoverContent>
-    <Box p="1">
-      <Text weight="bold">Popover Title</Text>
-      <Text color="gray">Detailed information goes here.</Text>
+  </Popover.Trigger>
+  <Popover.Content p="4" style={{ width: '200px' }}>
+    <Box>
+      <Text weight="bold" style={{ display: 'block', marginBottom: '4px' }}>
+        Popover Title
+      </Text>
+      <Text color="gray" size="2">
+        Detailed information goes here.
+      </Text>
     </Box>
-  </PopoverContent>
-</Popover>`,
+  </Popover.Content>
+</Popover.Root>`,
           render: (
-            <Popover placement="bottom">
-              <PopoverTrigger>
+            <Popover.Root placement="bottom">
+              <Popover.Trigger>
                 <Button variant="outlined">Open Popover</Button>
-              </PopoverTrigger>
-              <PopoverContent p="4" style={{ width: '200px' }}>
+              </Popover.Trigger>
+              <Popover.Content p="4" style={{ width: '200px' }}>
                 <Box>
                   <Text
                     weight="bold"
@@ -60,8 +57,8 @@ export default function PopoverRoute() {
                     Detailed information goes here.
                   </Text>
                 </Box>
-              </PopoverContent>
-            </Popover>
+              </Popover.Content>
+            </Popover.Root>
           ),
         },
       ]}

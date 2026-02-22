@@ -4,6 +4,7 @@ import {
   type ElementType,
   type ReactNode,
   use,
+  useEffect,
   useLayoutEffect,
   useMemo,
   useState,
@@ -49,24 +50,24 @@ const PopoverContext = createContext<PopoverContextType | null>(null);
 const usePopoverContext = () => {
   const context = use(PopoverContext);
   if (!context)
-    throw new Error('Popover components must be wrapped in <Popover />');
+    throw new Error('Popover components must be wrapped in <Popover.Root />');
   return context;
 };
 
 /* --- Root --- */
 
-export type PopoverProps = {
+export type PopoverRootProps = {
   children: ReactNode;
   /** @default 'bottom' */
   placement?: Placement;
   appearance?: 'light' | 'dark' | 'inherit';
 };
 
-export const Popover = ({
+export const PopoverRoot = ({
   children,
   placement = 'bottom',
   appearance,
-}: PopoverProps) => {
+}: PopoverRootProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating<HTMLElement>({
@@ -112,9 +113,6 @@ export const Popover = ({
 
 /* --- Trigger --- */
 
-/**
- * Fix TS2314: Use 'type' and generic E for polymorphic BoxProps.
- */
 export type PopoverTriggerProps<E extends ElementType = 'span'> = BoxProps<E>;
 
 export const PopoverTrigger = <E extends ElementType = 'span'>({
@@ -141,9 +139,9 @@ export const PopoverTrigger = <E extends ElementType = 'span'>({
     <Box
       as={Tag as ElementType}
       display="inline-flex"
-      {...getReferenceProps()}
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+      {...getReferenceProps(props as any)}
       ref={setRefs}
-      {...(props as BoxProps<E>)}
     >
       {children}
     </Box>
@@ -152,9 +150,6 @@ export const PopoverTrigger = <E extends ElementType = 'span'>({
 
 /* --- Content --- */
 
-/**
- * Fix TS2314: Use 'type' and generic E for polymorphic BoxProps.
- */
 export type PopoverContentProps<E extends ElementType = 'div'> = BoxProps<E>;
 
 export const PopoverContent = <E extends ElementType = 'div'>({
@@ -162,6 +157,7 @@ export const PopoverContent = <E extends ElementType = 'div'>({
   className,
   as,
   ref: externalRef,
+  style,
   ...props
 }: PopoverContentProps<E>) => {
   const { isOpen, refs, floatingStyles, getFloatingProps, appearance } =
@@ -171,13 +167,18 @@ export const PopoverContent = <E extends ElementType = 'div'>({
     'light' | 'dark'
   >();
 
-  useLayoutEffect(() => {
+  // Safer SSR-friendly layout effect
+  const useIsomorphicLayoutEffect =
+    globalThis.window === undefined ? useEffect : useLayoutEffect;
+
+  useIsomorphicLayoutEffect(() => {
     if (isOpen && refs.domReference.current) {
       const themeElement = refs.domReference.current.closest(
         '.pittorica-theme'
       ) as HTMLElement | null;
       if (themeElement) {
         const app = themeElement.dataset.appearance as 'light' | 'dark';
+        /* eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect */
         setInheritedAppearance(app || undefined);
       }
     }
@@ -206,11 +207,11 @@ export const PopoverContent = <E extends ElementType = 'div'>({
       <PittoricaTheme appearance={finalAppearance}>
         <Box
           as={Tag as ElementType}
-          {...getFloatingProps()}
+          /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+          {...getFloatingProps(props as any)}
           ref={setFloatingRefs}
           className={clsx('pittorica-popover-content', className)}
-          style={{ ...floatingStyles, ...props.style }}
-          {...(props as BoxProps<E>)}
+          style={{ ...floatingStyles, ...style }}
         >
           {children}
         </Box>
@@ -219,6 +220,11 @@ export const PopoverContent = <E extends ElementType = 'div'>({
   );
 };
 
-Popover.displayName = 'Popover';
-PopoverTrigger.displayName = 'Popover.Trigger';
-PopoverContent.displayName = 'Popover.Content';
+/**
+ * Compound component object.
+ */
+export const Popover = Object.assign(PopoverRoot, {
+  Root: PopoverRoot,
+  Trigger: PopoverTrigger,
+  Content: PopoverContent,
+});
