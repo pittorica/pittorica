@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router';
+
 import { IconBrandGithub, IconRocket } from '@tabler/icons-react';
 
 import {
@@ -43,7 +45,7 @@ export default function Route() {
             </Flex>
 
             <Flex gap="4" wrap="wrap" justify="center">
-              <Button size="xl">
+              <Button size="xl" as={NavLink} to="/get-started">
                 <Flex gap="2" align="center">
                   <IconRocket size={20} />
                   Get Started
