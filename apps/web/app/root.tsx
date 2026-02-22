@@ -17,12 +17,15 @@ import {
 
 import { Box, PittoricaTheme } from '@pittorica/react';
 
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import './app.css';
 
 import type { Route } from './+types/root';
 import { AppBar } from './components/AppBar';
 import { ComponentsSideNav } from './components/ComponentsSideNav';
+import { CookieConsentInit } from './components/CookieConsentInit';
 import { SideNav } from './components/SideNav';
+import { cookieConsentConfig } from './configs/cookie-consent';
 
 export const links: Route.LinksFunction = () => [
   {
@@ -96,6 +99,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Box>
           <ScrollRestoration />
         </PittoricaTheme>
+        <CookieConsentInit config={cookieConsentConfig} />
         <Scripts />
       </body>
     </html>
