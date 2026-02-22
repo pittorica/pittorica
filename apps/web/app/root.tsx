@@ -31,6 +31,7 @@ import {
   Heading,
   PittoricaTheme,
   Section,
+  Skeleton,
   Text,
   ToastProvider,
 } from '@pittorica/react';
@@ -150,6 +151,85 @@ export function Layout({ children: _children }: { children: React.ReactNode }) {
         </PittoricaTheme>
         <CookieConsentInit config={cookieConsentConfig} />
         <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export function HydrationFallback() {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body className="pittorica-theme" data-source-color="#29294b">
+        <PittoricaTheme sourceColor="#29294b">
+          <Box
+            style={{
+              height: '64px',
+              borderBottom: '1px solid var(--pittorica-slate-4)',
+              padding: '0 24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Flex align="center" gap="2">
+              <Skeleton width="32px" height="32px" borderRadius="full" />
+              <Skeleton width="120px" height="24px" />
+            </Flex>
+            <Flex gap="3">
+              <Skeleton width="80px" height="32px" borderRadius="2" />
+              <Skeleton width="32px" height="32px" borderRadius="full" />
+            </Flex>
+          </Box>
+
+          <Flex>
+            <Box
+              style={{
+                width: '280px',
+                height: 'calc(100vh - 64px)',
+                borderRight: '1px solid var(--pittorica-slate-4)',
+                padding: '24px',
+                display: 'none',
+              }}
+              // Hidden on mobile, but would be nice to show on md+ if possible via pure CSS
+              className="hydration-sidebar"
+            >
+              <Flex direction="column" gap="4">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <Skeleton key={i} width="80%" height="20px" />
+                ))}
+              </Flex>
+            </Box>
+
+            <Box style={{ flex: 1 }}>
+              <Section size="3">
+                <Container>
+                  <Flex direction="column" gap="6">
+                    <Skeleton width="40%" height="48px" mb="4" />
+                    <Skeleton width="100%" height="24px" />
+                    <Skeleton width="90%" height="24px" />
+                    <Skeleton width="95%" height="24px" />
+
+                    <Box mt="8">
+                      <Skeleton
+                        width="100%"
+                        height="300px"
+                        borderRadius="3"
+                        style={{ opacity: 0.5 }}
+                      />
+                    </Box>
+                  </Flex>
+                </Container>
+              </Section>
+            </Box>
+          </Flex>
+          <Scripts />
+        </PittoricaTheme>
       </body>
     </html>
   );

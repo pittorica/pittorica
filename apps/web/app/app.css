@@ -44,3 +44,9 @@ html {
 .app-content {
   padding-top: 64px;
 }
+
+@media (min-width: 768px) {
+  .hydration-sidebar {
+    display: flex !important;
+  }
+}
