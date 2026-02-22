@@ -1,0 +1,145 @@
+
+> my-react-router-app@0.25.0 build /home/dcdavidev/pittorica/apps/web
+> react-router build
+
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 7026 modules transformed.
+✗ Build failed in 8.45s
+app/routes/components.input-otp.tsx (1:9): "InputOTP" is not exported by "../../packages/react/dist/index.js", imported by "app/routes/components.input-otp.tsx".
+file: /home/dcdavidev/pittorica/apps/web/app/routes/components.input-otp.tsx:1:9
+
+1: import { InputOTP, Flex, Text } from '@pittorica/react';
+            ^
+2: import { DocPage } from '../components/DocPage';
+
+    at getRollupError (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at error (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/parseAst.js:398:42)
+    at Module.error (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:17040:16)
+    at Module.traceVariable (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:17452:29)
+    at ModuleScope.findVariable (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:15070:39)
+    at ChildScope.findVariable (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at FunctionScope.findVariable (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at FunctionBodyScope.findVariable (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at Identifier.bind (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:5447:40)
+    at CallExpression.bind (file:///home/dcdavidev/pittorica/node_modules/.pnpm/rollup@4.58.0/node_modules/rollup/dist/es/shared/node-entry.js:2825:28) {
+  binding: 'InputOTP',
+  code: 'MISSING_EXPORT',
+  exporter: '/home/dcdavidev/pittorica/packages/react/dist/index.js',
+  id: '/home/dcdavidev/pittorica/apps/web/app/routes/components.input-otp.tsx',
+  url: 'https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module',
+  pos: 144,
+  loc: {
+    column: 9,
+    file: '/home/dcdavidev/pittorica/apps/web/app/routes/components.input-otp.tsx',
+    line: 1
+  },
+  frame: "1: import { InputOTP, Flex, Text } from '@pittorica/react';\n" +
+    '            ^\n' +
+    "2: import { DocPage } from '../components/DocPage';",
+  watchFiles: [
+    '/home/dcdavidev/pittorica/apps/web/app/root.tsx',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/@react-router+dev@7.12.0_@react-router+serve@7.12.0_react-router@7.12.0_react-dom@19.2._e4b20693aab9f97485fc64d19f721df9/node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/get-started.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.segmented-control.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.checkbox-group.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.checkbox-card.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.dropdown-menu.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.alert-dialog.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.aspect-ratio.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.context-menu.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.icon-button.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.radio-group.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.blockquote.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.hover-card.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.radio-card.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.text-field.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.container.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.data-list.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.input-otp.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.text-area.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.carousel.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.checkbox.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.progress.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.skeleton.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.callout.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.divider.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.heading.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.popover.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.section.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.tooltip.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components._index.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.avatar.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.button.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.dialog.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.select.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.strong.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.slider.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.switch.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.badge.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.inset.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.quote.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.radio.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.sheet.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.stack.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.table.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.toast.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.theme.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.card.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.chip.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.code.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.flex.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.grid.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.link.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.tabs.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.text.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.kbd.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.box.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/components.em.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/typography.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/privacy.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/theming.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/_index.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/colors.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/terms.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/routes/$.tsx',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react@19.2.4/node_modules/react/jsx-runtime.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react@19.2.4/node_modules/react/index.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/client.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-router@7.12.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/react-router/dist/development/dom-export.mjs',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/index.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-router@7.12.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/react-router/dist/development/chunk-FNSCYPCZ.mjs',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-router@7.12.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/react-router/dist/development/chunk-EPOLDU6W.mjs',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react@19.2.4/node_modules/react/cjs/react-jsx-runtime.production.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react@19.2.4/node_modules/react/cjs/react.production.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.production.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom.production.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/cookie@1.1.1/node_modules/cookie/dist/index.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/set-cookie-parser@2.7.2/node_modules/set-cookie-parser/lib/set-cookie.js',
+    '/home/dcdavidev/pittorica/apps/web/package.json',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.production.js',
+    '/home/dcdavidev/pittorica/apps/web/app/components/DocPage.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/configs/components.ts',
+    '/home/dcdavidev/pittorica/packages/react/package.json',
+    '/home/dcdavidev/pittorica/apps/web/app/components/AppBar.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/components/ComponentsSideNav.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/components/CookieConsentInit.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/components/Footer.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/components/SideNav.tsx',
+    '/home/dcdavidev/pittorica/apps/web/app/configs/cookie-consent/index.ts',
+    '/home/dcdavidev/pittorica/apps/web/app/app.css',
+    '/home/dcdavidev/pittorica/packages/pittorica/package.json',
+    '/home/dcdavidev/pittorica/apps/web/app/hooks/use-cookie-consent.ts',
+    '/home/dcdavidev/pittorica/apps/web/app/configs/cookie-consent/en.ts',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/react-router@7.12.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/react-router/dist/development/index.mjs',
+    '/home/dcdavidev/pittorica/packages/react/dist/index.js',
+    '/home/dcdavidev/pittorica/node_modules/.pnpm/@tabler+icons-react@3.36.1_react@19.2.4/node_modules/@tabler/icons-react/dist/esm/tabler-icons-react.mjs',
+    '/home/dcdavidev/pittorica/packages-react/alert-dialog/package.json',
+    '/home/dcdavidev/pittorica/packages-react/aspect-ratio/package.json',
+    ... 6811 more items
+  ],
+  Symbol(augmented): true
+}
+ ELIFECYCLE  Command failed with exit code 1.

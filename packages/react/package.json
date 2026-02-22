@@ -45,6 +45,7 @@
     "@pittorica/heading-react": "workspace:*",
     "@pittorica/hover-card-react": "workspace:*",
     "@pittorica/icon-button-react": "workspace:*",
+    "@pittorica/input-otp-react": "workspace:*",
     "@pittorica/inset-react": "workspace:*",
     "@pittorica/kbd-react": "workspace:*",
     "@pittorica/link-react": "workspace:*",

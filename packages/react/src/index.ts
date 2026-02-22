@@ -26,6 +26,7 @@ export * from '@pittorica/grid-react';
 export * from '@pittorica/heading-react';
 export * from '@pittorica/hover-card-react';
 export * from '@pittorica/icon-button-react';
+export * from '@pittorica/input-otp-react';
 export * from '@pittorica/inset-react';
 export * from '@pittorica/kbd-react';
 export * from '@pittorica/link-react';

@@ -41,6 +41,7 @@ export const componentGroups: ComponentGroup[] = [
       'slider',
       'text-field',
       'text-area',
+      'input-otp',
     ],
   },
   {
