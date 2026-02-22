@@ -15,7 +15,7 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
-import { Box, PittoricaTheme } from '@pittorica/react';
+import { Box, PittoricaTheme, ToastProvider } from '@pittorica/react';
 
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import './app.css';
@@ -102,6 +102,7 @@ export function Layout({ children: _children }: { children: React.ReactNode }) {
               }}
             />
           </Box>
+          <ToastProvider />
           <ScrollRestoration />
         </PittoricaTheme>
         <CookieConsentInit config={cookieConsentConfig} />
