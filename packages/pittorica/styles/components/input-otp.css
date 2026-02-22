@@ -73,8 +73,13 @@
   }
 
   @keyframes pittorica-caret-blink {
-    from, to { opacity: 1; }
-    50% { opacity: 0; }
+    from,
+    to {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 
   .pittorica-input-otp-separator {
