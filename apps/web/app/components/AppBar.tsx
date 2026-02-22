@@ -6,7 +6,7 @@ import {
   IconLayoutSidebarLeftExpand,
 } from '@tabler/icons-react';
 
-import { Avatar, Button, Card, Flex, IconButton, Link } from '@pittorica/react';
+import { Avatar, Button, Card, Chip, Flex, IconButton } from '@pittorica/react';
 
 interface AppBarProps {
   onOpenSideNav: () => void;
@@ -17,6 +17,8 @@ export const AppBar = ({
   onOpenSideNav,
   onOpenComponentsSideNav,
 }: AppBarProps) => {
+  const version = import.meta.env.VITE_PITTORICA_VERSION;
+
   return (
     <Card as="header" className="appbar" translucent>
       <Flex align="center" justify="between" height="100%">
@@ -48,13 +50,10 @@ export const AppBar = ({
         </Flex>
 
         <nav>
-          <Flex gap="5" align="center">
-            <Link as={NavLink} to="/docs" color="inherit">
-              Docs
-            </Link>
-            <Link as={NavLink} to="/components" color="inherit">
-              Components
-            </Link>
+          <Flex gap="3" align="center">
+            <Chip size="1" variant="soft" color="indigo">
+              v{version}
+            </Chip>
             <IconButton
               as="a"
               href="https://github.com/dcdavidev/pittorica"
