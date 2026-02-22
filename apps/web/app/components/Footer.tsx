@@ -1,11 +1,6 @@
 import { NavLink } from 'react-router';
 
-import {
-  IconBrandDiscord,
-  IconBrandGithub,
-  IconBrandX,
-  IconExternalLink,
-} from '@tabler/icons-react';
+import { IconBrandGithub, IconExternalLink } from '@tabler/icons-react';
 
 import {
   Avatar,
@@ -61,12 +56,6 @@ export const Footer = () => {
                   size="1"
                 >
                   <IconBrandGithub size={18} />
-                </IconButton>
-                <IconButton variant="soft" color="gray" size="1">
-                  <IconBrandX size={18} />
-                </IconButton>
-                <IconButton variant="soft" color="gray" size="1">
-                  <IconBrandDiscord size={18} />
                 </IconButton>
               </Flex>
             </Flex>
