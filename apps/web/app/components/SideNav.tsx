@@ -17,6 +17,9 @@ export const SideNav = ({ isOpen, onClose }: SideNavProps) => {
         <Link as={NavLink} to="/get-started" color="inherit" onClick={onClose}>
           Get Started
         </Link>
+        <Link as={NavLink} to="/theming" color="inherit" onClick={onClose}>
+          Theming
+        </Link>
       </Flex>
     </Sheet>
   );
