@@ -126,7 +126,7 @@ export const Footer = () => {
                 weight="bold"
                 color="indigo"
               >
-                dcdavidev
+                @dcdavidev
               </Link>
             </Text>
           </Flex>
