@@ -19,10 +19,16 @@
     border: 1px solid var(--pittorica-slate-4);
     position: relative;
     padding: var(--pittorica-space-4);
+    background-color: var(--pittorica-surface-0);
   }
 
   .pittorica-checkbox-card-item[data-state='checked'] {
     border-color: var(--_checkbox-card-color, var(--pittorica-source-color));
+    background-color: color-mix(
+      in srgb,
+      var(--_checkbox-card-color, var(--pittorica-source-color)) 8%,
+      var(--pittorica-surface-0)
+    );
     box-shadow: 0 0 0 1px
       var(--_checkbox-card-color, var(--pittorica-source-color));
   }
@@ -33,5 +39,17 @@
       var(--pittorica-surface-1) 80%,
       transparent
     );
+  }
+
+  .pittorica-checkbox-card-item[data-state='checked']:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--_checkbox-card-color, var(--pittorica-source-color)) 12%,
+      var(--pittorica-surface-0)
+    );
+  }
+
+  [data-appearance='dark'] .pittorica-checkbox-card-item {
+    border-color: var(--pittorica-slate-5);
   }
 }

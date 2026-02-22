@@ -26,6 +26,12 @@ export default function CheckboxCardRoute() {
           default: 'indigo',
           description: 'Highlight color.',
         },
+        {
+          name: 'required',
+          type: 'boolean',
+          default: 'false',
+          description: 'Marks the input as required.',
+        },
       ]}
       examples={[
         {
@@ -56,6 +62,20 @@ export default function CheckboxCardRoute() {
                     $12/month.
                   </Text>
                 </Flex>
+              </CheckboxCard.Item>
+            </CheckboxCard>
+          ),
+        },
+        {
+          title: 'Required Selection',
+          description: 'Ensure at least one option is considered.',
+          code: `<CheckboxCard required name="agreement">
+  <CheckboxCard.Item value="terms">I agree to terms</CheckboxCard.Item>
+</CheckboxCard>`,
+          render: (
+            <CheckboxCard required name="agreement">
+              <CheckboxCard.Item value="terms" style={{ width: '250px' }}>
+                <Text weight="bold">I agree to the Terms & Conditions</Text>
               </CheckboxCard.Item>
             </CheckboxCard>
           ),

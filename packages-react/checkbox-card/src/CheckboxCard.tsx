@@ -19,6 +19,7 @@ interface CheckboxCardContextValue {
   disabled?: boolean;
   translucent?: boolean;
   name?: string;
+  required?: boolean;
 }
 
 const CheckboxCardContext = createContext<CheckboxCardContextValue | null>(
@@ -42,6 +43,7 @@ export type CheckboxCardRootProps<E extends ElementType = 'div'> = Omit<
   disabled?: boolean;
   translucent?: boolean;
   name?: string;
+  required?: boolean;
 };
 
 const CheckboxCardRoot = <E extends ElementType = 'div'>({
@@ -53,6 +55,7 @@ const CheckboxCardRoot = <E extends ElementType = 'div'>({
   disabled,
   translucent,
   name,
+  required,
   children,
   className,
   as,
@@ -79,8 +82,9 @@ const CheckboxCardRoot = <E extends ElementType = 'div'>({
       disabled,
       translucent,
       name,
+      required,
     }),
-    [currentValue, color, disabled, translucent, name]
+    [currentValue, color, disabled, translucent, name, required]
   );
 
   const Tag = as || 'div';
@@ -160,6 +164,7 @@ const CheckboxCardItem = <E extends ElementType = 'label'>({
         value={value}
         checked={isChecked}
         disabled={context.disabled}
+        required={context.required}
         onChange={() => context.onItemChange(value)}
       />
       {children}
