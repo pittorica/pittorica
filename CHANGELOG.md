@@ -1,5 +1,61 @@
 # Changelog
 
+# [0.26.0](https://github.com/pittorica/ui/compare/v0.25.0...v0.26.0) (2026-02-22)
+
+
+### Bug Fixes
+
+* **aspect-ratio:** improve styling and expand documentation ([808bb64](https://github.com/pittorica/ui/commit/808bb64717c5f9099a2667038ba251156ef55d8a))
+* **avatar:** add color prop and improve dark mode support ([aaec524](https://github.com/pittorica/ui/commit/aaec52402602a1f53e22bc5b47a6209a4ccdec39)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+* **button:** improve elevated variant visibility in light mode ([8f96904](https://github.com/pittorica/ui/commit/8f96904c758b1ff4bae6c1ed11a67790f7c27787))
+* **carousel:** implement dark mode support and improve theme propagation ([837104d](https://github.com/pittorica/ui/commit/837104dbf90c3f1a3daae5b31d11d7b75376e909))
+* **chip:** enhance deletable variant, dark mode, and accessibility ([4e6a5df](https://github.com/pittorica/ui/commit/4e6a5df38e5bbf418bcfbb63ff13499c0ec03697))
+* **code:** restore highlighting and standardize dark theme ([9b98d80](https://github.com/pittorica/ui/commit/9b98d80acc7c9b0e1eefa448501c68ab297ce175)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+* correct TextField usage on home page ([1bcb2ac](https://github.com/pittorica/ui/commit/1bcb2ac86d153dac96a5262bab5b13afa446c869))
+* **dialog:** ensure consistent dark mode support in portals ([db63991](https://github.com/pittorica/ui/commit/db6399129a53e9fc31c0338a5dd3f3ed8f182e65))
+* improve Checkbox and CheckboxCard dark mode visibility ([edffe0d](https://github.com/pittorica/ui/commit/edffe0d42291ea74b49c4ce0655bd3dd59408c61))
+* improve Checkbox dark mode visibility and document 'required' prop ([43953f9](https://github.com/pittorica/ui/commit/43953f98138f426ba4e97140ee2d9dce4a5e3163))
+* improve Radio/RadioCard dark mode and add 'required' prop ([844c773](https://github.com/pittorica/ui/commit/844c773cd162ee1a7edfa2d7770b5ebdf4ee13ba))
+* **popover:** implement dark mode support and enhance styling ([6f9a95d](https://github.com/pittorica/ui/commit/6f9a95d88302aeeecc65d74f204362f7334da0da))
+* refactor compound components to use Object.assign pattern ([7a70983](https://github.com/pittorica/ui/commit/7a709831ffdfdeed134f99fea838c1b496b28aa1))
+* refactor TextField to use Object.assign pattern ([3e2e5c7](https://github.com/pittorica/ui/commit/3e2e5c7492913c6b5d416cd37a45aec6b9e95dee))
+* resolve invalid color tokens and optimize dark mode visibility ([2693131](https://github.com/pittorica/ui/commit/2693131499ae1c7a2f42f0f9afe78c77e1ed8bf2))
+* **sheet:** implement dark mode support and improve backdrop ([47edbc4](https://github.com/pittorica/ui/commit/47edbc41a315e3c26097f8d183a2b70e2996cb72))
+* **skeleton:** improve dark mode visibility and documentation ([bfaacca](https://github.com/pittorica/ui/commit/bfaaccaae17c7004ba8ad0b83268f78032bb0646))
+* **toast:** add color support, dark mode, and progress indicator ([8ba1d22](https://github.com/pittorica/ui/commit/8ba1d22363ebbbd88adc0ec50e9ca036b3457b6c))
+* **tooltip:** enhance dark mode support and fix text visibility ([4e09883](https://github.com/pittorica/ui/commit/4e09883c9ed95edf6bab6d9b914d89f4b76eb510))
+
+
+### Features
+
+* add 'required' prop to CheckboxGroup and update docs ([01f8aee](https://github.com/pittorica/ui/commit/01f8aee87cbf83b737607cbd18405f82261d8f82))
+* add 'required' to CheckboxCard and improve dark mode ([b3789dd](https://github.com/pittorica/ui/commit/b3789dd88ef9ceb9a3c1df23ad5a81ab534e4c83))
+* add fancy OG image route ([4694fd3](https://github.com/pittorica/ui/commit/4694fd32405d942946317b9bd6352a177015a4e2))
+* add InputOTP component and documentation ([07f1a8c](https://github.com/pittorica/ui/commit/07f1a8ca83d0908dae48b19dea1727077ad6e99e))
+* **alert-dialog:** refactor to standalone component ([4f08b99](https://github.com/pittorica/ui/commit/4f08b998bb67f6d23f79f912cfdf46a40f788080))
+* **blockquote:** add fancy variants and improve dark mode support ([da66e79](https://github.com/pittorica/ui/commit/da66e7985c66bf317521656ca25e9c0cba1c0b96))
+* **box:** add required prop to support form validation ([f64f6e4](https://github.com/pittorica/ui/commit/f64f6e4904a9fdd6172325a3af3540493d4bf180))
+* **callout:** add layout props and enhance accessibility ([9e726e0](https://github.com/pittorica/ui/commit/9e726e04d810763f0722a046f1db5c96bb2f3568))
+* **container:** add xl breakpoint and refine gutter logic ([5a614a7](https://github.com/pittorica/ui/commit/5a614a7b4b4ea6e2c7dc3a89a5e0b1e28c0a990a))
+* delete web app ([4548195](https://github.com/pittorica/ui/commit/454819548ace32375d0f63a2e5d11d351fc177e8))
+* implement full 'error' color scale and improve Radio visibility ([6e5b984](https://github.com/pittorica/ui/commit/6e5b9848841931fb91edda076a8ad92152578088))
+* init app ([ca8f92b](https://github.com/pittorica/ui/commit/ca8f92b4b7d780b99a3759169f2715d69976a4bd))
+* **inset:** optimize margin logic and improve border-radius inheritance ([f6c33af](https://github.com/pittorica/ui/commit/f6c33aff642e0928b680c0afe99bc70ab195eeb6))
+* **pittorica:** integrate Fontsource fonts and refine fancy blockquote ([3d337fd](https://github.com/pittorica/ui/commit/3d337fd8571f5e04c3d6e14569514ea37a8158f1))
+* **react:** improve typography with variants and dark mode ([789f032](https://github.com/pittorica/ui/commit/789f032de865a5831c7b6e515b5875c50ace8fba))
+* **section:** expand size scale and refine responsive padding ([93351d1](https://github.com/pittorica/ui/commit/93351d1e2a9d1257620fa6544fa25bf81c021c73))
+* **stack:** support polymorphism and direction prop ([3c26b9a](https://github.com/pittorica/ui/commit/3c26b9a0d21341052f0aca1131a5c388cd39765f))
+* **web:** add a chip with current version ([38b485d](https://github.com/pittorica/ui/commit/38b485d00b9a2a3244971161c3059ba974245b8e))
+* **web:** add Cookie banner and legal routes ([2c44abf](https://github.com/pittorica/ui/commit/2c44abfd2670ce8d721db96123a2c08c9d4995fc))
+* **web:** add get-started route ([c8e4e20](https://github.com/pittorica/ui/commit/c8e4e209b9cf3a32f76c909d50d2acf91c2e72db))
+* **web:** add theming route ([8a41a39](https://github.com/pittorica/ui/commit/8a41a3947c2dcf0696363076372b20d128b92254))
+* **web:** add typography route ([70faf90](https://github.com/pittorica/ui/commit/70faf90b348951b508efb6c304b60330f8c002fe))
+* **web:** enhance layout and add component documentation foundation ([3aac048](https://github.com/pittorica/ui/commit/3aac048fc2bd6e18a78fa59312e28a77e1539303))
+* **web:** improve appbar, init sidenavs ([8110cc9](https://github.com/pittorica/ui/commit/8110cc9b7b2465ae3de042e5ab8d179e3678f4f8))
+* **web:** init appbar ([fa671eb](https://github.com/pittorica/ui/commit/fa671eb7ee11f60d1cbdbb41da32f30417545993))
+* **web:** reorganize component docs and add state context ([9bd3a88](https://github.com/pittorica/ui/commit/9bd3a88b2e0861857dbb17a4f37d67ea8684ab99))
+* **web:** toggle theme appearace ([815b64f](https://github.com/pittorica/ui/commit/815b64f11a5a016cd0bc065290953962924c55b4))
+
 # [0.25.0](https://github.com/pittorica/ui/compare/v0.24.0...v0.25.0) (2026-02-18)
 
 ### Bug Fixes
