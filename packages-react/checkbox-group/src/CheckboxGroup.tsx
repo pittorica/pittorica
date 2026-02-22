@@ -141,7 +141,7 @@ const CheckboxGroupItem = <E extends ElementType = 'label'>({
 export const CheckboxGroup = Object.assign(CheckboxGroupRoot, {
   Root: CheckboxGroupRoot,
   Item: CheckboxGroupItem,
+  displayName: 'CheckboxGroup',
 });
 
-CheckboxGroupRoot.displayName = 'CheckboxGroup.Root';
 CheckboxGroupItem.displayName = 'CheckboxGroup.Item';

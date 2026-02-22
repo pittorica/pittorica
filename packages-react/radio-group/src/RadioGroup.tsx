@@ -156,7 +156,7 @@ export const RadioGroupItem = <E extends ElementType = 'button'>({
 export const RadioGroup = Object.assign(RadioGroupRoot, {
   Root: RadioGroupRoot,
   Item: RadioGroupItem,
+  displayName: 'RadioGroup',
 });
 
-RadioGroup.displayName = 'RadioGroup';
 RadioGroupItem.displayName = 'RadioGroup.Item';
