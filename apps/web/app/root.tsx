@@ -15,7 +15,25 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
-import { Box, PittoricaTheme, ToastProvider } from '@pittorica/react';
+import {
+  IconAlertTriangle,
+  IconChevronLeft,
+  IconHome,
+} from '@tabler/icons-react';
+
+import {
+  Box,
+  Button,
+  Card,
+  Code,
+  Container,
+  Flex,
+  Heading,
+  PittoricaTheme,
+  Section,
+  Text,
+  ToastProvider,
+} from '@pittorica/react';
 
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import './app.css';
@@ -158,14 +176,85 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body className="pittorica-theme" data-source-color="#29294b">
+        <PittoricaTheme sourceColor="#29294b">
+          <Section size="4">
+            <Container maxWidth="md">
+              <Flex direction="column" align="center" justify="center" gap="6">
+                <Card
+                  variant="outlined"
+                  p="8"
+                  style={{
+                    width: '100%',
+                    textAlign: 'center',
+                    background: 'var(--pittorica-surface-1)',
+                  }}
+                >
+                  <Flex direction="column" align="center" gap="4">
+                    <Box
+                      style={{
+                        background: 'var(--pittorica-red-3)',
+                        color: 'var(--pittorica-red-9)',
+                        padding: '20px',
+                        borderRadius: 'var(--pittorica-radius-full)',
+                        display: 'flex',
+                      }}
+                    >
+                      <IconAlertTriangle size={48} stroke={1.5} />
+                    </Box>
+
+                    <Heading size="9" weight="bold">
+                      {message}
+                    </Heading>
+
+                    <Text size="4" color="gray" style={{ maxWidth: '500px' }}>
+                      {details}
+                    </Text>
+
+                    <Flex gap="3" mt="4">
+                      <Button as="a" href="/" variant="filled" size="lg">
+                        <Flex align="center" gap="2">
+                          <IconHome size={18} />
+                          Go Home
+                        </Flex>
+                      </Button>
+                      <Button
+                        as="button"
+                        onClick={() => globalThis.history.back()}
+                        variant="outlined"
+                        size="lg"
+                        color="gray"
+                      >
+                        <Flex align="center" gap="2">
+                          <IconChevronLeft size={18} />
+                          Go Back
+                        </Flex>
+                      </Button>
+                    </Flex>
+                  </Flex>
+                </Card>
+
+                {stack && (
+                  <Box width="100%">
+                    <Heading size="3" mb="3" color="gray">
+                      Stack Trace (Dev Only)
+                    </Heading>
+                    <Code language="bash">{stack}</Code>
+                  </Box>
+                )}
+              </Flex>
+            </Container>
+          </Section>
+          <Scripts />
+        </PittoricaTheme>
+      </body>
+    </html>
   );
 }
