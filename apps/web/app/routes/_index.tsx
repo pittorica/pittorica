@@ -13,6 +13,7 @@ import {
   Badge,
   Box,
   Button,
+  Callout,
   Card,
   Checkbox,
   Chip,
@@ -22,9 +23,12 @@ import {
   Grid,
   Heading,
   IconButton,
+  RadioCard,
   Section,
+  Switch,
   Tabs,
   Text,
+  TextField,
 } from '@pittorica/react';
 
 export default function Route() {
@@ -171,12 +175,68 @@ export default function Route() {
                   </Flex>
                 </Flex>
               </Card>
+
+              {/* Context Card */}
+              <Card p="6">
+                <Flex direction="column" gap="4">
+                  <Callout color="indigo">
+                    <Flex gap="2" align="center">
+                      <IconRocket size={16} />
+                      <Text size="2">New feature released!</Text>
+                    </Flex>
+                  </Callout>
+                  <Heading size="4">Callouts & Context</Heading>
+                  <Text size="2" color="gray">
+                    Provide contextual information or feedback with elegant,
+                    thematic banners.
+                  </Text>
+                </Flex>
+              </Card>
+
+              {/* Advanced Selection */}
+              <Card p="6">
+                <Flex direction="column" gap="4">
+                  <RadioCard.Root defaultValue="1" columns="2">
+                    <RadioCard.Item value="1">
+                      <Text size="1" weight="bold">
+                        Option A
+                      </Text>
+                    </RadioCard.Item>
+                    <RadioCard.Item value="2">
+                      <Text size="1" weight="bold">
+                        Option B
+                      </Text>
+                    </RadioCard.Item>
+                  </RadioCard.Root>
+                  <Heading size="4">Advanced Selection</Heading>
+                  <Text size="2" color="gray">
+                    Create rich selection interfaces using the flexible Card
+                    Radio system.
+                  </Text>
+                </Flex>
+              </Card>
+
+              {/* Forms */}
+              <Card p="6">
+                <Flex direction="column" gap="4">
+                  <TextField placeholder="Enter your email..." />
+                  <Flex justify="between" align="center">
+                    <Text size="2">Stay logged in</Text>
+                    <Switch defaultChecked />
+                  </Flex>
+                  <Heading size="4">Forms & Inputs</Heading>
+                  <Text size="2" color="gray">
+                    Clean, accessible form controls designed for rapid
+                    development.
+                  </Text>
+                </Flex>
+              </Card>
             </Grid>
 
             {/* The promised Divider showcase */}
             <Box width="100%" mt="4">
-              <Flex direction="column" gap="4">
-                <Text size="2" color="gray" style={{ textAlign: 'center' }}>
+              <Flex direction="column" gap="4" align="center">
+                <Text size="2" color="gray">
                   And of course, our artistic Dividers
                 </Text>
                 <Divider variant="wave" color="indigo" />
@@ -187,8 +247,8 @@ export default function Route() {
               as={NavLink}
               to="/components"
               size="lg"
-              variant="tonal"
-              color="gray"
+              variant="filled"
+              color="indigo"
             >
               <Flex align="center" gap="2">
                 <IconComponents size={20} />
