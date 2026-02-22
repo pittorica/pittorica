@@ -50,6 +50,6 @@
   }
 
   [data-appearance='dark'] .pittorica-checkbox-card-item {
-    border-color: var(--pittorica-slate-8);
+    border-color: color-mix(in srgb, var(--pittorica-white) 20%, transparent);
   }
 }

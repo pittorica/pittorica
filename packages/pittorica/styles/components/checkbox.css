@@ -28,7 +28,7 @@
   }
 
   [data-appearance='dark'] .pittorica-checkbox-control {
-    color: var(--pittorica-slate-11);
+    color: color-mix(in srgb, var(--pittorica-white) 70%, transparent);
   }
 
   .pittorica-checkbox-root:hover .pittorica-checkbox-control {
@@ -38,7 +38,7 @@
   [data-appearance='dark']
     .pittorica-checkbox-root:hover
     .pittorica-checkbox-control {
-    color: var(--pittorica-slate-12);
+    color: var(--pittorica-white);
   }
 
   .pittorica-checkbox-input:checked + .pittorica-checkbox-control {
