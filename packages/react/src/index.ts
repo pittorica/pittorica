@@ -1,3 +1,4 @@
+export const VERSION = '0.25.0';
 export * from '@pittorica/alert-dialog-react';
 export * from '@pittorica/aspect-ratio-react';
 export * from '@pittorica/avatar-react';

@@ -16,3 +16,31 @@
 .pittorica-theme {
   --pittorica-source-color: #29294b;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 56px;
+}
+
+.appbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 1000;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding: 0 var(--pittorica-space-5);
+  background-color: var(--pittorica-source-color);
+  color: var(--pittorica-white);
+}
+
+.app-content {
+  padding-top: 64px;
+}

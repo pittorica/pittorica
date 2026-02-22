@@ -12,10 +12,19 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      /* * Treat React as external to prevent bundling it.
-       * This ensures the consumer's React version is used.
+      /* * Treat React and other dependencies as external to prevent bundling them.
+       * This ensures the consumer's version and configuration are used.
        */
-      external: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        /^@pittorica\//,
+        /^@tabler\/icons-react/,
+        /^clsx/,
+        /^react-syntax-highlighter/,
+      ],
       output: {
         globals: {
           react: 'React',

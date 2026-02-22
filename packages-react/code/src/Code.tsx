@@ -6,15 +6,15 @@ import {
   useState,
 } from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import vscDarkPlus from 'react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus.js';
 
 /* Register only necessary languages for the light version */
-import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
-import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
-import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
-import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
-import markup from 'react-syntax-highlighter/dist/esm/languages/prism/markup';
-import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash.js';
+import css from 'react-syntax-highlighter/dist/esm/languages/prism/css.js';
+import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript.js';
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json.js';
+import markup from 'react-syntax-highlighter/dist/esm/languages/prism/markup.js';
+import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript.js';
 
 SyntaxHighlighter.registerLanguage('typescript', ts);
 SyntaxHighlighter.registerLanguage('javascript', js);
