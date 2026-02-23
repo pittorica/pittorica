@@ -13,7 +13,7 @@
     "build": "npm run clean && npm run build:js && npm run build:types",
     "build:js": "vite build",
     "build:types": "tsc -p tsconfig.json",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist *.tsbuildinfo",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest"
   },

@@ -6,7 +6,8 @@ import path from 'node:path';
  * @description Recursively deletes 'dist' and 'build' directories from the current working directory.
  */
 
-const TARGET_DIRECTORIES = new Set(['dist', 'build']);
+const TARGET_DIRECTORIES = new Set(['dist', 'build', '.react-router']);
+const TARGET_FILES = new Set(['tsconfig.tsbuildinfo']);
 const IGNORE_DIRECTORIES = new Set(['node_modules', '.git']);
 
 /**
@@ -24,11 +25,17 @@ const cleanProject = (baseDir) => {
     if (entry.isDirectory()) {
       // Logic check: if it's a target, delete it. Otherwise, recurse.
       if (TARGET_DIRECTORIES.has(entry.name)) {
-        console.log(`Removing: ${fullPath}`);
+        console.log(`Removing directory: ${fullPath}`);
         rmSync(fullPath, { recursive: true, force: true });
       } else if (!IGNORE_DIRECTORIES.has(entry.name)) {
         cleanProject(fullPath);
       }
+    } else if (
+      entry.isFile() &&
+      (TARGET_FILES.has(entry.name) || entry.name.endsWith('.tsbuildinfo'))
+    ) {
+      console.log(`Removing file: ${fullPath}`);
+      rmSync(fullPath, { force: true });
     }
   }
 };
