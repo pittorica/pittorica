@@ -1,6 +1,6 @@
 {
   "name": "@pittorica/tabs-react",
-  "version": "0.26.2",
+  "version": "0.26.3",
   "homepage": "https://pittorica.dcdavidev.me",
   "type": "module",
   "main": "./dist/index.js",

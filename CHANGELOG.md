@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.26.3](https://github.com/pittorica/ui/compare/v0.26.2...v0.26.3) (2026-02-23)
+
 ## [0.26.2](https://github.com/pittorica/ui/compare/v0.26.1...v0.26.2) (2026-02-22)
 
 
