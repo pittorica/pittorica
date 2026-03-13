@@ -25,6 +25,8 @@ export type PittoricaResponsive<T> =
       xl?: T;
     };
 
+export type PittoricaResponsiveDisplay = PittoricaResponsive<PittoricaDisplay>;
+
 export type PittoricaScale = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type PittoricaVariant =

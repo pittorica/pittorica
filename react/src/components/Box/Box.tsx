@@ -3,9 +3,9 @@ import React, { type ComponentPropsWithRef, type ElementType } from 'react';
 import { clsx } from 'clsx';
 
 import type {
-  PittoricaDisplay,
   PittoricaPosition,
   PittoricaResponsive,
+  PittoricaResponsiveDisplay,
   PittoricaSpace,
 } from '../../types';
 
@@ -15,7 +15,7 @@ interface BoxOwnProps<E extends ElementType> {
    * @default 'div'
    */
   as?: E;
-  display?: PittoricaDisplay;
+  display?: PittoricaResponsiveDisplay;
   m?: PittoricaSpace | `${PittoricaSpace}`;
   mt?: PittoricaSpace | `${PittoricaSpace}`;
   mr?: PittoricaSpace | `${PittoricaSpace}`;
@@ -72,12 +72,11 @@ export const Box = <E extends ElementType = 'div'>({
   const utilityStyles: React.CSSProperties &
     Record<string, string | undefined> = {};
 
-  if (display) utilityStyles.display = display;
   if (position) utilityStyles.position = position;
 
-  // --- Responsive Width & Height Mapping ---
+  // --- Responsive Prop Mapping ---
   const applyResponsiveStyle = (
-    propName: 'width' | 'height',
+    propName: 'width' | 'height' | 'display',
     value: PittoricaResponsive<string> | undefined
   ) => {
     if (!value) return;
@@ -96,6 +95,7 @@ export const Box = <E extends ElementType = 'div'>({
 
   applyResponsiveStyle('width', width);
   applyResponsiveStyle('height', height);
+  applyResponsiveStyle('display', display as PittoricaResponsive<string>);
 
   // --- Margin Mapping ---
   if (m !== undefined) utilityStyles.margin = `var(--pittorica-space-${m})`;

@@ -11,6 +11,9 @@
     .pittorica-box[style*='--pittorica-box-height-xs'] {
       height: var(--pittorica-box-height-xs) !important;
     }
+    .pittorica-box[style*='--pittorica-box-display-xs'] {
+      display: var(--pittorica-box-display-xs) !important;
+    }
   }
 
   /* --- Breakpoint: SM (768px) --- */
@@ -20,6 +23,9 @@
     }
     .pittorica-box[style*='--pittorica-box-height-sm'] {
       height: var(--pittorica-box-height-sm) !important;
+    }
+    .pittorica-box[style*='--pittorica-box-display-sm'] {
+      display: var(--pittorica-box-display-sm) !important;
     }
   }
 
@@ -31,6 +37,9 @@
     .pittorica-box[style*='--pittorica-box-height-md'] {
       height: var(--pittorica-box-height-md) !important;
     }
+    .pittorica-box[style*='--pittorica-box-display-md'] {
+      display: var(--pittorica-box-display-md) !important;
+    }
   }
 
   /* --- Breakpoint: LG (1280px) --- */
@@ -41,6 +50,9 @@
     .pittorica-box[style*='--pittorica-box-height-lg'] {
       height: var(--pittorica-box-height-lg) !important;
     }
+    .pittorica-box[style*='--pittorica-box-display-lg'] {
+      display: var(--pittorica-box-display-lg) !important;
+    }
   }
 
   /* --- Breakpoint: XL (1640px) --- */
@@ -50,6 +62,9 @@
     }
     .pittorica-box[style*='--pittorica-box-height-xl'] {
       height: var(--pittorica-box-height-xl) !important;
+    }
+    .pittorica-box[style*='--pittorica-box-display-xl'] {
+      display: var(--pittorica-box-display-xl) !important;
     }
   }
 }
