@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.28.1](https://github.com/pittorica/pittorica/compare/v0.28.0...v0.28.1) (2026-03-13)
+
 ## [0.28.0](https://github.com/pittorica/pittorica/compare/v0.27.3...v0.28.0) (2026-03-13)
 
 ### Features
