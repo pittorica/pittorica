@@ -1,9 +1,15 @@
 @layer pittorica-tokens {
   :root {
-    --pittorica-radius-1: 4px;
-    --pittorica-radius-2: 8px;
-    --pittorica-radius-3: 12px;
-    --pittorica-radius-4: 16px;
+    --pittorica-radius-none: 0px;
+    --pittorica-radius-small: 4px;
+    --pittorica-radius-medium: 8px;
+    --pittorica-radius-large: 12px;
     --pittorica-radius-full: 9999px;
+
+    /* Legacy aliases for backward compatibility if needed */
+    --pittorica-radius-1: var(--pittorica-radius-small);
+    --pittorica-radius-2: var(--pittorica-radius-medium);
+    --pittorica-radius-3: var(--pittorica-radius-large);
+    --pittorica-radius-4: 16px;
   }
 }

@@ -9,6 +9,9 @@
     border: 1px solid var(--pittorica-slate-3);
     color: var(--pittorica-on-surface-1);
     box-shadow: var(--pittorica-shadow-2);
+    transition:
+      box-shadow 200ms ease,
+      background-color 200ms ease;
   }
 
   .pittorica-card--translucent {
@@ -30,16 +33,20 @@
     box-shadow: none;
   }
 
-  /*  Ghost */
-  .pittorica-card--variant-ghost {
+  /*  Text (formerly Ghost) */
+  .pittorica-card--variant-text {
     background-color: transparent;
     border: 1px solid transparent;
     box-shadow: none;
   }
 
   /* --- Interaction States --- */
-  .pittorica-card:not(.pittorica-card--variant-ghost):hover {
+  .pittorica-card:not(.pittorica-card--variant-text):hover {
     box-shadow: var(--pittorica-shadow-4);
+    background-color: var(--pittorica-surface-2);
+  }
+
+  .pittorica-card--variant-text:hover {
     background-color: var(--pittorica-surface-2);
   }
 
