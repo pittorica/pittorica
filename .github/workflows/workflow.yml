@@ -45,7 +45,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
-    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: releaser
+    if: |
+      always() &&
+      (needs.releaser.result == 'success' || needs.releaser.result == 'skipped') &&
+      (github.event_name == 'push' || github.event_name == 'release' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     permissions:
       contents: read
