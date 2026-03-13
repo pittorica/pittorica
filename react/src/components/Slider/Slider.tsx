@@ -1,0 +1,160 @@
+import {
+  type CSSProperties,
+  type ElementType,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
+
+import { clsx } from 'clsx';
+
+import type { PittoricaColor } from '../../types';
+import { Box, type BoxProps } from '../Box';
+
+export type SliderProps<E extends ElementType = 'div'> = Omit<
+  BoxProps<E>,
+  'onChange' | 'value' | 'defaultValue'
+> & {
+  value?: number;
+  defaultValue?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  disabled?: boolean;
+  color?: PittoricaColor;
+  onValueChange?: (value: number) => void;
+  required?: boolean;
+  /** If true, shows tick marks for each step. @default false */
+  marks?: boolean;
+};
+
+/**
+ * Slider component for numeric input via dragging.
+ * Fully polymorphic and agnostic using Box foundation.
+ */
+export const Slider = <E extends ElementType = 'div'>({
+  value: controlledValue,
+  defaultValue = 0,
+  min = 0,
+  max = 100,
+  step = 1,
+  disabled = false,
+  color = 'source',
+  onValueChange,
+  required = false,
+  marks = false,
+  className,
+  style,
+  as,
+  ...props
+}: SliderProps<E>) => {
+  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const isControlled = controlledValue !== undefined;
+  const currentValue = isControlled ? controlledValue : uncontrolledValue;
+
+  const percentage = ((currentValue - min) / (max - min)) * 100;
+
+  // Generate tick marks
+  const tickMarks = marks
+    ? Array.from({ length: Math.floor((max - min) / step) + 1 }, (_, i) => {
+        const value = min + i * step;
+        const pos = ((value - min) / (max - min)) * 100;
+        return { value, pos };
+      })
+    : [];
+
+  const updateValue = useCallback(
+    (clientX: number, target?: HTMLElement) => {
+      const element = trackRef.current || target;
+      if (!element) return;
+
+      const rect = element.getBoundingClientRect();
+      if (!rect || rect.width <= 0) return;
+
+      const xPos = typeof clientX === 'number' ? clientX : 0;
+      const x = Math.max(0, Math.min(xPos - (rect.left || 0), rect.width));
+      const rawValue = (x / rect.width) * (max - min) + min;
+
+      const steppedValue = Math.round(rawValue / step) * step;
+      // Precision fix for floating point steps
+      const finalValue = Number(
+        Math.max(min, Math.min(max, steppedValue)).toFixed(10)
+      );
+
+      if (Number.isNaN(finalValue)) return;
+
+      if (!isControlled) setUncontrolledValue(finalValue);
+      onValueChange?.(finalValue);
+    },
+    [max, min, step, isControlled, onValueChange]
+  );
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    updateValue(event.clientX, event.currentTarget);
+
+    const handlePointerMove = (e: PointerEvent) => updateValue(e.clientX);
+    const handlePointerUp = () => {
+      globalThis.removeEventListener('pointermove', handlePointerMove);
+      globalThis.removeEventListener('pointerup', handlePointerUp);
+    };
+
+    globalThis.addEventListener('pointermove', handlePointerMove);
+    globalThis.addEventListener('pointerup', handlePointerUp);
+  };
+
+  const isSemantic =
+    color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
+  const resolvedColor = isSemantic ? `var(--pittorica-${color}-9)` : color;
+
+  const Tag = as || 'div';
+
+  return (
+    <Box
+      /* Explicitly link Tag and Generic E for type safety */
+      as={Tag as ElementType}
+      className={clsx('pittorica-slider-root', className)}
+      data-disabled={disabled}
+      onPointerDown={handlePointerDown}
+      aria-required={required} // Apply aria-required attribute
+      style={
+        { '--pittorica-source-color': resolvedColor, ...style } as CSSProperties
+      }
+      {...(props as BoxProps<E>)}
+    >
+      <div className="pittorica-slider-track" ref={trackRef}>
+        <div
+          className="pittorica-slider-range"
+          style={{ width: `${percentage}%` }}
+        />
+        {marks && (
+          <div className="pittorica-slider-marks">
+            {tickMarks.map((mark) => (
+              <div
+                key={mark.value}
+                className="pittorica-slider-mark"
+                data-active={currentValue >= mark.value}
+                style={{ left: `${mark.pos}%` }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      <div
+        role="slider"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={currentValue}
+        aria-disabled={disabled}
+        aria-required={required} // Apply aria-required attribute here as well
+        tabIndex={disabled ? -1 : 0}
+        className="pittorica-slider-thumb"
+        style={{ position: 'absolute', left: `calc(${percentage}% - 8px)` }}
+      />
+    </Box>
+  );
+};
+
+Slider.displayName = 'Slider';
