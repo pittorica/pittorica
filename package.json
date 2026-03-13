@@ -2,14 +2,9 @@
   "name": "pittorica",
   "version": "0.26.3",
   "private": false,
-  "description": "Core CSS design tokens and modern reset for the Pittorica UI library, inspired by Material Design 3 Expressive and Radix UI.",
+  "description": "Pittorica is a painterly, CSS-first UI framework that brings elegant, lightweight structure to modern interfaces.",
   "keywords": [
     "ui",
-    "design-tokens",
-    "css",
-    "material-design-3",
-    "radix-ui",
-    "reset",
     "pittorica"
   ],
   "homepage": "https://pittorica.dcdavidev.me",
@@ -18,6 +13,14 @@
     "name": "Davide Di Criscito"
   },
   "type": "module",
+  "exports": {
+    ".": "./styles/index.css",
+    "./styles/*": "./styles/*"
+  },
+  "main": "./styles/index.css",
+  "files": [
+    "styles"
+  ],
   "scripts": {
     "depsup": "pnpx depsup@latest",
     "dev": "turbo run dev",
