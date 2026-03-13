@@ -5,12 +5,38 @@
     background-color: var(--pittorica-slate-3);
     border-radius: var(--pittorica-radius-full);
     width: 100%;
-    height: 16px;
+    height: 12px;
   }
 
   .pittorica-progress-indicator {
     height: 100%;
     transition: width 660ms cubic-bezier(0.65, 0, 0.35, 1);
     background-color: var(--pittorica-source-color);
+  }
+
+  /* --- Indeterminate State --- */
+  .pittorica-progress-root[data-indeterminate='true']
+    .pittorica-progress-indicator {
+    width: 40%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -40%;
+    animation: pittorica-progress-indeterminate 1.5s infinite linear;
+    border-radius: inherit;
+  }
+
+  @keyframes pittorica-progress-indeterminate {
+    0% {
+      left: -40%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Dark mode refinement for the background */
+  .pittorica-theme[data-appearance='dark'] .pittorica-progress-root {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }

@@ -46,36 +46,67 @@
 
   /* --- Persistent Color Variants --- */
 
-  /* Solid Variant: High emphasis with dynamic contrast color */
-  .pittorica-chip[data-variant='solid'] {
+  /* Filled Variant: High emphasis with dynamic contrast color */
+  .pittorica-chip--filled {
     background-color: var(--chip-base);
     color: var(--chip-on-base);
     border-color: var(--chip-base);
   }
-  .pittorica-chip[data-variant='solid']:hover:not([disabled]) {
+  .pittorica-chip--filled:hover:not([disabled]) {
     filter: brightness(1.08);
   }
 
-  /* Soft Variant: Medium emphasis with pastel backgrounds */
-  .pittorica-chip[data-variant='soft'] {
+  /* Tonal Variant: Medium emphasis with soft backgrounds */
+  .pittorica-chip--tonal {
     background-color: var(--chip-soft-bg);
     color: var(--chip-soft-text);
     border-color: transparent;
   }
-  .pittorica-chip[data-variant='soft']:hover:not([disabled]) {
+  .pittorica-chip--tonal:hover:not([disabled]) {
     background-color: var(--chip-base);
     color: var(--chip-on-base) !important;
   }
 
-  /* Outline Variant: Low emphasis with colored borders */
-  .pittorica-chip[data-variant='outline'] {
+  /* Outlined Variant: Low emphasis with colored borders */
+  .pittorica-chip--outlined {
     background-color: transparent;
     border: 1px solid var(--chip-base);
     color: var(--chip-soft-text);
   }
-  .pittorica-chip[data-variant='outline']:hover:not([disabled]) {
+  .pittorica-chip--outlined:hover:not([disabled]) {
     background-color: var(--chip-base);
     color: var(--chip-on-base) !important;
+  }
+
+  /* Elevated Variant: Low emphasis with shadows */
+  .pittorica-chip--elevated {
+    background-color: var(--pittorica-surface-0);
+    color: var(--chip-soft-text);
+    border-color: transparent;
+    box-shadow: var(--pittorica-shadow-2);
+  }
+  .pittorica-chip--elevated:hover:not([disabled]) {
+    box-shadow: var(--pittorica-shadow-4);
+  }
+
+  /* Text Variant: Minimum emphasis */
+  .pittorica-chip--text {
+    background-color: transparent;
+    color: var(--chip-soft-text);
+    border-color: transparent;
+  }
+  .pittorica-chip--text:hover:not([disabled]) {
+    background-color: var(--chip-soft-bg);
+  }
+
+  /* Surface Variant: Subtle integration */
+  .pittorica-chip--surface {
+    background-color: var(--pittorica-surface-1);
+    color: var(--chip-soft-text);
+    border-color: var(--pittorica-slate-4);
+  }
+  .pittorica-chip--surface:hover:not([disabled]) {
+    background-color: var(--pittorica-surface-2);
   }
 
   /* --- Internal Elements --- */
@@ -120,8 +151,7 @@
   }
 
   /* Dark mode specific adjustments for variants if needed */
-  .pittorica-theme[data-appearance='dark']
-    .pittorica-chip[data-variant='soft'] {
+  .pittorica-theme[data-appearance='dark'] .pittorica-chip--tonal {
     background-color: color-mix(in srgb, var(--chip-base) 15%, transparent);
   }
 }

@@ -89,6 +89,12 @@
     color: var(--pittorica-slate-8);
   }
 
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-textarea-input::placeholder {
+    color: var(--pittorica-white);
+    opacity: 0.5;
+  }
+
   /* Error State Logic */
   .pittorica-textarea-root[data-error='true'] .pittorica-textarea-wrapper {
     border-color: var(--pittorica-red-8);

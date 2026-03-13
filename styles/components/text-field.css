@@ -103,6 +103,12 @@
     color: var(--pittorica-slate-8);
   }
 
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-text-field-input::placeholder {
+    color: var(--pittorica-white);
+    opacity: 0.5;
+  }
+
   .pittorica-text-field-slot {
     display: flex;
     align-items: center;

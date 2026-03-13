@@ -4,6 +4,7 @@
     margin: var(--pittorica-space-5) 0;
     padding: var(--pittorica-space-3) var(--pittorica-space-4);
     font-style: italic;
+    font-family: var(--pittorica-font-quote);
     border-radius: var(--pittorica-radius-2);
     border-left: 4px solid var(--_bq-accent);
     --_bq-accent: var(--pittorica-source-color);

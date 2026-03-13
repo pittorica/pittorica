@@ -7,6 +7,25 @@
     font-family: var(--pittorica-font-mono);
     font-size: 0.85em;
     white-space: break-spaces;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+  }
+
+  /* Copyable Inline Code */
+  .pittorica-code-inline[data-copyable='true'] {
+    cursor: copy;
+  }
+
+  .pittorica-code-inline[data-copyable='true']:hover {
+    background-color: var(--pittorica-slate-4);
+    border-color: var(--pittorica-slate-6);
+  }
+
+  /* Copied State Inline */
+  .pittorica-code-inline[data-copied='true'] {
+    background-color: var(--pittorica-success-3) !important;
+    color: var(--pittorica-success-11) !important;
+    border-color: var(--pittorica-success-6) !important;
   }
 
   .pittorica-code-container {
@@ -45,9 +64,26 @@
     background-color: rgba(255, 255, 255, 0.05);
   }
 
-  /* Keep consistent regardless of theme appearance */
+  /* --- Dark Mode specific adjustments for inline --- */
   .pittorica-theme[data-appearance='dark'] .pittorica-code-inline {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--pittorica-white);
+  }
+
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-code-inline[data-copyable='true']:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-code-inline[data-copied='true'] {
+    background-color: color-mix(
+      in srgb,
+      var(--pittorica-success-9) 20%,
+      transparent
+    ) !important;
+    color: var(--pittorica-success-1) !important;
+    border-color: var(--pittorica-success-9) !important;
   }
 }

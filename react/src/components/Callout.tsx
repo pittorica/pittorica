@@ -57,19 +57,20 @@ const CalloutRoot = <E extends ElementType = 'div'>({
 
   const generateResponsiveClasses = (
     prefix: string,
-    value: PittoricaResponsive<string>
+    value: PittoricaResponsive<string> | undefined
   ) => {
+    if (!value) return '';
     if (typeof value === 'string') {
       return `${prefix}-${value}`;
     }
 
     return clsx({
       [`${prefix}-${value.initial}`]: value.initial,
-      [`${prefix}-xs-${value.xs}`]: value.xs,
-      [`${prefix}-sm-${value.sm}`]: value.sm,
-      [`${prefix}-md-${value.md}`]: value.md,
-      [`${prefix}-lg-${value.lg}`]: value.lg,
-      [`${prefix}-xl-${value.xl}`]: value.xl,
+      [`pittorica-callout--xs-${prefix.split('--')[1]}-${value.xs}`]: value.xs,
+      [`pittorica-callout--sm-${prefix.split('--')[1]}-${value.sm}`]: value.sm,
+      [`pittorica-callout--md-${prefix.split('--')[1]}-${value.md}`]: value.md,
+      [`pittorica-callout--lg-${prefix.split('--')[1]}-${value.lg}`]: value.lg,
+      [`pittorica-callout--xl-${prefix.split('--')[1]}-${value.xl}`]: value.xl,
     });
   };
 

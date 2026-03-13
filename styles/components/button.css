@@ -76,34 +76,58 @@
 
   /* --- Button Sizes --- */
 
-  .pittorica-button--xs {
+  .pittorica-button--1 {
+    height: 24px;
+    padding: 0 var(--pittorica-space-2);
+    font-size: 0.7rem;
+  }
+
+  .pittorica-button--2 {
     height: 32px;
     padding: 0 var(--pittorica-space-3);
     font-size: 0.75rem;
   }
 
-  .pittorica-button--sm {
+  .pittorica-button--3 {
     height: 40px;
     padding: 0 var(--pittorica-space-4);
     font-size: 0.875rem;
   }
 
-  .pittorica-button--md {
+  .pittorica-button--4 {
     height: 48px;
     padding: 0 var(--pittorica-space-5);
     font-size: 0.875rem;
   }
 
-  .pittorica-button--lg {
+  .pittorica-button--5 {
     height: 56px;
     padding: 0 var(--pittorica-space-6);
     font-size: 1rem;
   }
 
-  .pittorica-button--xl {
+  .pittorica-button--6 {
+    height: 64px;
+    padding: 0 var(--pittorica-space-7);
+    font-size: 1.125rem;
+  }
+
+  .pittorica-button--7 {
     height: 72px;
     padding: 0 var(--pittorica-space-8);
     font-size: 1.125rem;
+  }
+
+  .pittorica-button--8 {
+    height: 80px;
+    padding: 0 var(--pittorica-space-9);
+    font-size: 1.25rem;
+  }
+
+  .pittorica-button--9 {
+    height: 96px;
+    padding: 0 var(--pittorica-space-9);
+    font-size: 1.5rem;
   }
 
   /* --- Button Variants --- */

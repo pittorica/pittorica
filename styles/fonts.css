@@ -2,15 +2,17 @@
   :root {
     --font-inter-variable:
       'Inter Variable', Inter, system-ui, -apple-system, sans-serif;
-    --font-inknut-antiqua: 'Inknut Antiqua', cursive;
+    --font-momo-trust-display: 'Momo Trust Display', sans-serif;
+    --font-iosevka-etoile: 'Iosevka Etoile', monospace;
     --font-kode-mono-variable: 'Kode Mono Variable', monospace;
 
     --pittorica-font-family: var(--font-inter-variable);
-    --pittorica-font-heading: var(--font-inknut-antiqua);
-    --pittorica-font-code: var(--font-kode-mono-variable);
+    --pittorica-font-heading: var(--font-momo-trust-display);
+    --pittorica-font-code: var(--font-iosevka-etoile);
     --pittorica-font-strong: inherit;
     --pittorica-font-em: inherit;
-    --pittorica-font-quote: var(--font-inknut-antiqua);
+    --pittorica-font-quote: var(--font-iosevka-etoile);
+    --pittorica-font-mono: var(--font-iosevka-etoile);
 
     --pittorica-font-size-1: 12px;
     --pittorica-line-height-1: 16px;

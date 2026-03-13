@@ -24,6 +24,8 @@ export type SliderProps<E extends ElementType = 'div'> = Omit<
   color?: PittoricaColor;
   onValueChange?: (value: number) => void;
   required?: boolean;
+  /** If true, shows tick marks for each step. @default false */
+  marks?: boolean;
 };
 
 /**
@@ -40,6 +42,7 @@ export const Slider = <E extends ElementType = 'div'>({
   color = 'source',
   onValueChange,
   required = false,
+  marks = false,
   className,
   style,
   as,
@@ -52,6 +55,15 @@ export const Slider = <E extends ElementType = 'div'>({
   const currentValue = isControlled ? controlledValue : uncontrolledValue;
 
   const percentage = ((currentValue - min) / (max - min)) * 100;
+
+  // Generate tick marks
+  const tickMarks = marks
+    ? Array.from({ length: Math.floor((max - min) / step) + 1 }, (_, i) => {
+        const value = min + i * step;
+        const pos = ((value - min) / (max - min)) * 100;
+        return { value, pos };
+      })
+    : [];
 
   const updateValue = useCallback(
     (clientX: number, target?: HTMLElement) => {
@@ -66,7 +78,10 @@ export const Slider = <E extends ElementType = 'div'>({
       const rawValue = (x / rect.width) * (max - min) + min;
 
       const steppedValue = Math.round(rawValue / step) * step;
-      const finalValue = Math.max(min, Math.min(max, steppedValue));
+      // Precision fix for floating point steps
+      const finalValue = Number(
+        Math.max(min, Math.min(max, steppedValue)).toFixed(10)
+      );
 
       if (Number.isNaN(finalValue)) return;
 
@@ -114,6 +129,18 @@ export const Slider = <E extends ElementType = 'div'>({
           className="pittorica-slider-range"
           style={{ width: `${percentage}%` }}
         />
+        {marks && (
+          <div className="pittorica-slider-marks">
+            {tickMarks.map((mark) => (
+              <div
+                key={mark.value}
+                className="pittorica-slider-mark"
+                data-active={currentValue >= mark.value}
+                style={{ left: `${mark.pos}%` }}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <div
         role="slider"

@@ -40,48 +40,48 @@
   }
 
   /* --- Sizes --- */
-  .pittorica-callout--xs {
+  .pittorica-callout--size-xs {
     gap: var(--pittorica-space-1);
     padding: var(--pittorica-space-1) var(--pittorica-space-2);
-    border-radius: var(--pittorica-radius-1);
+    border-radius: var(--pittorica-radius-medium);
   }
-  .pittorica-callout--xs .pittorica-callout-content {
+  .pittorica-callout--size-xs .pittorica-callout-content {
     font-size: var(--pittorica-font-size-1);
   }
 
-  .pittorica-callout--sm {
+  .pittorica-callout--size-sm {
     gap: var(--pittorica-space-2);
     padding: var(--pittorica-space-2) var(--pittorica-space-3);
-    border-radius: var(--pittorica-radius-2);
+    border-radius: var(--pittorica-radius-medium);
   }
-  .pittorica-callout--sm .pittorica-callout-content {
+  .pittorica-callout--size-sm .pittorica-callout-content {
     font-size: var(--pittorica-font-size-2);
   }
 
-  .pittorica-callout--md {
+  .pittorica-callout--size-md {
     gap: var(--pittorica-space-3);
     padding: var(--pittorica-space-3) var(--pittorica-space-4);
-    border-radius: var(--pittorica-radius-3);
+    border-radius: var(--pittorica-radius-medium);
   }
-  .pittorica-callout--md .pittorica-callout-content {
+  .pittorica-callout--size-md .pittorica-callout-content {
     font-size: var(--pittorica-font-size-3);
   }
 
-  .pittorica-callout--lg {
+  .pittorica-callout--size-lg {
     gap: var(--pittorica-space-4);
     padding: var(--pittorica-space-4) var(--pittorica-space-5);
-    border-radius: var(--pittorica-radius-4);
+    border-radius: var(--pittorica-radius-medium);
   }
-  .pittorica-callout--lg .pittorica-callout-content {
+  .pittorica-callout--size-lg .pittorica-callout-content {
     font-size: var(--pittorica-font-size-4);
   }
 
-  .pittorica-callout--xl {
+  .pittorica-callout--size-xl {
     gap: var(--pittorica-space-5);
     padding: var(--pittorica-space-5) var(--pittorica-space-6);
-    border-radius: var(--pittorica-radius-4);
+    border-radius: var(--pittorica-radius-medium);
   }
-  .pittorica-callout--xl .pittorica-callout-content {
+  .pittorica-callout--size-xl .pittorica-callout-content {
     font-size: var(--pittorica-font-size-5);
   }
 

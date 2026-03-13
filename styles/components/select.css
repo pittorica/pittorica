@@ -89,6 +89,15 @@
     z-index: 1;
   }
 
+  .pittorica-theme[data-appearance='dark'] .pittorica-select-input {
+    color: var(--pittorica-white);
+  }
+
+  .pittorica-theme[data-appearance='dark'] .pittorica-select-input option {
+    background-color: var(--pittorica-surface-2);
+    color: var(--pittorica-white);
+  }
+
   .pittorica-select-chevron {
     display: flex;
     align-items: center;

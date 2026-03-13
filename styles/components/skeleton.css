@@ -10,7 +10,8 @@
     min-height: 12px;
   }
 
-  .pittorica-skeleton--loading::after {
+  /* --- Animation State --- */
+  .pittorica-skeleton--animated::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -24,33 +25,14 @@
     animation: pittorica-skeleton-shimmer 2s infinite linear;
   }
 
-  /* Dark mode specific visibility improvements */
-  .pittorica-theme[data-appearance='dark'] .pittorica-skeleton {
-    background-color: var(--pittorica-slate-4);
-  }
-
-  .pittorica-theme[data-appearance='dark'] .pittorica-skeleton--loading::after {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-  }
-
-  .pittorica-theme[data-appearance='dark'] .pittorica-skeleton--loading {
-    animation: pittorica-skeleton-pulse-dark 2s cubic-bezier(0.4, 0, 0.6, 1)
-      infinite;
+  .pittorica-skeleton--animated {
+    animation: pittorica-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes pittorica-skeleton-shimmer {
     100% {
       transform: translateX(100%);
     }
-  }
-
-  .pittorica-skeleton--loading {
-    animation: pittorica-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes pittorica-skeleton-pulse {
@@ -63,6 +45,26 @@
     }
   }
 
+  /* --- Dark Mode specific visibility improvements --- */
+  .pittorica-theme[data-appearance='dark'] .pittorica-skeleton {
+    background-color: var(--pittorica-slate-4);
+  }
+
+  .pittorica-theme[data-appearance='dark']
+    .pittorica-skeleton--animated::after {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+  }
+
+  .pittorica-theme[data-appearance='dark'] .pittorica-skeleton--animated {
+    animation: pittorica-skeleton-pulse-dark 2s cubic-bezier(0.4, 0, 0.6, 1)
+      infinite;
+  }
+
   @keyframes pittorica-skeleton-pulse-dark {
     0%,
     100% {
@@ -73,6 +75,7 @@
     }
   }
 
+  /* --- Variants & Modifiers --- */
   .pittorica-skeleton--hiding-children {
     color: transparent !important;
     user-select: none;
@@ -86,5 +89,9 @@
 
   .pittorica-skeleton--circle {
     border-radius: var(--pittorica-radius-full);
+  }
+
+  .pittorica-skeleton--text {
+    border-radius: var(--pittorica-radius-1);
   }
 }

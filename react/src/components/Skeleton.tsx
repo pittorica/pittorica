@@ -11,6 +11,11 @@ export type SkeletonProps<E extends ElementType = 'div'> = BoxProps<E> & {
    */
   loading?: boolean;
   /**
+   * If true, shows the shimmer and pulse animation.
+   * @default true
+   */
+  animated?: boolean;
+  /**
    * Shape of the skeleton.
    * @default 'rect'
    */
@@ -24,6 +29,7 @@ export type SkeletonProps<E extends ElementType = 'div'> = BoxProps<E> & {
 export const Skeleton = <E extends ElementType = 'div'>({
   children,
   loading = true,
+  animated = true,
   variant = 'rect',
   className,
   style,
@@ -41,8 +47,8 @@ export const Skeleton = <E extends ElementType = 'div'>({
       as={Tag as ElementType}
       className={clsx(
         'pittorica-skeleton',
-        'pittorica-skeleton--loading',
         {
+          'pittorica-skeleton--animated': animated,
           'pittorica-skeleton--hiding-children': !!children,
           'pittorica-skeleton--circle': variant === 'circle',
           'pittorica-skeleton--text': variant === 'text',

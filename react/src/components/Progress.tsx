@@ -10,11 +10,13 @@ import { Box, type BoxProps } from './Box';
  */
 export type ProgressProps<E extends ElementType = 'div'> = BoxProps<E> & {
   /** @default 0 */
-  value?: number;
+  value?: number | null;
   /** @default 100 */
   max?: number;
   /** @default 'indigo' */
   color?: PittoricaColor;
+  /** @default false */
+  indeterminate?: boolean;
 };
 
 /**
@@ -25,12 +27,16 @@ export const Progress = <E extends ElementType = 'div'>({
   value = 0,
   max = 100,
   color = 'indigo',
+  indeterminate = false,
   className,
   style,
   as,
   ...props
 }: ProgressProps<E>) => {
-  const percentage = Math.min(Math.max(0, (value / max) * 100), 100);
+  const isIndeterminate = indeterminate || value === null;
+  const percentage = isIndeterminate
+    ? undefined
+    : Math.min(Math.max(0, ((value || 0) / max) * 100), 100);
 
   const isSemantic =
     color !== 'inherit' && !color?.startsWith('#') && !color?.startsWith('rgb');
@@ -42,10 +48,11 @@ export const Progress = <E extends ElementType = 'div'>({
     <Box
       as={Tag as ElementType}
       role="progressbar"
-      aria-valuenow={value}
+      aria-valuenow={isIndeterminate ? undefined : (value ?? undefined)}
       aria-valuemin={0}
       aria-valuemax={max}
       className={clsx('pittorica-progress-root', className)}
+      data-indeterminate={isIndeterminate}
       style={
         {
           '--pittorica-source-color': resolvedColor,
@@ -57,7 +64,7 @@ export const Progress = <E extends ElementType = 'div'>({
       {/* Background/Base bar */}
       <div
         className="pittorica-progress-indicator"
-        style={{ width: `${percentage}%` }}
+        style={{ width: isIndeterminate ? undefined : `${percentage}%` }}
       />
     </Box>
   );

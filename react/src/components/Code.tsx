@@ -40,6 +40,7 @@ export type CodeProps<E extends ElementType = 'code'> = Omit<
   showLineNumbers?: boolean;
   as?: E;
   filename?: string;
+  copyable?: boolean;
 };
 
 /* --- Main Component --- */
@@ -49,6 +50,7 @@ export const Code = <E extends ElementType = 'code'>({
   language = 'typescript',
   showLineNumbers = true,
   filename,
+  copyable = true,
   className,
   style,
   as,
@@ -66,6 +68,7 @@ export const Code = <E extends ElementType = 'code'>({
   const isInline = !content.includes('\n');
 
   const handleCopy = (e: React.MouseEvent) => {
+    if (!copyable) return;
     e.preventDefault();
     e.stopPropagation();
 
@@ -89,6 +92,10 @@ export const Code = <E extends ElementType = 'code'>({
       <Tag
         className={clsx('pittorica-code-inline', className)}
         style={style}
+        onClick={handleCopy}
+        data-copyable={copyable}
+        data-copied={isCopied}
+        title={copyable ? (isCopied ? 'Copied!' : 'Click to copy') : undefined}
         {...(props as ComponentPropsWithoutRef<E>)}
       >
         {children}
@@ -111,18 +118,20 @@ export const Code = <E extends ElementType = 'code'>({
           {filename || language}
         </Text>
 
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="pittorica-code-copy-button"
-          aria-label={isCopied ? 'Copied' : 'Copy to clipboard'}
-        >
-          {isCopied ? (
-            <IconClipboardCheck size={18} color="var(--pittorica-green-9)" />
-          ) : (
-            <IconClipboard size={18} />
-          )}
-        </button>
+        {copyable && (
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="pittorica-code-copy-button"
+            aria-label={isCopied ? 'Copied' : 'Copy to clipboard'}
+          >
+            {isCopied ? (
+              <IconClipboardCheck size={18} color="var(--pittorica-green-9)" />
+            ) : (
+              <IconClipboard size={18} />
+            )}
+          </button>
+        )}
       </div>
 
       {/* Code Area */}

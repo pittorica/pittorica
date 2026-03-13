@@ -66,12 +66,12 @@ export const Chip = <E extends ElementType = 'div'>({
       className={clsx(
         'pittorica-chip',
         `pittorica-chip--size-${size}`,
+        `pittorica-chip--${variant}`,
         {
           'pittorica-chip--clickable': !!props.onClick,
         },
         className
       )}
-      data-variant={variant}
       data-appearance={appearance}
       style={chipVariables}
       {...(props as BoxProps<E>)}
