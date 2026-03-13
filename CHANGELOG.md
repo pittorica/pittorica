@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.29.0](https://github.com/pittorica/pittorica/compare/v0.28.1...v0.29.0) (2026-03-13)
+
+### Features
+
+* **pittorica:** add responsive display support to Box ([b6c2780](https://github.com/pittorica/pittorica/commit/b6c278016674e2bec8d824b06c0824f5c6e8698c))
+
 ## [0.28.1](https://github.com/pittorica/pittorica/compare/v0.28.0...v0.28.1) (2026-03-13)
 
 ## [0.28.0](https://github.com/pittorica/pittorica/compare/v0.27.3...v0.28.0) (2026-03-13)
