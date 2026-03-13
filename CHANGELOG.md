@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.28.0](https://github.com/pittorica/pittorica/compare/v0.27.3...v0.28.0) (2026-03-13)
+
+### Features
+
+* **pittorica:** add beams & hero components, group stories ([e612ef7](https://github.com/pittorica/pittorica/commit/e612ef78c5dd0c4f40434b08adc4899ec3bd5ade))
+
 ## [0.27.3](https://github.com/pittorica/pittorica/compare/v0.27.2...v0.27.3) (2026-03-13)
 
 ## [0.27.2](https://github.com/pittorica/pittorica/compare/v0.27.1...v0.27.2) (2026-03-13)
