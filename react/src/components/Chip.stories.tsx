@@ -6,7 +6,7 @@ import { Chip } from './Chip';
 import { Flex } from './Flex';
 
 const meta: Meta<typeof Chip> = {
-  title: 'Components/Chip',
+  title: 'Data Display/Chip',
   component: Chip,
   args: {
     children: 'Chip Content',

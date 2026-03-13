@@ -5,7 +5,7 @@ import { Heading } from './Heading';
 import { Text } from './Text';
 
 const meta: Meta<typeof Heading> = {
-  title: 'Components/Heading',
+  title: 'Typography/Heading',
   component: Heading,
   argTypes: {
     size: {

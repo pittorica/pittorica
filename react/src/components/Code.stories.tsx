@@ -5,7 +5,7 @@ import { Flex } from './Flex';
 import { Text } from './Text';
 
 const meta: Meta<typeof Code> = {
-  title: 'Components/Code',
+  title: 'Typography/Code',
   component: Code,
   args: {
     children: 'console.log("Hello World")',

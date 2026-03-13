@@ -8,7 +8,7 @@ import {
 } from './AlertDialog';
 
 const meta: Meta<typeof AlertDialog> = {
-  title: 'Components/AlertDialog',
+  title: 'Overlays/AlertDialog',
   component: AlertDialog,
   args: {
     open: true,

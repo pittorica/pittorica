@@ -7,7 +7,7 @@ import { Text } from './Text';
 import { TextField } from './TextField';
 
 const meta: Meta<typeof Popover> = {
-  title: 'Components/Popover',
+  title: 'Overlays/Popover',
   component: Popover,
   parameters: {
     layout: 'centered',

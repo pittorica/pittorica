@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Blockquote } from './Blockquote';
 
 const meta: Meta<typeof Blockquote> = {
-  title: 'Components/Blockquote',
+  title: 'Typography/Blockquote',
   component: Blockquote,
   args: {
     children:

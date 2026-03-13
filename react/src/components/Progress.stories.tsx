@@ -5,7 +5,7 @@ import { Progress } from './Progress';
 import { Text } from './Text';
 
 const meta: Meta<typeof Progress> = {
-  title: 'Components/Progress',
+  title: 'Feedback/Progress',
   component: Progress,
   argTypes: {
     value: {

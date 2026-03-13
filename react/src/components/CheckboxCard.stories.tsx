@@ -5,7 +5,7 @@ import { Flex } from './Flex';
 import { Text } from './Text';
 
 const meta: Meta<typeof CheckboxCard> = {
-  title: 'Components/CheckboxCard',
+  title: 'Forms/CheckboxCard',
   component: CheckboxCard,
   args: {
     defaultValue: ['1'],

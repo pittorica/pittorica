@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Em } from './Em';
 
 const meta: Meta<typeof Em> = {
-  title: 'Components/Em',
+  title: 'Typography/Em',
   component: Em,
   args: {
     children: 'Emphasized text',

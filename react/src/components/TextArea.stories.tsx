@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TextArea } from './TextArea';
 
 const meta: Meta<typeof TextArea.Root> = {
-  title: 'Components/TextArea',
+  title: 'Forms/TextArea',
   component: TextArea.Root,
   args: {},
 };

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Carousel } from './Carousel';
 
 const meta: Meta<typeof Carousel.Root> = {
-  title: 'Components/Carousel',
+  title: 'Navigation/Carousel',
   component: Carousel.Root,
   args: {
     children: [

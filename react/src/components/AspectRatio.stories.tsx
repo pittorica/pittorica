@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AspectRatio } from './AspectRatio';
 
 const meta: Meta<typeof AspectRatio> = {
-  title: 'Components/AspectRatio',
+  title: 'Layout/AspectRatio',
   component: AspectRatio,
   args: {
     ratio: 1.77,

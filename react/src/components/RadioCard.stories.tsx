@@ -5,7 +5,7 @@ import { RadioCard } from './RadioCard';
 import { Text } from './Text';
 
 const meta: Meta<typeof RadioCard> = {
-  title: 'Components/RadioCard',
+  title: 'Forms/RadioCard',
   component: RadioCard,
   args: {
     defaultValue: '1',

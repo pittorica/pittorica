@@ -5,7 +5,7 @@ import { InputOTP } from './InputOtp';
 import { Text } from './Text';
 
 const meta: Meta<typeof InputOTP> = {
-  title: 'Components/InputOTP',
+  title: 'Forms/InputOtp',
   component: InputOTP,
   parameters: {
     layout: 'centered',

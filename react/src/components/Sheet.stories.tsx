@@ -8,7 +8,7 @@ import { Sheet, type SheetProps } from './Sheet';
 import { Text } from './Text';
 
 const meta: Meta<typeof Sheet> = {
-  title: 'Components/Sheet',
+  title: 'Overlays/Sheet',
   component: Sheet,
   argTypes: {
     side: {

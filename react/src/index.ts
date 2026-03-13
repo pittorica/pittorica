@@ -1,6 +1,7 @@
 export * from './components/AlertDialog';
 export * from './components/AspectRatio';
 export * from './components/Avatar';
+export * from './components/BackgroundBeams';
 export * from './components/Badge';
 export * from './components/Blockquote';
 export * from './components/Box';
@@ -23,6 +24,7 @@ export * from './components/Em';
 export * from './components/Flex';
 export * from './components/Grid';
 export * from './components/Heading';
+export * from './components/HeroText';
 export * from './components/HoverCard';
 export * from './components/IconButton';
 export * from './components/InputOtp';

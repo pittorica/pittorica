@@ -5,7 +5,7 @@ import { Flex } from './Flex';
 import { Text } from './Text';
 
 const meta: Meta<typeof Divider> = {
-  title: 'Components/Divider',
+  title: 'Layout/Divider',
   component: Divider,
   argTypes: {
     variant: {

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Table } from './Table';
 
 const meta: Meta<typeof Table.Root> = {
-  title: 'Components/Table',
+  title: 'Data Display/Table',
   component: Table.Root,
   args: {},
 };

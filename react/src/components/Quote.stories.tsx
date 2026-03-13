@@ -5,7 +5,7 @@ import { Quote } from './Quote';
 import { Text } from './Text';
 
 const meta: Meta<typeof Quote> = {
-  title: 'Components/Quote',
+  title: 'Typography/Quote',
   component: Quote,
   argTypes: {
     size: {

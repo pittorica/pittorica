@@ -8,7 +8,7 @@ import { Link } from './Link';
 import { Text } from './Text';
 
 const meta: Meta<typeof HoverCard> = {
-  title: 'Components/HoverCard',
+  title: 'Overlays/HoverCard',
   component: HoverCard,
   parameters: {
     layout: 'centered',

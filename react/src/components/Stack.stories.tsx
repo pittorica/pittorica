@@ -8,7 +8,7 @@ import { Text } from './Text';
 import { TextField } from './TextField';
 
 const meta: Meta<typeof Stack> = {
-  title: 'Components/Stack',
+  title: 'Layout/Stack',
   component: Stack,
   argTypes: {
     direction: {

@@ -8,7 +8,7 @@ import {
 } from './Dialog';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Components/Dialog',
+  title: 'Overlays/Dialog',
   component: Dialog,
   args: {
     open: true,

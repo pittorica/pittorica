@@ -15,7 +15,7 @@ import { Flex } from './Flex';
 import { Text } from './Text';
 
 const meta: Meta<typeof ContextMenu> = {
-  title: 'Components/ContextMenu',
+  title: 'Overlays/ContextMenu',
   component: ContextMenu,
   parameters: {
     layout: 'centered',

@@ -4,7 +4,7 @@ import { Flex } from './Flex';
 import { Text } from './Text';
 
 const meta: Meta<typeof Text> = {
-  title: 'Components/Text',
+  title: 'Typography/Text',
   component: Text,
   argTypes: {
     size: {

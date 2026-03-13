@@ -5,7 +5,7 @@ import { Slider } from './Slider';
 import { Text } from './Text';
 
 const meta: Meta<typeof Slider> = {
-  title: 'Components/Slider',
+  title: 'Forms/Slider',
   component: Slider,
   argTypes: {
     min: { control: 'number' },

@@ -7,7 +7,7 @@ import { Section } from './Section';
 import { Text } from './Text';
 
 const meta: Meta<typeof Section> = {
-  title: 'Components/Section',
+  title: 'Layout/Section',
   component: Section,
   argTypes: {
     size: {

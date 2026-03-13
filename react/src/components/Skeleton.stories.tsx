@@ -5,7 +5,7 @@ import { Flex } from './Flex';
 import { Skeleton } from './Skeleton';
 
 const meta: Meta<typeof Skeleton> = {
-  title: 'Components/Skeleton',
+  title: 'Feedback/Skeleton',
   component: Skeleton,
   argTypes: {
     variant: {

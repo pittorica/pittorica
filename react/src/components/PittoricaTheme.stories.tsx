@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PittoricaTheme } from './PittoricaTheme';
 
 const meta: Meta<typeof PittoricaTheme> = {
-  title: 'Components/PittoricaTheme',
+  title: 'Configuration/PittoricaTheme',
   component: PittoricaTheme,
   args: {
     children: 'PittoricaTheme content',

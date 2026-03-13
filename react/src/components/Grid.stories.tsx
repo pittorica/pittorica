@@ -6,7 +6,7 @@ import { Grid } from './Grid';
 import { Text } from './Text';
 
 const meta: Meta<typeof Grid> = {
-  title: 'Components/Grid',
+  title: 'Layout/Grid',
   component: Grid,
   argTypes: {
     columns: {

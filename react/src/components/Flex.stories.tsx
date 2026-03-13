@@ -5,7 +5,7 @@ import { Flex } from './Flex';
 import { Text } from './Text';
 
 const meta: Meta<typeof Flex> = {
-  title: 'Components/Flex',
+  title: 'Layout/Flex',
   component: Flex,
   argTypes: {
     direction: {

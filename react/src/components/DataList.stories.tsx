@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DataList } from './DataList';
 
 const meta: Meta<typeof DataList> = {
-  title: 'Components/DataList',
+  title: 'Data Display/DataList',
   component: DataList,
   args: {},
 };

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Inset } from './Inset';
 
 const meta: Meta<typeof Inset> = {
-  title: 'Components/Inset',
+  title: 'Layout/Inset',
   component: Inset,
   args: {
     children: (
